@@ -7,19 +7,26 @@ let svg = d3.select("#chart-area")
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         let salaries = data.map(d => parseInt(d['Текущая ЗП']));
+
+        let groupedData = d3.nest()
+            .key((d) => { return d['Город'];})
+            .rollup((d) => {
+                return d.length;})
+            .entries(data);
+
         let radiusScale = d3.scaleLinear()
-            .domain([d3.min(salaries), d3.max(salaries)])
-            .range([5,20]);
+            .domain([0, d3.max(groupedData,(d)=> {return d.value})])
+            .range([5,100]);
 
         let circles = svg.selectAll('circle')
-            .data(data)
+            .data(groupedData)
             .enter()
             .append('circle')
             .attr('cx', (d,i) => { return (i%40 * 20)+40;})
             .attr('cy', (d,i) => {return (Math.floor(i/40)+1)*50;})
-            .attr('r', d => {return radiusScale(parseInt(d['Текущая ЗП']));})
+            .attr('r', d => {return radiusScale(parseInt(d.value));})
             .attr('fill', (d,i)=>{
-                switch(d['Город']){
+                switch(d.key){
                     case `München`:
                         return 'blue';
                     case 'Berlin':
