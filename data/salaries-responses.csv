@@ -1,0 +1,328 @@
+Отметка времени,Возраст,Пол,Город,Position,Опыт работы в Европе,Опыт работы в целом,Текущая ЗП,ЗП год назад,Какая была первая ЗП в Европе,Какая по счету у вас сейчас работа в Европе,Основной язык на работе,Размер компании,Тип компании,Уровень
+20.12.2017 13:32:04,,M,München,Software-Engineer,4,2,48000,47600,47600,4,Deutsch,100-1000,Продуктовая,Junior
+20.12.2017 13:33:48,37,M,München,It support engineer ,1,15,45000,45000,45000,1,English,1000+,Аутсорс (ну а вдруг),Middle
+20.12.2017 13:36:43,32,F,München,Sr. QA,1,7,60000,56000,56000,2,English,1000+,Продуктовая,Senior
+20.12.2017 13:39:27,,M,München,DevOps,1,10,80000,65000,65000,2,English,50-100,Продуктовая,Senior
+20.12.2017 13:41:02,39,M,München,Java Developer,1,17,75000,75000,72000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 13:41:57,30,M,München,C++ Developer,1,10,55000,55000,55000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 13:47:40,,M,München,C++ developer,3,9,60000,55000,40000,1,English,50-100,Продуктовая,Middle
+20.12.2017 13:56:45,34,M,München,Team manager,0,11,82000,82000,82000,1,English,1000+,Продуктовая,Senior
+20.12.2017 13:57:48,32,M,München,Tech lead ,2,10,75000,60000,55000,2,English,50-100,Другое,Senior
+20.12.2017 13:58:58,23,M,Berlin,Senior Software Engineer (Ruby),1,3,73000,60000,60000,2,English,10-50,Стартап,Senior
+20.12.2017 13:59:08,,M,München,QA Manager,5,7,66000,66000,43000,2,Deutsch,1000+,Другое,Senior
+20.12.2017 14:00:15,,M,München,Frontend Developer,1,15,74000,65000,74000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 14:05:35,35,M,Berlin,Sr. JS developer,2,10,60000,57500,55000,1,English,100-1000,Другое,Senior
+20.12.2017 14:07:59,,M,,C++/C# Developer,20,30,63000,63000,63000,1,English,10-50,Продуктовая,Senior
+20.12.2017 14:14:19,30,M,München,Frontend Developer,4,9,60000,45000,42000,,Deutsch,100-1000,Агентство,Middle
+20.12.2017 14:16:02,32,M,München,PHP Developer,2,10,65000,62000,57000,2,English,1000+,Стартап,Senior
+20.12.2017 14:19:05,42,F,München,SAP Berater,8,8,60000,58000,40000,,Deutsch,10-50,,Middle
+20.12.2017 14:20:45,23,M,Berlin,Senior Software Engineer (Ruby),1,3,73000,60000,60000,2,English,10-50,Стартап,Senior
+20.12.2017 14:22:47,27,M,München,.NET,3,7,53000,43000,39000,2,English,10-50,Продуктовая,Senior
+20.12.2017 14:31:37,43,M,München,Project Manager,2,20,70000,65000,54000,1,Русский,10-50,Другое,Senior
+20.12.2017 14:31:41,32,M,München,QA Manager,3,10,67300,66000,65000,1,Deutsch,50-100,Продуктовая,Senior
+20.12.2017 14:33:36,30,M,München,Software Development Engineer,3,10,75000,60000,60000,2,English,1000+,Продуктовая,Senior
+20.12.2017 14:39:33,34,M,Berlin,Software Engineer,2,10,68000,65000,60000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 14:41:54,27,M,Berlin,Senior Android Engineer,1,4,50400,48000,48000,1,English,100-1000,Стартап,Senior
+20.12.2017 14:42:15,25,M,München,Java/Node.js developer,1,4,50000,50000,50000,1,English,50-100,Стартап,Middle
+20.12.2017 14:52:53,31,M,,C++ Senior Software Developer,2,10,65000,60000,60000,2,English,10-50,Продуктовая,Senior
+20.12.2017 15:01:01,32,M,München,Senior Software Engeneer,3,12,66000,63500,58000,2,English,100-1000,Продуктовая,Senior
+20.12.2017 15:03:10,27,M,Berlin,JS Developer,1,6,65000,60000,60000,1,English,100-1000,Стартап,Senior
+20.12.2017 15:24:46,,M,Nürnberg,team lead,5,15,70000,68000,45000,2,Deutsch,1000+,Другое,Senior
+20.12.2017 15:35:31,,M,Berlin,Data Science,5,7,85000,65000,25000,3,English,10-50,Стартап,Middle
+20.12.2017 15:43:49,,M,München,System Reliability Engineer (DevOps),0,12,69000,69000,69000,1,English,1000+,Другое,Senior
+20.12.2017 16:08:12,,M,Berlin,Sr. QA Engineer,2,8,72000,58000,48000,,English,50-100,Стартап,Senior
+20.12.2017 16:15:59,,F,München,php dev,2,5,50000,50000,50000,1,English,100-1000,Другое,Middle
+20.12.2017 16:43:01,34,M,München,IT Architect,11,12,90000,85000,54000,2,English,1000+,Другое,Middle
+20.12.2017 16:49:39,32,M,München,iOS Developer,4,10,76000,76000,56000,2,English,50-100,Продуктовая,Senior
+20.12.2017 16:57:22,30,M,Stuttgart ,Senior PHP Developer ,2,8,56400,44400,44400,2,Deutsch,100-1000,Агентство,Senior
+20.12.2017 17:00:22,,M,München,php,3,15,123200,114400,105600,5,Русский,100-1000,Продуктовая,Senior
+20.12.2017 17:23:39,29,M,München,.NET Developer,10,10,56000,55000,25000,4,Deutsch,50-100,Продуктовая,Senior
+20.12.2017 17:51:46,30,F,München,Business Analyst,1,7,67000,67000,67000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 17:52:50,30,M,München,Data Architect,1,12,75000,75000,75000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 18:07:48,26,M,Berlin,Software Engineer,2,6,70000,60000,53000,1,English,1000+,Продуктовая,Senior
+20.12.2017 18:08:01,46,M,Berlin,Senior Java Developer,17,12,68000,67000,40000,2,Deutsch,100-1000,Другое,Senior
+20.12.2017 18:09:40,38,M,Berlin,Software Engineer,5,16,80000,73000,45000,1,English,1000+,Другое,Senior
+20.12.2017 18:11:34,36,M,Berlin,System Administrator,7,7,50000,50000,25000,3,Deutsch,До 10 человек,Другое,Middle
+20.12.2017 18:15:07,,M,Berlin, Senior iOS Developer,0,5,60000,60000,60000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 18:16:07,31,F,Berlin,PHP Developer,1,10,54000,54000,54000,1,English,50-100,Продуктовая,Senior
+20.12.2017 18:16:19,34,M,Berlin,Technical Account Manager,0,14,50400,50400,50400,1,English,100-1000,Продуктовая,Middle
+20.12.2017 18:18:10,30,M,Berlin,Senior Software Engineer,4,11,110000,100000,60000,2,English,50-100,Стартап,Senior
+20.12.2017 18:19:27,37,M,Berlin,Senior Python Developer,2,12,75000,61500,56000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 18:20:38,,F,Berlin,frontend developer,1,8,53000,48400,48400,1,Deutsch,100-1000,Продуктовая,Senior
+20.12.2017 18:21:33,38,M,Berlin,Senior Software Engineer,2,15,85000,61000,56000,2,English,1000+,Продуктовая,Senior
+20.12.2017 18:22:38,,M,Hamburg,JavaScript Developer,1,3,49000,49000,49000,1,English,50-100,Стартап,Middle
+20.12.2017 18:25:15,32,M,Berlin,Python Developer,2,3,48000,42500,42500,1,Deutsch,10-50,Агентство,Middle
+20.12.2017 18:26:20,30,M,Berlin,Python Backend Developer,1,1,45000,45000,45000,1,English,10-50,Стартап,Junior
+20.12.2017 18:27:35,32,M,Berlin,.net developer,8,14,63600,55000,50000,5,English,10-50,Стартап,Senior
+20.12.2017 18:29:00,38,M,Berlin,Wissenschaftliche Mitarbeiter,8,8,56000,54000,38000,5,Deutsch,100-1000,Другое,Middle
+20.12.2017 18:30:38,23,M,Berlin,Java Developer,2,2,40000,24000,24000,2,English,100-1000,Продуктовая,Junior
+20.12.2017 18:31:10,,M,Dresden,Techlead,9,13,55000,50000,36000,2,Deutsch,100-1000,Продуктовая,Senior
+20.12.2017 18:39:27,30,M,Berlin,Senior Solutions Developer,3,7,65000,38000,38000,2,Deutsch,1000+,Другое,
+20.12.2017 18:40:59,32,M,Berlin,Senior Software Engineer,9,13,110000,100000,30000,3,English,1000+,Продуктовая,Senior
+20.12.2017 18:43:09,35,M,Hamburg,Senior Software Developer,3,10,65000,65000,60000,3,English,100-1000,Продуктовая,Senior
+20.12.2017 18:46:23,38,M,Berlin,Senior .Net Developer ,8,8,55000,55000,32000,4,Deutsch,100-1000,Продуктовая,Senior
+20.12.2017 18:47:20,34,M,Berlin,ios,3,13,60000,55000,50000,2,English,До 10 человек,Стартап,Senior
+20.12.2017 18:47:58,,F,Berlin,Qa automation,1,8,47250,45000,45000,1,English,50-100,Продуктовая,Middle
+20.12.2017 18:52:16,24,M,München,IT consultant,2,3,55000,20000,20000,2,English,1000+,Другое,Junior
+20.12.2017 18:52:46,32,M,Berlin,Senior software engineer,1,12,65000,65000,65000,1,English,50-100,Стартап,Senior
+20.12.2017 18:57:45,28,M,Berlin,Senior Backend Engineer,2,6,70000,54000,50000,2,English,100-1000,Продуктовая,Senior
+20.12.2017 19:00:58,33,M,Berlin,Senior Android Developer,2,12,70000,52000,48000,2,English,10-50,Стартап,Senior
+20.12.2017 19:03:14,32,M,Berlin,Senior Software Engineer ,3,8,68000,64000,43000,2,English,1000+,Продуктовая,Senior
+20.12.2017 19:04:51,27,F,Berlin,ux designer,1,10,60000,55000,55000,,English,До 10 человек,Стартап,Senior
+20.12.2017 19:05:31,26,M,Hamburg,Tech Lead,1,5,80000,65000,65000,1,English,100-1000,Продуктовая,Middle
+20.12.2017 19:11:19,30,M,Berlin,C Developer ,3,8,65000,65000,45000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 19:11:25,32,M,Berlin,"Team Lead (PHP, Backend)",3,13,70000,60000,42000,2,English,50-100,Стартап,Senior
+20.12.2017 19:11:38,33,M,Berlin,QA Engineer,3,11,70000,65000,45000,2,English,100-1000,Продуктовая,Senior
+20.12.2017 19:11:56,,M,Berlin,Engineer,2,10,70000,50000,50000,2,English,100-1000,Стартап,Middle
+20.12.2017 19:13:34,30,M,Berlin,Front-end Developer,1,10,39000,39000,39000,1,Русский,До 10 человек,Стартап,Senior
+20.12.2017 19:14:43,36,F,Berlin,Lead software engineer ,8,8,75000,70000,20000,3,English,10-50,Продуктовая,Senior
+20.12.2017 19:20:56,33,M,Berlin,Agile Coach,1,10,65000,65000,65000,1,English,1000+,Продуктовая,Middle
+20.12.2017 19:25:42,,M,Berlin,Senior product manager ,1,12,70000,70000,70000,1,English,100-1000,Стартап,Senior
+20.12.2017 19:25:45,29,M,Berlin,Ruby Developer,0,12,55000,55000,55000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 19:28:18,28,M,Berlin,Software Development Engineer,4,10,82000,68000,50000,3,English,1000+,Продуктовая,Middle
+20.12.2017 19:33:05,29,M,Friedrichshafen,System engineer,8,10,77000,74000,48000,3,Deutsch,1000+,Продуктовая,Middle
+20.12.2017 19:33:47,44,M,Nürnberg,Oracle Developer,3,20,65000,50000,50000,2,Deutsch,10-50,Продуктовая,Senior
+20.12.2017 19:34:10,,M,Berlin,sr. devops ,2,7,70000,60000,55000,2,English,1000+,Стартап,Senior
+20.12.2017 19:35:12,29,M,Berlin,Full stack developer,3,7,65000,48000,45000,2,English,50-100,Стартап,Senior
+20.12.2017 19:36:42,28,M,Berlin,Lead Software Engineer ,3,7,70000,65000,60000,1,English,1000+,Продуктовая,Senior
+20.12.2017 19:37:08,33,M,Berlin,Frontend Engineer,1,11,60000,60000,60000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 19:38:25,42,M,Berlin,Sr. Software Developer,2,20,79000,78000,78000,1,Русский,100-1000,Продуктовая,Senior
+20.12.2017 19:39:26,42,M,Berlin,Sr. Software DEveloper,2,20,79000,78000,78000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 19:45:45,27,M,Berlin,Senior JavaScript Developer,0,0,60000,60000,60000,1,English,100-1000,Стартап,Senior
+20.12.2017 19:53:36,37,M,Berlin,Senior iOS Developer,2,18,65000,60000,50000,2,English,10-50,Продуктовая,Senior
+20.12.2017 19:54:46,33,M,Berlin,Android Developer,5,5,52000,48000,28000,5,Deutsch,100-1000,Продуктовая,Senior
+20.12.2017 19:54:54,32,M,Berlin,Team Lead,3,10,70000,65000,65000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 20:00:55,37,F,Berlin,.NET Developer,5,5,50400,46200,30000,4,Deutsch,50-100,Другое,Middle
+20.12.2017 20:10:10,30,M,Berlin,SysOps,2,10,49050,45000,42500,1,English,1000+,Продуктовая,Middle
+20.12.2017 20:16:01,,M,Berlin,Mobile Developer,3,10,68000,62000,55000,2,English,1000+,Продуктовая,Senior
+20.12.2017 20:18:15,31,M,Berlin,QA Engineer,1,6,50000,50000,50000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 20:19:30,28,F,Berlin,Scala Developer,2,6,65000,48000,45000,2,English,100-1000,Продуктовая,Middle
+20.12.2017 20:20:42,29,M,Berlin,Lead Engineer,3,9,85000,75000,65000,1,English,1000+,Продуктовая,Senior
+20.12.2017 20:24:17,31,M,Berlin,Project Manager,0,10,66000,63000,63600,1,English,100-1000,Другое,Senior
+20.12.2017 20:32:28,30,M,Berlin,Lead Software Engineer,2,9,94000,75000,70000,1,English,1000+,Продуктовая,Senior
+20.12.2017 20:51:34,,M,Hamburg,Backend Developer,0,17,55000,55000,55000,1,English,10-50,Продуктовая,Middle
+20.12.2017 21:01:20,24,M,München,QA Engineer,1,4,55000,55000,55000,1,English,1000+,Продуктовая,Middle
+20.12.2017 21:07:20,,M,Berlin,Software Engineer,2,5,63000,55000,50000,3,English,100-1000,Другое,Middle
+20.12.2017 21:10:55,35,M,Berlin,Data Engineer,3,15,76000,76000,65000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 21:11:21,,M,Berlin,Director of Engeneering,2,11,68000,55000,55000,1,English,100-1000,Продуктовая,Senior
+20.12.2017 21:15:29,31,M,Köln,IT Manager,3,3,36000,32000,24000,3,Deutsch,10-50,Агентство,Junior
+20.12.2017 21:19:03,30,M,Berlin,Software Engineer,2,7,60000,55000,20000,2,English,10-50,Стартап,Middle
+20.12.2017 21:22:58,37,M,Berlin,Lead PHP developer,2,15,65000,60000,48000,2,English,1000+,Продуктовая,Senior
+20.12.2017 21:23:14,30,M,Berlin,DevOps Engineer,2,9,73000,54000,48000,1,English,10-50,Стартап,Senior
+20.12.2017 21:25:04,24,F,München,Java Backend Engineer,2,4,60000,50000,50000,1,English,100-1000,Продуктовая,Middle
+20.12.2017 21:27:02,,M,München,Systemadministrator,3,6,39000,37000,36000,1,Deutsch,1000+,Другое,Middle
+20.12.2017 21:37:15,30,M,München,Php Developer,3,10,64000,64000,51300,2,English,100-1000,Другое,Senior
+20.12.2017 21:41:11,26,M,Berlin,Backend Developer,2,5,58000,48000,48000,1,English,100-1000,Стартап,Senior
+20.12.2017 21:41:43,33,M,München,Senior Java Developer,3,12,70000,69000,61000,2,Deutsch,100-1000,Продуктовая,Senior
+20.12.2017 21:41:59,,M,Berlin,Java Developer,0,8,60000,50000,50000,2,English,1000+,Продуктовая,Senior
+20.12.2017 21:46:01,30,M,Berlin,Fullstack Developer,3,3,56000,48000,48000,2,English,1000+,Продуктовая,Middle
+20.12.2017 21:50:13,27,M,Berlin,Senior Software Engineer ,2,7,65000,50000,50000,2,English,100-1000,Стартап,Senior
+20.12.2017 21:52:59,,M,Berlin,Team Lead,2,8,70000,65000,60000,1,English,1000+,Стартап,Senior
+20.12.2017 21:52:59,33,F,München,Web Developer,0,1,40000,40000,40000,1,Deutsch,100-1000,Стартап,Middle
+20.12.2017 21:54:24,29,M,München,Senior front end developer,1,10,78000,60000,60000,2,English,10-50,Продуктовая,Senior
+20.12.2017 22:01:35,30,M,Berlin,iOS developer ,1,3,51600,48000,48000,1,English,100-1000,Продуктовая,Middle
+20.12.2017 22:09:12,,M,Berlin,Tech lead,3,12,74000,74000,48000,1,English,До 10 человек,Стартап,Senior
+20.12.2017 22:10:06,29,M,Berlin,JavaScript full stack,1,9,53000,53000,53000,1,English,До 10 человек,Стартап,Senior
+20.12.2017 22:10:48,24,F,München,iOS Developer,1,4,62000,55000,55000,1,English,50-100,Стартап,Middle
+20.12.2017 22:12:13,24,M,Berlin,Python Backend Developer,1,2,51000,51000,51000,1,English,1000+,Продуктовая,Junior
+20.12.2017 22:13:39,28,M,Berlin,iOS Developer,1,6,60000,60000,60000,1,English,50-100,Продуктовая,Senior
+20.12.2017 22:15:36,26,F,Berlin,qa,2,5,42000,38000,38000,2,English,50-100,Продуктовая,Middle
+20.12.2017 22:16:50,36,M,Berlin,Database Administrator,6,6,50000,50000,50000,5,English,1000+,Стартап,Senior
+20.12.2017 22:18:53,36,M,München,Project Manager,14,17,96000,80000,21600,4,Deutsch,1000+,Другое,Senior
+20.12.2017 22:19:51,34,M,Berlin,C++ Developer,1,13,74400,62000,62000,1,English,50-100,Стартап,Senior
+20.12.2017 22:20:08,35,M,Berlin,Senior Engineer,3,10,72000,67000,60000,1,English,1000+,Продуктовая,Senior
+20.12.2017 22:20:31,30,F,Berlin,QA,0,9,42000,42000,42000,1,English,10-50,Продуктовая,Senior
+20.12.2017 22:22:32,24,F,Berlin,Java Developer,1,1,40000,40000,40000,1,Deutsch,10-50,Продуктовая,Junior
+20.12.2017 22:27:41,,M,Berlin,Software Ingeneur,18,25,130000,90000,35000,6,Deutsch,1000+,Другое,Senior
+20.12.2017 22:28:53,32,F,Köln,iOS developer ,6,8,56000,43000,36000,2,Deutsch,10-50,Продуктовая,Senior
+20.12.2017 22:30:33,34,M,Berlin,Tech lead,2,9,77000,65000,55000,2,English,50-100,Стартап,Senior
+20.12.2017 22:32:54,33,F,Berlin,Head of data science,2,10,65000,65000,65000,1,English,10-50,Стартап,Senior
+20.12.2017 22:37:51,31,M,Augsburg,IT Senior Consultant,6,6,63000,67000,42000,2,Deutsch,10-50,Агентство,Senior
+20.12.2017 22:48:45,,M,Berlin,Full stack JavaScript developer,1,15,54000,54000,42000,2,English,1000+,Продуктовая,Senior
+20.12.2017 22:53:27,30,M,Berlin,Team Lead Software Engineer,2,8,70000,60000,50000,2,English,1000+,Продуктовая,Senior
+20.12.2017 22:57:57,29,M,Berlin,Head of Devops ,1,7,72000,65000,65000,2,English,10-50,Стартап,Senior
+20.12.2017 22:58:47,,M,München,Software Engineer,1,6,68000,68000,68000,1,English,1000+,Продуктовая,Middle
+20.12.2017 23:04:04,,M,München,Java Developer,6,10,65000,50000,42000,2,English,100-1000,Продуктовая,Middle
+20.12.2017 23:11:20,24,M,Berlin,C++ Developer,1,2,44500,44500,44500,1,English,10-50,Продуктовая,Junior
+20.12.2017 23:11:42,25,M,Berlin,Android,4,4,58000,45000,37000,,English,50-100,Стартап,Middle
+20.12.2017 23:20:43,28,M,Berlin,Delivery Team Lead,1,8,73000,60000,60000,2,English,50-100,Продуктовая,Senior
+20.12.2017 23:28:20,31,M,Berlin,Site Reliability engineer ,0,10,65000,65000,65000,1,English,100-1000,Продуктовая,Middle
+20.12.2017 23:50:03,28,M,Berlin,Senior PHP Developer,2,9,75000,60000,55000,2,English,50-100,Стартап,Senior
+20.12.2017 23:52:43,26,M,München,Java Developer,1,4,60000,55000,55000,1,Русский,10-50,Стартап,Middle
+21.12.2017 0:08:15,35,M,Berlin,Senior Software Engineer,6,15,76000,70000,24000,2,English,10-50,Стартап,Senior
+21.12.2017 0:10:26,29,F,Berlin,Java Developer,1,3,45000,35000,35000,1,English,10-50,Стартап,Middle
+21.12.2017 2:24:10,30,M,Berlin,Senior Full-stack developer,2,10,60000,60000,48600,2,English,50-100,Стартап,Senior
+21.12.2017 4:35:50,35,M,München,Senior PHP Engineer ,3,12,109000,106000,102000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 7:08:03,25,F,Frankfurt,QA consultant ,1,4,48000,43500,43500,1,Deutsch,10-50,Стартап,Middle
+21.12.2017 7:09:55,35,M,München,C++ Developer,1,12,58000,56000,56000,1,English,1000+,Другое,Senior
+21.12.2017 7:11:34,,M,Berlin,Technical Consultant,10,10,55000,40000,40000,5,Deutsch,10-50,Другое,Middle
+21.12.2017 7:42:24,24,M,Berlin,Technical Platform Specialist,1,2,42000,30000,44000,2,English,100-1000,Продуктовая,Middle
+21.12.2017 8:07:44,34,M,München,Software Entwickler,0,12,65000,65000,65000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 8:15:03,26,M,München,Junior Product Manager,1,3,43000,43000,43000,1,English,50-100,Продуктовая,Junior
+21.12.2017 8:53:43,32,M,München,Senior Python Engineer,0,12,66000,66000,66000,1,English,50-100,Продуктовая,Senior
+21.12.2017 8:55:21,31,M,München,Python Developer,2,11,80000,65000,45000,2,English,10-50,Продуктовая,Senior
+21.12.2017 8:56:19,,M,München,Software Developer,0,12,65000,65000,65000,1,English,50-100,Продуктовая,Senior
+21.12.2017 9:07:47,38,M,Munsterland,Solution consultant,1,14,60000,60000,60000,1,English,До 10 человек,Продуктовая,Middle
+21.12.2017 9:08:48,29,M,Berlin,php developer,2,10,55000,50000,44000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 9:19:32,,M,Berlin,Software Engineer,1,8,56000,56000,56000,1,English,100-1000,Стартап,Senior
+21.12.2017 9:38:41,30,M,Berlin,QA,3,3,30000,30000,30000,2,English,10-50,Стартап,Middle
+21.12.2017 10:05:30,30,M,Berlin,Qa lead,2,9,65000,60000,42000,2,English,100-1000,Стартап,Senior
+21.12.2017 10:25:38,,M,Berlin,Senior PHP Developer,1,10,48000,48000,48000,1,English,100-1000,Другое,Senior
+21.12.2017 10:28:20,31,M,München,Backend developer,1,9,72000,54000,54000,2,English,1000+,Продуктовая,Senior
+21.12.2017 10:53:48,,M,München,Rails Developer,1,10,59000,55000,55000,1,English,10-50,Продуктовая,Middle
+21.12.2017 11:29:57,34,F,München,Software engineer,10,10,83000,83000,42000,3,English,100-1000,Стартап,Senior
+21.12.2017 12:05:10,39,M,München,Member of Technical Staff,16,21,94100,90700,24000,3,English,1000+,Продуктовая,Senior
+21.12.2017 12:26:24,,M,München,.net developer,2,5,58000,55000,55000,1,English,100-1000,Продуктовая,Middle
+21.12.2017 12:48:36,23,M,München,Web fullstack developer,1,5,51000,48000,48000,2,Deutsch,50-100,Аутсорс (ну а вдруг),Middle
+21.12.2017 12:50:39,31,M,München,.NET full stack,1,6,63000,63000,63000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 12:53:27,31,M,Berlin,Software Developer,6,6,70000,62000,45000,4,Deutsch,100-1000,Продуктовая,Senior
+21.12.2017 12:59:51,24,M,Berlin,Java developer,2,3,46500,38000,38000,2,English,10-50,Агентство,Middle
+21.12.2017 13:08:36,30,M,Köln,Angular Developer,2,3,50400,46800,42000,2,Deutsch,10-50,Агентство,Middle
+21.12.2017 13:33:33,40,M,Berlin,Golang Developer,2,20,92000,72000,70000,1,English,10-50,Стартап,Senior
+21.12.2017 13:36:24,33,M,München,Web devoloper,0,10,50000,50000,50000,2,English,100-1000,Агентство,Middle
+21.12.2017 13:57:05,31,M,Berlin,PHP developer,1,10,58000,53000,53000,1,English,50-100,Стартап,Middle
+21.12.2017 14:01:50,32,M,München,iOS Developer,5,12,66000,60000,46800,3,English,100-1000,Продуктовая,Middle
+21.12.2017 14:16:45,27,M,Berlin,PHP Developer,1,7,57000,57000,57000,1,English,50-100,Стартап,Senior
+21.12.2017 14:55:33,28,M,Berlin,Full stack,2,2,65000,65000,41000,2,Deutsch,50-100,Стартап,Middle
+21.12.2017 15:41:37,29,M,Berlin,Senior statistical programmer,2,6,56000,50000,47000,1,English,1000+,Другое,Senior
+21.12.2017 17:06:00,31,M,Berlin,Software Engineer,6,12,80000,70000,36000,4,English,50-100,Продуктовая,Senior
+21.12.2017 17:13:31,27,M,Berlin,Site reliability engineer,1,8,63000,80000,80000,2,English,10-50,Стартап,Senior
+21.12.2017 17:16:45,30,M,Berlin,Lead,3,10,80000,67000,45000,3,English,100-1000,Продуктовая,Senior
+21.12.2017 17:23:44,32,M,München,,3,10,80000,78000,65000,1,English,1000+,Аутсорс (ну а вдруг),Senior
+21.12.2017 17:27:15,33,M,Berlin,Java developer,1,18,57000,45000,53000,1,English,До 10 человек,Продуктовая,Senior
+21.12.2017 19:09:24,35,M,Berlin,Team Lead,2,12,72000,72000,72000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 20:14:31,27,M,Berlin,Fullstack Developer ,3,7,50000,50000,42000,2,Deutsch,50-100,Продуктовая,Middle
+21.12.2017 20:42:50,35,M,München,QA Engineer,0,10,45000,45000,45000,1,English,50-100,Стартап,Middle
+21.12.2017 20:49:37,27,M,Köln,Solution Architect,2,6,80000,76000,72000,1,English,1000+,Продуктовая,Senior
+21.12.2017 20:59:17,27,M,München,PHP Developer,2,6,61100,55000,55000,1,Deutsch,1000+,Продуктовая,Senior
+21.12.2017 21:05:45,32,M,München,Software Engineer,1,6,55200,55200,55200,1,English,100-1000,Продуктовая,Middle
+21.12.2017 21:39:36,31,M,Berlin,Team Lead Quality Assurance,1,11,66000,42000,66000,1,English,100-1000,Продуктовая,Senior
+21.12.2017 22:10:42,29,M,Berlin,Full stack,2,7,65000,58000,46500,1,English,10-50,Продуктовая,Senior
+22.12.2017 1:10:31,31,M,München,Data scientist,1,9,60000,60000,60000,1,English,50-100,Стартап,Senior
+22.12.2017 9:17:35,35,M,Berlin,Backend Developer,2,7,65000,60000,60000,1,English,10-50,Продуктовая,Senior
+22.12.2017 10:35:39,32,M,Berlin,Product manager,1,8,51000,51000,51000,1,English,До 10 человек,Стартап,Middle
+22.12.2017 10:36:11,32,M,Karlsruhe,.Net Developer,4,8,66000,66000,36000,2,English,100-1000,Продуктовая,Senior
+22.12.2017 11:34:27,30,M,Berlin,Senior Software Engineer ,4,10,73000,69000,60000,2,English,1000+,Продуктовая,Senior
+22.12.2017 12:30:39,27,M,Berlin,QA,1,5,52000,52000,52000,1,English,100-1000,Стартап,Middle
+22.12.2017 15:12:26,30,M,Köln,Android Developer,1,8,62000,62000,62000,1,English,100-1000,Продуктовая,Senior
+22.12.2017 18:34:24,33,M,Berlin,,0,11,68000,68000,68000,1,English,1000+,Продуктовая,Senior
+22.12.2017 22:16:37,27,F,München,Software Engineer,2,7,98000,90000,83000,1,English,1000+,Продуктовая,Middle
+23.12.2017 3:09:55,33,M,München,qa engineer,3,10,67000,64000,58000,1,English,1000+,Продуктовая,Senior
+23.12.2017 4:52:44,26,M,München,Java Developer,0,5,53000,53000,53000,1,English,100-1000,Продуктовая,Middle
+23.12.2017 5:02:11,,F,München,,15,7,52000,61000,36000,5,English,1000+,Продуктовая,Middle
+23.12.2017 5:18:09,27,F,Berlin,ui/ux designer,1,8,66000,66000,66000,1,Русский,До 10 человек,Стартап,Senior
+23.12.2017 8:03:00,34,M,Berlin,Scala,5,15,75000,75000,48000,3,Русский,1000+,Стартап,Senior
+23.12.2017 11:32:35,26,M,Berlin,Java Software Developer,3,5,62000,55000,42000,2,English,50-100,Стартап,Senior
+23.12.2017 20:41:43,28,F,München,ios developer,0,6,60000,60000,60000,1,English,10-50,Стартап,Senior
+23.12.2017 21:29:26,27,M,München,Ruby Developer,0,5,47000,47000,47000,1,English,50-100,Стартап,Middle
+23.12.2017 23:40:45,34,M,Berlin,System Architect - CTO,15,15,85000,80000,12000,10,English,100-1000,Другое,Senior
+24.12.2017 0:11:19,29,M,Düsseldorf,Senior Analyst,3,3,46000,44000,35000,1,English,1000+,Другое,Junior
+24.12.2017 0:50:11,25,M,Krakow,Senior Java SW Engineer,1,3,40000,29000,29000,1,English,100-1000,Аутсорс (ну а вдруг),Senior
+24.12.2017 8:55:43,28,M,München,JavaScript Engineer,1,7,62250,62250,62250,1,English,100-1000,Продуктовая,Middle
+24.12.2017 9:35:08,31,M,Berlin,Senior PHP developer,2,6,60000,55000,48000,3,English,100-1000,Стартап,Senior
+24.12.2017 10:03:29,28,M,Berlin,Senior Ruby Developer,3,6,58000,54000,42000,2,English,1000+,Продуктовая,Senior
+24.12.2017 10:38:57,28,F,Berlin,Java Developer ,1,7,65000,55000,55000,1,English,100-1000,Стартап,Senior
+24.12.2017 10:40:40,26,F,Berlin,QA Engineer,1,5,40000,38000,38000,1,English,50-100,Стартап,Middle
+24.12.2017 10:48:43,30,M,Berlin,Senior PHP Developer,3,9,55000,52000,48000,2,English,50-100,Другое,Senior
+24.12.2017 11:37:08,34,M,Berlin,.Net Developer,7,7,46000,43500,30000,3,Deutsch,50-100,Другое,Middle
+24.12.2017 11:58:56,41,M,Berlin,"Business Analyst, Senior Developer C++",12,12,72000,66000,52000,1,Deutsch,1000+,Продуктовая,Senior
+24.12.2017 12:24:48,34,M,Berlin,php developer,3,9,54000,48000,48000,1,English,100-1000,Продуктовая,Middle
+24.12.2017 15:43:37,31,M,Berlin,Senior backend developer,7,13,65000,58000,12000,2,English,1000+,Продуктовая,Senior
+24.12.2017 16:33:38,,F,Berlin,Software developer,5,9,66000,63000,42000,2,English,1000+,Продуктовая,Senior
+24.12.2017 17:44:30,,M,Berlin,Frontend developer,3,18,56000,56000,48000,2,English,100-1000,Стартап,Middle
+24.12.2017 19:13:01,25,M,Berlin,Ruby dev,2,5,54000,44000,42000,2,English,10-50,Стартап,Middle
+24.12.2017 19:19:46,34,M,Bielefeld,Senior PHP Developer,3,7,54000,54000,40000,2,English,10-50,Стартап,Senior
+24.12.2017 21:13:11,40,M,München,Senior Product Manager,1,16,74000,72000,72000,1,English,1000+,Продуктовая,Senior
+24.12.2017 21:58:31,32,F,Berlin,Java Developer,3,3,54000,39500,38200,3,English,100-1000,Стартап,Middle
+24.12.2017 23:27:21,31,M,Berlin,Engineering Manager,1,15,132000,116000,106000,1,English,1000+,Продуктовая,Senior
+25.12.2017 1:36:29,32,M,Berlin,Software Engineer,2,11,85000,77000,72000,1,English,1000+,Продуктовая,Senior
+25.12.2017 14:32:56,34,M,Frankfurt,Business Analyst,1,13,75000,75000,75000,1,English,1000+,Другое,Middle
+25.12.2017 17:04:17,43,M,Berlin,App developer (iOS&Android),1,7,54000,45000,45000,2,English,100-1000,Продуктовая,Middle
+26.12.2017 9:38:02,42,M,Schleswig-Holstein,.NET Developer,15,23,90000,87000,41500,1,English,50-100,Продуктовая,Senior
+26.12.2017 10:04:29,32,F,Berlin,Product manager ,1,10,65000,65000,65000,1,English,1000+,Продуктовая,Middle
+26.12.2017 11:16:39,40,M,Berlin,Senior Developer,2,19,80300,78000,60000,2,English,1000+,Продуктовая,Senior
+26.12.2017 16:28:15,34,M,Hamburg,Senior PHP Developer,2,14,62000,55000,48500,3,Deutsch,100-1000,Продуктовая,Senior
+26.12.2017 20:18:54,29,M,Berlin,SSE (PHP),3,9,66000,53000,48400,2,English,100-1000,Стартап,Senior
+26.12.2017 20:19:06,41,M,Berlin,Front End,1,15,60000,58000,58000,1,English,1000+,Другое,Middle
+26.12.2017 20:24:40,40,M,Berlin,CTO,4,18,76000,74000,50400,3,English,До 10 человек,Стартап,Senior
+26.12.2017 20:30:43,39,M,Berlin,Ruby Backend Developer,2,14,57000,54000,51000,1,English,10-50,Стартап,Senior
+26.12.2017 20:51:57,33,M,München,PHP Developer,3,10,74000,56000,52000,1,Deutsch,10-50,Агентство,Senior
+26.12.2017 21:28:08,,M,Berlin,System engineer,5,10,72000,65000,57000,3,English,10-50,Стартап,Senior
+26.12.2017 22:23:11,37,F,Hamburg,Junior Ruby Dev,1,1,40000,40000,40000,1,Deutsch,50-100,Другое,Junior
+26.12.2017 22:29:54,31,M,Berlin,PHP Developer ,1,7,55000,55000,55000,2,English,10-50,Стартап,Middle
+26.12.2017 22:34:29,36,F,Berlin,Junior QA,1,10,28000,28000,28000,1,English,10-50,Стартап,Junior
+26.12.2017 23:13:06,38,F,Berlin,Senior Java Engineer,1,15,70000,70000,70000,1,English,50-100,Продуктовая,Senior
+26.12.2017 23:14:20,,M,Berlin,,1,10,57000,57000,57000,1,Русский,1000+,Аутсорс (ну а вдруг),Middle
+26.12.2017 23:34:10,28,M,Berlin,Software Engineer ,2,8,58000,52000,49000,2,English,1000+,Продуктовая,Middle
+27.12.2017 0:26:52,32,M,Berlin,PHP Developer,1,5,62000,62000,62000,1,English,50-100,Продуктовая,Senior
+27.12.2017 1:12:43,32,F,Hamburg,QA Lead,2,11,65000,50000,47000,2,English,50-100,Продуктовая,Senior
+27.12.2017 1:48:53,,F,Berlin,backend developer,5,13,60000,60000,36000,4,English,1000+,Продуктовая,Senior
+27.12.2017 2:17:47,37,M,Berlin,projektleiter,1,14,51000,51000,51000,2,Deutsch,10-50,Другое,Middle
+27.12.2017 4:44:09,37,M,Berlin,Mobile team lead,6,14,75000,75000,50000,2,English,10-50,Продуктовая,Senior
+27.12.2017 8:22:30,31,F,Hanover,QA Lead,1,9,60000,60000,60000,1,English,10-50,Аутсорс (ну а вдруг),Senior
+27.12.2017 9:24:47,34,M,Berlin,PM,1,8,65000,60000,60000,1,English,10-50,Продуктовая,Senior
+27.12.2017 10:23:11,24,M,Dresden,Data Engineer,2,4,36000,35000,35000,1,English,100-1000,Продуктовая,Junior
+27.12.2017 11:17:27,31,M,Berlin,ML Engenier,1,8,55000,55000,55000,1,English,10-50,Стартап,Senior
+27.12.2017 11:37:02,25,F,Berlin,UI/UX designer,1,5,48000,48000,48000,1,English,100-1000,Продуктовая,Middle
+27.12.2017 15:41:38,29,M,Berlin,Senior Software Development Engineer,4,8,135000,125000,52000,3,English,1000+,Продуктовая,Senior
+27.12.2017 15:55:22,33,M,München,Software Architect,2,11,77000,68000,58000,1,English,100-1000,Продуктовая,Senior
+27.12.2017 16:06:14,,M,München,Java Developer,2,7,80000,20000,10000,5,Deutsch,50-100,Другое,Junior
+27.12.2017 16:30:52,28,M,München,iOS Developer ,1,7,63000,45000,45000,2,English,1000+,Продуктовая,Middle
+27.12.2017 16:30:58,28,M,München,iOS Developer ,1,7,63000,45000,45000,2,English,1000+,Продуктовая,Middle
+27.12.2017 16:38:22,29,M,Berlin,Senior Software Engineer,2,10,75000,54000,50000,2,English,1000+,Продуктовая,Senior
+27.12.2017 16:42:37,36,M,Berlin,Lead Developer,5,15,80000,73000,55000,2,English,10-50,Продуктовая,Senior
+27.12.2017 18:21:26,,F,München,Software Test Analyst,4,10,53000,51000,36000,2,Deutsch,1000+,Продуктовая,Senior
+27.12.2017 19:57:06,31,M,Berlin,PHP Developer ,1,7,55000,55000,55000,2,English,10-50,Стартап,Middle
+27.12.2017 20:12:38,,M,Berlin,C++ Senior Developer,1,12,69000,69000,69000,1,English,100-1000,Продуктовая,Senior
+27.12.2017 20:43:42,33,M,Berlin,Senior Dev,5,16,80000,80000,48000,6,English,1000+,Продуктовая,Senior
+27.12.2017 21:20:58,30,M,Berlin,PHP Developer,2,10,60000,60000,60000,1,English,1000+,Продуктовая,Senior
+27.12.2017 21:36:04,33,M,Berlin,Lead Javascript Engineer,12,12,55000,45000,35000,5,English,10-50,Стартап,Senior
+27.12.2017 22:22:18,29,M,Berlin,Senior software consultant,4,8,100000,67000,38000,4,Deutsch,До 10 человек,Агентство,Senior
+27.12.2017 22:56:51,,M,Berlin,Senior software engineer,2,12,46500,44000,38400,1,English,До 10 человек,Стартап,Senior
+27.12.2017 23:27:43,30,M,Berlin,Scala Engineer,1,8,60000,60000,60000,1,English,1000+,Продуктовая,Senior
+27.12.2017 23:33:49,26,M,Berlin,Software Engineer,4,10,80000,65000,48000,2,English,1000+,Другое,Senior
+28.12.2017 0:36:38,33,M,München,"VR UE4 game dev, system/tools/hardware dev.",3,12,30000,58000,58000,2,English,До 10 человек,Стартап,Senior
+28.12.2017 1:03:46,27,F,Berlin,UX designer ,1,5,51000,51000,51000,1,English,1000+,Продуктовая,Middle
+28.12.2017 9:50:48,28,M,Berlin,PHP Developer,0,9,49100,31200,49100,1,English,10-50,Стартап,Senior
+28.12.2017 10:40:12,25,F,Berlin,Analyst,1,3,40000,37000,37000,1,English,100-1000,Агентство,Junior
+28.12.2017 11:02:44,42,M,Berlin,Java Developer ,12,23,80000,80000,50000,3,English,100-1000,Другое,Senior
+28.12.2017 14:10:39,31,M,München,Senior Software Engineer ,1,4,60000,30000,30000,2,English,1000+,Аутсорс (ну а вдруг),Middle
+28.12.2017 15:32:36,31,M,Berlin,Sr. Software Engineer,3,10,70000,70000,65000,,English,1000+,Продуктовая,Senior
+28.12.2017 15:39:15,40,M,Berlin,Product Owner,10,19,85000,65000,33000,4,English,50-100,Стартап,Senior
+28.12.2017 15:55:18,36,M,Berlin,Android Developerr,3,10,62000,60000,60000,2,English,1000+,Продуктовая,Senior
+28.12.2017 16:20:11,24,M,Berlin,Software Engineer ,1,4,60000,60000,60000,1,English,1000+,Продуктовая,Middle
+28.12.2017 22:02:14,29,M,Berlin,iOS Developer,3,6,60000,56000,37000,2,English,100-1000,Продуктовая,Senior
+29.12.2017 11:25:19,51,M,Bremen,System Administrator Linux,12,20,33600,33600,24000,5,Deutsch,До 10 человек,Другое,Middle
+29.12.2017 14:14:49,34,M,Berlin,Senior PHP Developer,2,12,65000,58000,50000,3,English,50-100,Стартап,Senior
+29.12.2017 14:23:57,28,M,Berlin,php dev (TL),4,8,78000,65000,36000,4,English,10-50,Продуктовая,Senior
+29.12.2017 15:10:22,36,M,Berlin,Frontend Developer,3,10,60000,58000,39000,3,English,1000+,Продуктовая,Senior
+30.12.2017 7:30:15,27,F,Berlin, PHP developer,2,5,58000,50000,46000,1,English,100-1000,Продуктовая,Senior
+30.12.2017 10:18:31,31,M,Berlin,Senior Frontend Developer,2,6,65000,65000,55000,1,English,1000+,Продуктовая,Senior
+30.12.2017 11:42:33,45,M,München,Senior JEE Developer/Architect Consultant,17,24,80000,80000,44000,4,Deutsch,100-1000,Аутсорс (ну а вдруг),Senior
+30.12.2017 19:39:25,,M,München,Software Engineer,3,13,70000,70000,65000,3,English,100-1000,Другое,Senior
+31.12.2017 19:37:23,43,M,Berlin,Java Developer,3,20,85000,75000,48000,2,English,100-1000,Стартап,Senior
+02.01.2018 9:43:56,32,M,Berlin,Product Owner,2,8,60000,60000,55000,2,English,100-1000,Продуктовая,Middle
+02.01.2018 13:49:17,38,M,Frankfurt,SAP Consultant,12,17,100000,95000,55000,4,English,1000+,Продуктовая,Senior
+03.01.2018 10:18:56,23,F,München,UI/UX Frontend developer,0,4,43000,,,1,English,10-50,Стартап,Junior
+03.01.2018 14:19:01,,M,München,.Net,0,7,51300,51300,51300,1,English,1000+,Продуктовая,Junior
+03.01.2018 15:01:22,31,M,München,Teamlead,2,11,50000,40000,40000,2,Русский,До 10 человек,Стартап,Middle
+04.01.2018 8:13:56,30,M,Berlin,Team Lead / Senior PHP Developer,10,10,80000,80000,,,English,1000+,Другое,Senior
+04.01.2018 10:12:08,30,M,Berlin,javascript developer,1,9,50000,50000,50000,1,English,100-1000,Другое,Middle
+04.01.2018 11:53:51,,F,Bayern,Product manager,17,25,90000,90000,40000,2,Deutsch,100-1000,Продуктовая,Senior
+04.01.2018 13:47:19,30,F,München,QA,3,5,60000,55000,39000,3,English,1000+,Продуктовая,Middle
+04.01.2018 13:48:38,36,M,München,DevOps,3,15,69000,65000,62000,2,English,100-1000,Продуктовая,Middle
+04.01.2018 16:42:12,37,M,Berlin,Data Engineer,1.5,13,75000,60000,60000,2,English,1000+,Другое,Senior
+04.01.2018 19:12:30,28,M,München,Senior System Engineer,1,10,64000,,64000,1,English,100-1000,Продуктовая,Senior
+04.01.2018 22:31:14,25,M,Köln,Software engineer (Java),1,1,43000,12000,12000,2,Deutsch,1000+,Аутсорс (ну а вдруг),Junior
+04.01.2018 23:01:12,30,M,München,Senior iOS developer,4,9,70000,75000,36000,3,Deutsch,10-50,Стартап,Senior
+06.01.2018 19:46:27,32,M,Berlin,Software Engineer,8,15,65000,62000,36000,4,English,1000+,Продуктовая,Senior
+07.01.2018 23:14:39,,F,München,Java Developer,1,9,45000,45000,45000,1,English,10-50,Аутсорс (ну а вдруг),Middle
+08.01.2018 15:56:18,,M,Berlin,DevOps,0,8,65000,,65000,1,English,10-50,Стартап,Senior
+09.01.2018 10:53:43,,M,Hamburg,Java Developer,3,8,,,,1,English,100-1000,,Middle
+19.01.2018 21:13:10,27,M,Frankfurt,Software Engineer,6,6,67000,67500,16800,2,English,100-1000,Продуктовая,Senior
+20.01.2018 9:01:35,38,M,Frankfurt,SAP CO functional consultant,12,18,150000,100000,55000,4,English,1000+,Продуктовая,Senior
+23.01.2018 16:18:08,28,F,Berlin,Android Developer,4,8,67650,57400,50000,3,English,100-1000,Продуктовая,Middle
+23.01.2018 18:34:58,,F,München,BA,0,11,68000,66000,66000,1,English,1000+,Продуктовая,Senior
+12.02.2018 22:55:52,,M,Berlin,,,,50000,,,,English,1000+,Продуктовая,Senior
+13.04.2018 10:34:46,,M,Bodensee,Software Developer,6,13,72000,69000,55000,2,Deutsch,10-50,Продуктовая,Senior
+08.05.2018 11:20:37,42,M,Frankfurt,Senior IT Berater,17,23,85000,73000,37500,6,Deutsch,До 10 человек,Другое,Senior
