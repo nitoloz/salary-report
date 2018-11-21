@@ -6,10 +6,10 @@ let svg = d3.select("#chart-area")
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
-        let salaries = data.map(d => parseInt(d['Текущая ЗП']));
+        let salaries = data.map(d => parseInt(d[CURRENT_SALARY]));
 
         let groupedData = d3.nest()
-            .key((d) => { return d['Город'];})
+            .key((d) => { return d[CITY];})
             .rollup((d) => {
                 return d.length;})
             .entries(data);
