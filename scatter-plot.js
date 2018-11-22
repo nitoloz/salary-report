@@ -6,7 +6,6 @@ let svg = d3.select("#scatter-chart-area")
     .append('svg')
     .attr('height', height)
     .attr('width', width);
-// .attr('transform','translate(' + margin.left + ',' + margin.top + ')');
 
 
 d3.csv('data/salaries-responses.csv')
@@ -33,7 +32,16 @@ d3.csv('data/salaries-responses.csv')
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
-            .call(d3.axisBottom(xScale));
+            .call(d3.axisBottom(xScale))
+            .append('text') // X-axis Label
+            .attr('class', 'label')
+            .attr('y', -12)
+            .attr('x', width - margin.right)
+            .attr('dy', '.71em')
+            .style('text-anchor', 'end')
+            .style('font-size', '12')
+            .style('fill', 'black')
+            .text('Total experience (years)');
 
         svg.append("g")
             .attr("class", "y axis")
@@ -41,9 +49,19 @@ d3.csv('data/salaries-responses.csv')
             .call(d3.axisLeft(yScale)
                 .ticks(10)
                 .tickFormat((d) => {
-                    return "EUR " + d/1000+"K";
+                    return "EUR " + d / 1000 + "K";
                 })
-            );
+            )
+            .append('text') // y-axis Label
+            .attr('class', 'label')
+            .attr('transform', 'rotate(-90)')
+            .attr('x', -50)
+            .attr('y', 5)
+            .attr('dy', '.71em')
+            .style('font-size', '12')
+            .style('fill', 'black')
+            .style('text-anchor', 'end')
+            .text('Salary (EUR)');
 
         let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
 
