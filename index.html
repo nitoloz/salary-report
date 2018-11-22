@@ -6,16 +6,44 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="d3/d3.min.js"></script>
+    <style type="text/css">
+        .line {
+            fill: none;
+            stroke: #ffab00;
+            stroke-width: 3;
+        }
+
+        .overlay {
+            fill: none;
+            pointer-events: all;
+        }
+
+        /* Style the dots by assigning a fill and stroke */
+        .dot {
+            fill: #ffab00;
+            stroke: #fff;
+        }
+
+        .focus circle {
+            fill: none;
+            stroke: steelblue;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
     <h3 class="text-center mt-5">Salary Report 2017</h3>
     <div class="row mt-2">
-        <div id="chart-area" style="margin: 0 auto;"></div>
+        <div id="scatter-chart-area" style="margin: 0 auto;"></div>
+    </div>
+    <h3 class="text-center mt-5">Salary Report 2017</h3>
+    <div class="row mt-2">
+        <div id="line-chart-area" style="margin: 0 auto;"></div>
     </div>
 </div>
 
 <script src="table-keys-enum.js"></script>
 <script src="scatter-plot.js"></script>
+<script src="line-plot.js"></script>
 </body>
 </html>

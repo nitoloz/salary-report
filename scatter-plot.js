@@ -2,10 +2,10 @@ const margin = {top: 50, right: 50, bottom: 50, left: 100};
 const height = 600;
 const width = 1000;
 
-let svg = d3.select("#chart-area")
+let svg = d3.select("#scatter-chart-area")
     .append('svg')
     .attr('height', height)
-    .attr('width', width)
+    .attr('width', width);
 // .attr('transform','translate(' + margin.left + ',' + margin.top + ')');
 
 
@@ -14,48 +14,6 @@ d3.csv('data/salaries-responses.csv')
         data = data.filter(d => parseInt(d[CURRENT_SALARY]) > 0 && parseInt(d[TOTAL_EXPERIENCE]) > 0);
         let salaries = data.map(d => parseInt(d[CURRENT_SALARY]));
         let experience = data.map(d => parseInt(d[TOTAL_EXPERIENCE]));
-        //
-        // let groupedData = d3.nest()
-        //     .key((d) => {
-        //         return d[CITY];
-        //     })
-        //     .rollup((d) => {
-        //         return d.length;
-        //     })
-        //     .entries(data);
-
-        // let radiusScale = d3.scaleLinear()
-        //     .domain([0, d3.max(groupedData, (d) => {
-        //         return d.value
-        //     })])
-        //     .range([5, 100]);
-        //
-        // let circles = svg.selectAll('circle')
-        //     .data(groupedData)
-        //     .enter()
-        //     .append('circle')
-        //     .attr('cx', (d, i) => {
-        //         return (i % 40 * 20) + 40;
-        //     })
-        //     .attr('cy', (d, i) => {
-        //         return (Math.floor(i / 40) + 1) * 50;
-        //     })
-        //     .attr('r', d => {
-        //         return radiusScale(parseInt(d.value));
-        //     })
-        //     .attr('fill', (d, i) => {
-        //         switch (d.key) {
-        //             case `München`:
-        //                 return 'blue';
-        //             case 'Berlin':
-        //                 return 'yellow';
-        //             case `Frankfurt`:
-        //                 return 'green';
-        //             default:
-        //                 return 'gray';
-        //         }
-        //     });
-
 
         let xScale = d3.scaleLinear()
             .domain([
