@@ -1,5 +1,5 @@
-const margin = {top: 50, right: 50, bottom: 50, left: 50};
-const height = 500;
+const margin = {top: 50, right: 50, bottom: 50, left: 100};
+const height = 600;
 const width = 1000;
 
 let svg = d3.select("#chart-area")
@@ -67,8 +67,10 @@ d3.csv('data/salaries-responses.csv')
             .domain([
                 d3.min([d3.min(salaries)]),
                 d3.max([d3.max(salaries)])
-            ]).range([height - margin.top, margin.bottom])
-            .base(10);
+            ])
+            .range([height - margin.top, margin.bottom])
+            .base(100);
+
 
         svg.append("g")
             .attr("class", "x axis")
@@ -78,32 +80,15 @@ d3.csv('data/salaries-responses.csv')
         svg.append("g")
             .attr("class", "y axis")
             .attr("transform", "translate(" + margin.left + ",0)")
-            .call(d3.axisLeft(yScale));
-
-        // let yScale = d3.scaleLinear()
-        //     .domain([
-        //         d3.min([0, d3.min(salaries)]),
-        //         d3.max([0, d3.max(salaries)])
-        //     ]).range([height, 0]);
+            .call(d3.axisLeft(yScale)
+                .ticks(10)
+                .tickFormat((d) => {
+                    return "EUR " + d/1000+"K";
+                })
+            );
 
         let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
 
-        // SVG
-        // let svg = body.append('svg')
-        //     .attr('height', height)
-        //     .attr('width', width);
-
-        // let xAxis = d3.svg.axis()
-        //     .scale(xScale)
-        //     .tickFormat(formatPercent)
-        //     .ticks(5)
-        //     .orient('bottom')
-        // // Y-axis
-        // let yAxis = d3.svg.axis()
-        //     .scale(yScale)
-        //     .tickFormat(formatPercent)
-        //     .ticks(5)
-        //     .orient('left')
         // Circles
         let circles = svg.selectAll('circle')
             .data(data)
