@@ -2,12 +2,6 @@ const margin = {top: 50, right: 50, bottom: 50, left: 100};
 const height = 600;
 const width = 1000;
 
-let svg = d3.select("#scatter-chart-area")
-    .append('svg')
-    .attr('height', height)
-    .attr('width', width);
-
-
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         data = data.filter(d => parseInt(d[CURRENT_SALARY]) > 0 && parseInt(d[TOTAL_EXPERIENCE]) > 0);
@@ -28,11 +22,19 @@ d3.csv('data/salaries-responses.csv')
             .range([height - margin.top, margin.bottom])
             .base(100);
 
+        let svg = d3.select("#scatter-chart-area")
+            .append('svg')
+            .attr('height', height)
+            .attr('width', width)
+            .append("g");
 
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
-            .call(d3.axisBottom(xScale))
+            .call(d3.axisBottom(xScale)
+                .tickSize(-height + margin.top + margin.bottom)
+                .tickSizeOuter(0)
+            )
             .append('text') // X-axis Label
             .attr('class', 'label')
             .attr('y', -12)
@@ -51,6 +53,8 @@ d3.csv('data/salaries-responses.csv')
                 .tickFormat((d) => {
                     return "EUR " + d / 1000 + "K";
                 })
+                .tickSize(-width + margin.left + margin.right)
+                .tickSizeOuter(0)
             )
             .append('text') // y-axis Label
             .attr('class', 'label')
@@ -100,7 +104,7 @@ d3.csv('data/salaries-responses.csv')
             .text(function (d) {
                 return 'Total Experience: ' + d[TOTAL_EXPERIENCE] +
                     '\nSalary: ' + d[CURRENT_SALARY]
-            })
+            });
     });
 
 
