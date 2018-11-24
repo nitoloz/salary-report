@@ -84,6 +84,9 @@ d3.csv('data/salaries-responses.csv')
         let zoom = d3.zoom()
             .scaleExtent([1 / 2, 5])
             .extent([[0, 0], [width, height]])
+            .filter(function () {
+                return d3.event.type === 'wheel' ? d3.event.ctrlKey : true;
+            })
             .on("zoom", zoomed);
 
         function zoomed() {
