@@ -28,14 +28,25 @@ d3.csv('data/salaries-responses.csv')
             .attr('width', width)
             .append("g");
 
-        svg.append("g")
+        //Clippath in order to prevent points from being visible outside of chart area
+        //https://developer.mozilla.org/ru/docs/Web/CSS/clip-path
+        svg.append("defs").append("clipPath")
+            .attr("id", "clip")
+            .append("rect")
+            .attr("width", width - margin.left - margin.right)
+            .attr("height", height - margin.top - margin.bottom);
+
+        //Axes setup
+        let xAxis = d3.axisBottom(xScale)
+            .tickSize(-height + margin.top + margin.bottom)
+            .tickSizeOuter(0);
+
+        let gXAxis = svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
-            .call(d3.axisBottom(xScale)
-                .tickSize(-height + margin.top + margin.bottom)
-                .tickSizeOuter(0)
-            )
-            .append('text') // X-axis Label
+            .call(xAxis);
+
+        gXAxis.append('text') // X-axis Label
             .attr('class', 'label')
             .attr('y', -12)
             .attr('x', width - margin.right)
@@ -45,18 +56,20 @@ d3.csv('data/salaries-responses.csv')
             .style('fill', 'black')
             .text('Total experience (years)');
 
-        svg.append("g")
+        let yAxis = d3.axisLeft(yScale)
+            .ticks(10)
+            .tickFormat((d) => {
+                return "EUR " + d / 1000 + "K";
+            })
+            .tickSize(-width + margin.left + margin.right)
+            .tickSizeOuter(0);
+
+        let gYAxis = svg.append("g")
             .attr("class", "y axis")
             .attr("transform", "translate(" + margin.left + ",0)")
-            .call(d3.axisLeft(yScale)
-                .ticks(10)
-                .tickFormat((d) => {
-                    return "EUR " + d / 1000 + "K";
-                })
-                .tickSize(-width + margin.left + margin.right)
-                .tickSizeOuter(0)
-            )
-            .append('text') // y-axis Label
+            .call(yAxis);
+
+        gYAxis.append('text') // y-axis Label
             .attr('class', 'label')
             .attr('transform', 'rotate(-90)')
             .attr('x', -50)
@@ -67,10 +80,42 @@ d3.csv('data/salaries-responses.csv')
             .style('text-anchor', 'end')
             .text('Salary (EUR)');
 
+        //Zoom setup
+        let zoom = d3.zoom()
+            .scaleExtent([1 / 2, 5])
+            .extent([[0, 0], [width, height]])
+            .on("zoom", zoomed);
+
+        function zoomed() {
+            let newXScale = d3.event.transform.rescaleX(xScale);
+            let newYScale = d3.event.transform.rescaleY(yScale);
+            gXAxis.call(xAxis.scale(newXScale));
+            gYAxis.call(yAxis.scale(newYScale));
+            circles.data(data)
+                .attr('cx', function (d) {
+                    return newXScale(parseInt(d[TOTAL_EXPERIENCE]))
+                })
+                .attr('cy', function (d) {
+                    return newYScale(parseInt(d[CURRENT_SALARY]))
+                });
+        }
+
+        svg.append("rect")
+            .attr("width", width - margin.left - margin.right)
+            .attr("height", height - margin.top - margin.bottom)
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            .call(zoom);
+
+        //Points setup
         let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
 
-        // Circles
-        let circles = svg.selectAll('circle')
+        let circlesG = svg.append("g")
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            .attr("clip-path", "url(#clip)");
+
+        let circles = circlesG.selectAll('circle')
             .data(data)
             .enter()
             .append('circle')
@@ -99,11 +144,17 @@ d3.csv('data/salaries-responses.csv')
                     .duration(100)
                     .attr('r', 5)
                     .attr('stroke-width', 1)
-            })
-            .append('title')
+            });
+
+        circles.append('title')
             .text(function (d) {
-                return 'Total Experience: ' + d[TOTAL_EXPERIENCE] +
-                    '\nSalary: ' + d[CURRENT_SALARY]
+                return `Position: ${d[POSITION]}
+                Total Experience: ${d[TOTAL_EXPERIENCE]}
+                Salary 12.2017: ${d[CURRENT_SALARY]}
+                Salary 12.2016: ${d[PREVIOUS_SALARY]}
+                First EU Salary: ${d[FIRST_EUROPE_SALARY]}
+                Company Size: ${d[COMPANY_SIZE]}
+                Age: ${d[AGE] || 'no data'}`
             });
     });
 
