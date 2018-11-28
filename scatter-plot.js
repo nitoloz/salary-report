@@ -19,7 +19,7 @@ d3.csv('data/salaries-responses.csv')
                 d3.min([d3.min(salaries)]),
                 d3.max([d3.max(salaries)])
             ])
-            .range([height - margin.top, margin.bottom])
+            .range([height - margin.bottom, margin.top])
             .base(100);
 
         let svg = d3.select("#scatter-chart-area")
@@ -34,7 +34,8 @@ d3.csv('data/salaries-responses.csv')
             .attr("id", "clip")
             .append("rect")
             .attr("width", width - margin.left - margin.right)
-            .attr("height", height - margin.top - margin.bottom);
+            .attr("height", height - margin.top - margin.bottom)
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
         //Axes setup
         let xAxis = d3.axisBottom(xScale)
@@ -115,7 +116,6 @@ d3.csv('data/salaries-responses.csv')
         let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
 
         let circlesG = svg.append("g")
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             .attr("clip-path", "url(#clip)");
 
         let circles = circlesG.selectAll('circle')
