@@ -4,20 +4,23 @@ const width = 1000;
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
-        data = data.filter(d => parseInt(d[CURRENT_SALARY]) > 0 && parseInt(d[TOTAL_EXPERIENCE]) > 0);
-        let salaries = data.map(d => parseInt(d[CURRENT_SALARY]));
-        let experience = data.map(d => parseInt(d[TOTAL_EXPERIENCE]));
+        const xAxisProperty = TOTAL_EXPERIENCE;
+        const yAxisProperty = CURRENT_SALARY;
+
+        data = data.filter(d => parseInt(d[yAxisProperty]) > 0 && parseInt(d[xAxisProperty]) > 0);
+        let yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
+        let xAxisValues = data.map(d => parseInt(d[xAxisProperty]));
 
         let xScale = d3.scaleLinear()
             .domain([
-                d3.min([0, d3.min(experience)]),
-                d3.max([0, d3.max(experience)])
+                d3.min([0, d3.min(xAxisValues)]),
+                d3.max([0, d3.max(xAxisValues)])
             ]).range([margin.left, width - margin.right]);
 
         let yScale = d3.scaleLog()
             .domain([
-                d3.min([d3.min(salaries)]),
-                d3.max([d3.max(salaries)])
+                d3.min([d3.min(yAxisValues)]),
+                d3.max([d3.max(yAxisValues)])
             ])
             .range([height - margin.bottom, margin.top])
             .base(100);
@@ -58,7 +61,6 @@ d3.csv('data/salaries-responses.csv')
             .text('Total experience (years)');
 
         let yAxis = d3.axisLeft(yScale)
-            .ticks(10)
             .tickFormat((d) => {
                 return "EUR " + d / 1000 + "K";
             })
@@ -83,7 +85,7 @@ d3.csv('data/salaries-responses.csv')
 
         //Zoom setup
         let zoom = d3.zoom()
-            .scaleExtent([1 / 2, 5])
+            .scaleExtent([1 / 2, 7])
             .extent([[0, 0], [width, height]])
             .filter(function () {
                 return d3.event.type === 'wheel' ? d3.event.ctrlKey : true;
@@ -97,10 +99,10 @@ d3.csv('data/salaries-responses.csv')
             gYAxis.call(yAxis.scale(newYScale));
             circles.data(data)
                 .attr('cx', function (d) {
-                    return newXScale(parseInt(d[TOTAL_EXPERIENCE]))
+                    return newXScale(parseInt(d[xAxisProperty]))
                 })
                 .attr('cy', function (d) {
-                    return newYScale(parseInt(d[CURRENT_SALARY]))
+                    return newYScale(parseInt(d[yAxisProperty]))
                 });
         }
 
@@ -112,8 +114,26 @@ d3.csv('data/salaries-responses.csv')
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             .call(zoom);
 
+        let tooltip = d3.tip()
+            .attr("class", "d3-tip")
+            .offset([-8, 0])
+            .html(function (d) {
+                return `Position: ${d[POSITION]}<br>
+                Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
+                Salary 12.2017: ${d[CURRENT_SALARY]}<br>
+                Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
+                First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
+                Company Size: ${d[COMPANY_SIZE]}<br>
+                Age: ${d[AGE] || 'no data'}`
+            });
+
+        svg.call(tooltip);
+
         //Points setup
-        let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
+        // let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
+        let colorScale = d3.scaleOrdinal() // D3 Version 4
+            .domain(["M", "F"])
+            .range(["#80b1d3", "#fb8072"]);
 
         let circlesG = svg.append("g")
             .attr("clip-path", "url(#clip)");
@@ -123,10 +143,10 @@ d3.csv('data/salaries-responses.csv')
             .enter()
             .append('circle')
             .attr('cx', function (d) {
-                return xScale(parseInt(d[TOTAL_EXPERIENCE]))
+                return xScale(parseInt(d[xAxisProperty]))
             })
             .attr('cy', function (d) {
-                return yScale(parseInt(d[CURRENT_SALARY]))
+                return yScale(parseInt(d[yAxisProperty]))
             })
             .attr('r', '5')
             .attr('stroke', 'black')
@@ -134,30 +154,21 @@ d3.csv('data/salaries-responses.csv')
             .attr('fill', function (d, i) {
                 return colorScale(d[SEX])
             })
-            .on('mouseover', function () {
+            .on('mouseover', function (d) {
                 d3.select(this)
                     .transition()
                     .duration(100)
                     .attr('r', 10)
-                    .attr('stroke-width', 3)
+                    .attr('stroke-width', 3);
+                tooltip.show(d);
             })
             .on('mouseout', function () {
                 d3.select(this)
                     .transition()
                     .duration(100)
                     .attr('r', 5)
-                    .attr('stroke-width', 1)
-            });
-
-        circles.append('title')
-            .text(function (d) {
-                return `Position: ${d[POSITION]}
-                Total Experience: ${d[TOTAL_EXPERIENCE]}
-                Salary 12.2017: ${d[CURRENT_SALARY]}
-                Salary 12.2016: ${d[PREVIOUS_SALARY]}
-                First EU Salary: ${d[FIRST_EUROPE_SALARY]}
-                Company Size: ${d[COMPANY_SIZE]}
-                Age: ${d[AGE] || 'no data'}`
+                    .attr('stroke-width', 1);
+                tooltip.hide();
             });
     });
 

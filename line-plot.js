@@ -50,17 +50,45 @@ d3.csv('data/salaries-responses.csv')
             .curve(d3.curveMonotoneX) // apply smoothing to the line
 
 
+        let xAxis = d3.axisBottom(xScale)
+            .tickSize(-height + margin.top + margin.bottom)
+            .tickSizeOuter(0);
+
 // 3. Call the x axis in a group tag
         linePlotSvg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
-            .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+            .call(xAxis); // Create an axis component with d3.axisBottom
 
-// 4. Call the y axis in a group tag
+        let yAxis = d3.axisLeft(yScale)
+            .ticks(10)
+            // .tickFormat((d) => {
+            //     return "EUR " + d / 1000 + "K";
+            // })
+            .tickSize(-width + margin.left + margin.right)
+            .tickSizeOuter(0);
+
         linePlotSvg.append("g")
             .attr("class", "y axis")
             .attr("transform", "translate(" + margin.left + ",0)")
-            .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
+            .call(yAxis); // Create an axis component with d3.axisLeft
+
+        let tooltip = d3.tip()
+            .attr("class", "d3-tip")
+            .offset([-8, 0])
+            .html(function (d) {
+                return `Average salary: ${d.key}<br>
+                    Number of people: ${d.value}`
+                // return `Position: ${d[POSITION]}<br>
+                // Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
+                // Salary 12.2017: ${d[CURRENT_SALARY]}<br>
+                // Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
+                // First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
+                // Company Size: ${d[COMPANY_SIZE]}<br>
+                // Age: ${d[AGE] || 'no data'}`
+            });
+
+        linePlotSvg.call(tooltip);
 
 // 9. Append the path, bind the data, and call the line generator
         groupedData.forEach((genderGroup, index) => {
@@ -84,25 +112,24 @@ d3.csv('data/salaries-responses.csv')
                     return yScale(d.value)
                 })
                 .attr("r", 5)
-                .on("mouseover", function (a, b, c) {
+                .on("mouseover", function (d) {
                     d3.select(this)
                         .transition()
                         .duration(100)
                         .attr('r', 10)
-                        .attr('stroke-width', 3)
+                        .attr('stroke-width', 3);
+                    tooltip.show(d);
+
                 })
                 .on("mouseout", function () {
                     d3.select(this)
                         .transition()
                         .duration(100)
                         .attr('r', 5)
-                        .attr('stroke-width', 1)
-                })
-                .append('title')
-                .text(function (d) {
-                    return 'Average salary: ' + d.key +
-                        '\nNumber of people: ' + d.value
-                })
+                        .attr('stroke-width', 1);
+                    tooltip.hide();
+
+                });
         })
     });
 
