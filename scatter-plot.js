@@ -130,7 +130,6 @@ d3.csv('data/salaries-responses.csv')
         svg.call(tooltip);
 
         //Points setup
-        // let colorScale = d3.scaleOrdinal(d3['schemeAccent']);
         let colorScale = d3.scaleOrdinal() // D3 Version 4
             .domain(["M", "F"])
             .range(["#80b1d3", "#fb8072"]);
@@ -149,7 +148,7 @@ d3.csv('data/salaries-responses.csv')
                 return yScale(parseInt(d[yAxisProperty]))
             })
             .attr('r', '5')
-            .attr('stroke', 'black')
+            .attr('stroke', 'grey')
             .attr('stroke-width', 1)
             .attr('fill', function (d, i) {
                 return colorScale(d[SEX])

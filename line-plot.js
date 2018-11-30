@@ -6,8 +6,6 @@ let linePlotSvg = d3.select("#line-chart-area")
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         data = data.filter(d => parseInt(d[CURRENT_SALARY]) > 0 && parseInt(d[TOTAL_EXPERIENCE]) > 0);
-        // let salaries = data.map(d => parseInt(d[CURRENT_SALARY]));
-        // let experience = data.map(d => parseInt(d[TOTAL_EXPERIENCE]));
 
         let groupedData = d3.nest()
             .key((d) => {
@@ -22,7 +20,8 @@ d3.csv('data/salaries-responses.csv')
             .entries(data)
             .map(genderGroup => {
                 return {
-                    key: genderGroup.key, values: genderGroup.values.sort(function (x, y) {
+                    key: genderGroup.key,
+                    values: genderGroup.values.sort(function (x, y) {
                         return d3.ascending(parseInt(x.key), parseInt(y.key));
                     })
                 };
@@ -43,14 +42,17 @@ d3.csv('data/salaries-responses.csv')
         let line = d3.line()
             .x(function (d) {
                 return xScale(d.key);
-            }) // set the x values for the line generator
+            })
             .y(function (d) {
                 return yScale(d.value);
-            }) // set the y values for the line generator
+            })
             .curve(d3.curveMonotoneX) // apply smoothing to the line
 
 
         let xAxis = d3.axisBottom(xScale)
+            .tickFormat((d) => {
+                return "EUR " + d / 1000 + "K";
+            })
             .tickSize(-height + margin.top + margin.bottom)
             .tickSizeOuter(0);
 
@@ -62,9 +64,6 @@ d3.csv('data/salaries-responses.csv')
 
         let yAxis = d3.axisLeft(yScale)
             .ticks(10)
-            // .tickFormat((d) => {
-            //     return "EUR " + d / 1000 + "K";
-            // })
             .tickSize(-width + margin.left + margin.right)
             .tickSizeOuter(0);
 
@@ -79,22 +78,24 @@ d3.csv('data/salaries-responses.csv')
             .html(function (d) {
                 return `Average salary: ${d.key}<br>
                     Number of people: ${d.value}`
-                // return `Position: ${d[POSITION]}<br>
-                // Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
-                // Salary 12.2017: ${d[CURRENT_SALARY]}<br>
-                // Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
-                // First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
-                // Company Size: ${d[COMPANY_SIZE]}<br>
-                // Age: ${d[AGE] || 'no data'}`
             });
 
         linePlotSvg.call(tooltip);
+
+        let colorScale = d3.scaleOrdinal()
+            .domain(["M", "F"])
+            .range(["#80b1d3", "#fb8072"]);
 
 // 9. Append the path, bind the data, and call the line generator
         groupedData.forEach((genderGroup, index) => {
             linePlotSvg.append("path")
                 .datum(genderGroup.values) // 10. Binds data to the line
-                .attr("class", "line") // Assign a class for styling
+                .attr("stroke-width", 3)
+                .attr("fill", "none")
+                .attr("opacity", "0.5")
+                .attr("stroke", function () {
+                    return colorScale(genderGroup.key);
+                })
                 .attr("d", line); // 11. Calls the line generator
         });
 
@@ -103,7 +104,7 @@ d3.csv('data/salaries-responses.csv')
             linePlotSvg.selectAll(".dot" + index)
                 .data(genderGroup.values)
                 .enter()
-                .append("circle") // Uses the enter().append() method
+                .append("circle")
                 .attr("class", "dot" + index) // Assign a class for styling
                 .attr("cx", function (d, i) {
                     return xScale(parseInt(d.key))
@@ -112,6 +113,9 @@ d3.csv('data/salaries-responses.csv')
                     return yScale(d.value)
                 })
                 .attr("r", 5)
+                .attr("fill", function () {
+                    return colorScale(genderGroup.key);
+                })
                 .on("mouseover", function (d) {
                     d3.select(this)
                         .transition()
