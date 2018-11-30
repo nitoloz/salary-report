@@ -1,7 +1,3 @@
-// const margin = {top: 50, right: 50, bottom: 50, left: 100};
-// const height = 600;
-// const width = 1000;
-
 let linePlotSvg = d3.select("#line-chart-area")
     .append('svg')
     .attr('height', height)
