@@ -98,7 +98,7 @@ d3.csv('data/salaries-responses.csv')
             .offset([-8, 0])
             .html(function (d) {
                 return `Average salary: ${d.key}<br>
-                    Number of people: ${d.value}`
+                    Number of respondents: ${d.value}`
             });
 
         linePlotSvg.call(tooltip);
