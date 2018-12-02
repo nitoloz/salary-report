@@ -56,21 +56,42 @@ d3.csv('data/salaries-responses.csv')
             .tickSize(-height + margin.top + margin.bottom)
             .tickSizeOuter(0);
 
-// 3. Call the x axis in a group tag
-        linePlotSvg.append("g")
+        const gXAxis = linePlotSvg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
             .call(xAxis); // Create an axis component with d3.axisBottom
+
+        gXAxis.append('text')
+            .attr('class', 'label')
+            .attr('y', -25)
+            .attr('x', width - margin.right)
+            .attr('dy', '.71em')
+            .style('text-anchor', 'end')
+            .style('font-size', '12')
+            .style('fill', 'black')
+            .text('Average salary (EUR)');
 
         let yAxis = d3.axisLeft(yScale)
             .ticks(10)
             .tickSize(-width + margin.left + margin.right)
             .tickSizeOuter(0);
 
-        linePlotSvg.append("g")
+        const gYAxis = linePlotSvg.append("g")
             .attr("class", "y axis")
             .attr("transform", "translate(" + margin.left + ",0)")
-            .call(yAxis); // Create an axis component with d3.axisLeft
+            .call(yAxis);
+
+
+        gYAxis.append('text')
+            .attr('class', 'label')
+            .attr('transform', 'rotate(-90)')
+            .attr('x', -50)
+            .attr('y', 5)
+            .attr('dy', '.71em')
+            .style('font-size', '12')
+            .style('fill', 'black')
+            .style('text-anchor', 'end')
+            .text('Number of respondents');
 
         let tooltip = d3.tip()
             .attr("class", "d3-tip")
