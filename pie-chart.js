@@ -10,11 +10,13 @@ let pieChartSvg = d3.select("#pie-chart-area")
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
-        data = data.filter(d => d[CITY] !== '');
+        const groupByOption = CITY;
+
+        data = data.filter(d => d[groupByOption] !== '');
 
         let groupedData = d3.nest()
             .key((d) => {
-                return d[CITY];
+                return d[groupByOption];
             })
             .rollup((d) => {
                 return d.length;

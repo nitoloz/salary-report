@@ -6,6 +6,8 @@
     <title>Salary Report</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="d3/d3-tip.css">
+
     <script src="d3/d3.min.js"></script>
     <script src="d3/d3-tip.js"></script>
     <style type="text/css">
@@ -26,34 +28,6 @@
             stroke: steelblue;
         }
 
-        .d3-tip {
-            line-height: 1;
-            padding: 6px;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        /* Creates a small triangle extender for the tooltip */
-        .d3-tip:after {
-            box-sizing: border-box;
-            display: inline;
-            font-size: 10px;
-            width: 100%;
-            line-height: 1;
-            color: rgba(0, 0, 0, 0.8);
-            content: "\25BC";
-            position: absolute;
-            text-align: center;
-        }
-
-        /* Style northward tooltips specifically */
-        .d3-tip.n:after {
-            margin: -2px 0 0 0;
-            top: 100%;
-            left: 0;
-        }
     </style>
 </head>
 <body>
