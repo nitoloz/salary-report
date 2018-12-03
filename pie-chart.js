@@ -1,27 +1,28 @@
-let pieChartHeight = height / 1.5;
-let pieChartWidth = width / 1.5;
-
-let cityPieChart = pieChart();
+let cityPieChart = pieChart()
+    .width(width / 1.5)
+    .height(height / 1.5)
+    .groupByOption(CITY);
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         d3.select("#city-pie-chart-area")
-            .datum(data) // bind data to the div
-            .call(cityPieChart); // draw chart in div
+            .datum(data)
+            .call(cityPieChart);
     });
 
 function pieChart() {
+    let width = 1000,
+        height = 600,
+        groupByOption = CITY;
+
     function chart(selection) {
         selection.each(function (data) {
             let pieChartSvg = selection
                 .append('svg')
-                .attr('height', pieChartHeight)
-                .attr('width', pieChartWidth)
+                .attr('height', height)
+                .attr('width', width)
                 .append("g")
-                .attr("transform", "translate(" + pieChartWidth / 2 + "," + pieChartHeight / 2 + ")");
-
-
-            const groupByOption = CITY;
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
             data = data.filter(d => d[groupByOption] !== '');
 
@@ -34,7 +35,7 @@ function pieChart() {
                 })
                 .entries(data);
 
-            let radius = Math.min(pieChartWidth, pieChartHeight) / 2;
+            let radius = Math.min(width, height) / 2;
             let color = d3.scaleOrdinal(d3.schemePastel2);
 
             let arc = d3.arc()
@@ -87,6 +88,24 @@ function pieChart() {
                 });
         })
     }
+
+    chart.width = function (value) {
+        if (!arguments.length) return width;
+        width = value;
+        return chart;
+    };
+
+    chart.height = function (value) {
+        if (!arguments.length) return height;
+        height = value;
+        return chart;
+    };
+
+    chart.groupByOption = function (value) {
+        if (!arguments.length) return groupByOption;
+        groupByOption = value;
+        return chart;
+    };
 
     return chart;
 }
