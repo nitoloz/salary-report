@@ -5,9 +5,14 @@ let cityPieChart = pieChart()
     .groupByOptionLabel('City')
     .valueLabel('Number of respondents');
 
-let sexColorScale = d3.scaleOrdinal() // D3 Version 4
+let sexColorScale = d3.scaleOrdinal()
     .domain(["M", "F"])
     .range(["#80b1d3", "#fb8072"]);
+
+let sexPieChartTooltipFormatter = function (data) {
+    return `<tspan x="0">Sex: ${data.data.key === 'M' ? 'Male' : 'Female'}</tspan>
+            <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
+};
 
 let sexPieChart = pieChart()
     .width(width / 1.5)
@@ -15,7 +20,8 @@ let sexPieChart = pieChart()
     .groupByOption(SEX)
     .groupByOptionLabel('Sex')
     .valueLabel('Number of respondents')
-    .colorScale(sexColorScale);
+    .colorScale(sexColorScale)
+    .tooltipFormatter(sexPieChartTooltipFormatter);
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
@@ -34,7 +40,11 @@ function pieChart() {
         groupByOption = CITY,
         groupByOptionLabel = 'City',
         valueLabel = 'Number of respondents',
-        colorScale = d3.scaleOrdinal(d3.schemePastel2);
+        colorScale = d3.scaleOrdinal(d3.schemePastel2),
+        tooltipFormatter = (data) => {
+            return `<tspan x="0">${groupByOptionLabel}: ${data.data.key}</tspan>
+            <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
+        };
 
     function chart(selection) {
         selection.each(function (data) {
@@ -62,7 +72,6 @@ function pieChart() {
                 .innerRadius(radius * 0.5)
                 .outerRadius(radius * 0.9)
                 .cornerRadius(8);
-            // .padAngle(0.01);
 
             let pie = d3.pie()
                 .value(function (d) {
@@ -72,32 +81,34 @@ function pieChart() {
                     return a.value - b.value;
                 });
 
-            let path = pieChartSvg.selectAll('path')
-                .data(pie(groupedData))
+            let path = pieChartSvg.datum(groupedData)
+                .selectAll('path')
+                .data(pie)
                 .enter()
                 .append("g")
                 .append('path')
                 .attr('d', arc)
                 .attr('fill', (d, i) => colorScale(i))
-                .style('stroke', 'white')
-                .on("mouseover", function (d, i) {
-                    pieChartSvg.append('text')
-                        .attr('class', 'toolCircle')
-                        .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
-                        .html(function () {
-                            return `${d.data.key}: ${d.data.value}`
-                        })
-                        .style('font-size', '.9em')
-                        .style('text-anchor', 'middle'); // centres text in tooltip
+                .style('stroke', 'white');
 
-                    pieChartSvg.append('circle')
-                        .attr('class', 'toolCircle')
-                        .attr('r', radius * 0.45) // radius of tooltip circle
-                        .style('fill', colorScale(i)) // colour based on category mouse is over
-                        .style('fill-opacity', 0.35);
-                })
+            path.on("mouseover", function (d, i) {
+                pieChartSvg.append('text')
+                    .attr('class', 'tooltipCircle')
+                    .attr('dy', -15)
+                    .html(function () {
+                        return tooltipFormatter(d);
+                    })
+                    .style('font-size', '.9em')
+                    .style('text-anchor', 'middle'); // centres text in tooltip
+
+                pieChartSvg.append('circle')
+                    .attr('class', 'tooltipCircle')
+                    .attr('r', radius * 0.45) // radius of tooltip circle
+                    .style('fill', colorScale(i)) // colour based on category mouse is over
+                    .style('fill-opacity', 0.35);
+            })
                 .on("mouseout", function () {
-                    d3.selectAll('.toolCircle').remove();
+                    d3.selectAll('.tooltipCircle').remove();
                 });
         })
     }
@@ -135,6 +146,12 @@ function pieChart() {
     chart.colorScale = function (value) {
         if (!arguments.length) return colorScale;
         colorScale = value;
+        return chart;
+    };
+
+    chart.tooltipFormatter = function (value) {
+        if (!arguments.length) return tooltipFormatter;
+        tooltipFormatter = value;
         return chart;
     };
 
