@@ -5,38 +5,67 @@ let cityPieChart = pieChart()
     .groupByOptionLabel('City')
     .valueLabel('Number of respondents');
 
-let sexColorScale = d3.scaleOrdinal()
-    .domain(["M", "F"])
-    .range(["#80b1d3", "#fb8072"]);
-
-let sexPieChartTooltipFormatter = function (data) {
-    return `<tspan x="0">Sex: ${data.data.key === 'M' ? 'Male' : 'Female'}</tspan>
-            <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
-};
-
-let sexPieChart = pieChart()
-    .width(width / 1.5)
-    .height(height / 1.5)
-    .groupByOption(SEX)
-    .groupByOptionLabel('Sex')
-    .valueLabel('Number of respondents')
-    .colorScale(sexColorScale)
-    .tooltipFormatter(sexPieChartTooltipFormatter);
+// let sexColorScale = d3.scaleOrdinal()
+//     .domain(["M", "F"])
+//     .range(["#80b1d3", "#fb8072"]);
+//
+// let sexPieChartTooltipFormatter = function (data) {
+//     return `<tspan x="0">Sex: ${data.data.key === 'M' ? 'Male' : 'Female'}</tspan>
+//             <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
+// };
+//
+// let sexPieChart = pieChart()
+//     .width(width / 1.5)
+//     .height(height / 1.5)
+//     .groupByOption(SEX)
+//     .groupByOptionLabel('Sex')
+//     .valueLabel('Number of respondents')
+//     .colorScale(sexColorScale)
+//     .tooltipFormatter(sexPieChartTooltipFormatter);
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
+        data = data.filter(d => d[CITY] !== '');
+
+        let groupedData = d3.nest()
+            .key((d) => {
+                return d[CITY];
+            })
+            .rollup((d) => {
+                return d.length;
+            })
+            .entries(data);
+
+        let groupedDataSex = d3.nest()
+            .key((d) => {
+                return d[SEX];
+            })
+            .rollup((d) => {
+                return d.length;
+            })
+            .entries(data);
+
+        cityPieChart.data(groupedDataSex);
+
         d3.select("#city-pie-chart-area")
-            .datum(data)
             .call(cityPieChart);
 
-        d3.select("#sex-pie-chart-area")
-            .datum(data)
-            .call(sexPieChart);
+        setTimeout(function (i,j) {
+            cityPieChart.data(groupedData);
+
+            // d3.select("#city-pie-chart-area")
+            //     .call(cityPieChart);
+        }, 3000);
+
+        // d3.select("#sex-pie-chart-area")
+        //     .datum(data)
+        //     .call(sexPieChart);
     });
 
 function pieChart() {
     let width = 1000,
         height = 600,
+        data = [],
         groupByOption = CITY,
         groupByOptionLabel = 'City',
         valueLabel = 'Number of respondents',
@@ -47,7 +76,7 @@ function pieChart() {
         };
 
     function chart(selection) {
-        selection.each(function (data) {
+        selection.each(function () {
             let pieChartSvg = selection
                 .append('svg')
                 .attr('height', height)
@@ -55,16 +84,16 @@ function pieChart() {
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            data = data.filter(d => d[groupByOption] !== '');
-
-            let groupedData = d3.nest()
-                .key((d) => {
-                    return d[groupByOption];
-                })
-                .rollup((d) => {
-                    return d.length;
-                })
-                .entries(data);
+            // data = data.filter(d => d[groupByOption] !== '');
+            //
+            // let groupedData = d3.nest()
+            //     .key((d) => {
+            //         return d[groupByOption];
+            //     })
+            //     .rollup((d) => {
+            //         return d.length;
+            //     })
+            //     .entries(data);
 
             let radius = Math.min(width, height) / 2;
 
@@ -81,15 +110,20 @@ function pieChart() {
                     return a.value - b.value;
                 });
 
-            let path = pieChartSvg.datum(groupedData)
+            let path = pieChartSvg.datum(data)
                 .selectAll('path')
                 .data(pie)
                 .enter()
-                .append("g")
                 .append('path')
                 .attr('d', arc)
                 .attr('fill', (d, i) => colorScale(i))
                 .style('stroke', 'white');
+
+
+            d3.interval(function () {
+
+
+            }, 1500);
 
             path.on("mouseover", function (d, i) {
                 pieChartSvg.append('text')
@@ -110,6 +144,56 @@ function pieChart() {
                 .on("mouseout", function () {
                     d3.selectAll('.tooltipCircle').remove();
                 });
+
+
+            updateData = function () {
+
+                let updatedPath = pieChartSvg.selectAll('path');
+
+                let updatedData = pie(data);
+
+                // update data attached to the slices, labels, and polylines. the key function assigns the data to
+                // the correct element, rather than in order of how the data appears. This means that if a category
+                // already exists in the chart, it will have its data updated rather than removed and re-added.
+                updatedPath = updatedPath.data(updatedData);
+
+                // adds new slices/lines/labels
+                updatedPath.enter().append('path')
+                    .attr('fill', function (d, i) {
+                        return colorScale(i)
+                    })
+                    .attr('d', arc);
+
+                updatedPath.transition().ease(d3.easeLinear).duration(1000)
+                    .attrTween('d', arcTween);
+
+                updatedPath.exit()
+                    // .transition()
+                    // .ease(d3.easeLinear)
+                    // .duration(5000)
+                    // .attrTween("d", arcTween)
+                    .remove();
+                // removes slices/labels/lines that are not in the current dataset
+
+
+                // animates the transition from old angle to new angle for slices/lines/labels
+
+
+            };
+
+            function arcTween(d) {
+                // let i = d3.interpolate(this._current, d);
+                // this._current = i(0);
+                // return function (t) {
+                //     return arc(i(t));
+                // };
+                    let i = d3.interpolate(d.startAngle+0.1, d.endAngle);
+                    return function(t) {
+                        d.endAngle = i(t);
+                        return arc(d)
+                    }
+            }
+
         })
     }
 
@@ -152,6 +236,13 @@ function pieChart() {
     chart.tooltipFormatter = function (value) {
         if (!arguments.length) return tooltipFormatter;
         tooltipFormatter = value;
+        return chart;
+    };
+
+    chart.data = function (value) {
+        if (!arguments.length) return data;
+        data = value;
+        if (typeof updateData === 'function') updateData();
         return chart;
     };
 
