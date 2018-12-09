@@ -8,18 +8,17 @@ d3.csv('data/salaries-responses.csv')
         let groupedData = processLineChartData(data, CURRENT_SALARY, SEX);
 
 
-// 5. X scale will use the index of our data
+        const xDomainValues = groupedData.map(group => group.values.map(v => parseInt(v.key))).flat();
+        const yDomainValues = groupedData.map(group => group.values.map(v => parseInt(v.value))).flat();
+
         let xScale = d3.scaleLinear()
-        // .domain([parseInt(groupedData[0].key), parseInt(groupedData[groupedData.length - 1].key)]) // input
-            .domain([30000, 150000]) // input
+            .domain([d3.min(xDomainValues), d3.max(xDomainValues)]) // input
             .range([margin.left, width - margin.right]); // output
 
-// 6. Y scale will use the randomly generate number
         let yScale = d3.scaleLinear()
-            .domain([0, 60]) // input
+            .domain([d3.min(yDomainValues), d3.max(yDomainValues)]) // input
             .range([height - margin.top, margin.bottom]); // output
 
-// 7. d3's line generator
         let line = d3.line()
             .x(function (d) {
                 return xScale(d.key);
@@ -40,7 +39,7 @@ d3.csv('data/salaries-responses.csv')
         const gXAxis = linePlotSvg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + (height - margin.top) + ")")
-            .call(xAxis); // Create an axis component with d3.axisBottom
+            .call(xAxis);
 
         gXAxis.append('text')
             .attr('class', 'label')
@@ -88,8 +87,7 @@ d3.csv('data/salaries-responses.csv')
             .domain(["M", "F"])
             .range(["#80b1d3", "#fb8072"]);
 
-// 9. Append the path, bind the data, and call the line generator
-        groupedData.forEach((genderGroup, index) => {
+        groupedData.forEach((genderGroup) => {
             linePlotSvg.append("path")
                 .datum(genderGroup.values) // 10. Binds data to the line
                 .attr("stroke-width", 3)
@@ -101,7 +99,6 @@ d3.csv('data/salaries-responses.csv')
                 .attr("d", line); // 11. Calls the line generator
         });
 
-// 12. Appends a circle for each datapoint
         groupedData.forEach((genderGroup, index) => {
             linePlotSvg.selectAll(".dot" + index)
                 .data(genderGroup.values)
@@ -134,7 +131,6 @@ d3.csv('data/salaries-responses.csv')
                         .attr('r', 5)
                         .attr('stroke-width', 1);
                     tooltip.hide();
-
                 });
         })
     });
