@@ -31,8 +31,8 @@ d3.csv('data/salaries-responses.csv')
                 }
             });
 
-        let groupedDataCity = proceesPiChartData(data, CITY);
-        let groupedDataSex = proceesPiChartData(data, SEX);
+        let groupedDataCity = processPieChartData(data, CITY);
+        let groupedDataSex = processPieChartData(data, SEX);
 
         dynamicPieChart
             .groupByOptionLabel('City')

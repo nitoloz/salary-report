@@ -5,27 +5,8 @@ let linePlotSvg = d3.select("#line-chart-area")
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
-        data = data.filter(d => parseInt(d[CURRENT_SALARY]) > 0 && parseInt(d[TOTAL_EXPERIENCE]) > 0);
+        let groupedData = processLineChartData(data, CURRENT_SALARY, SEX);
 
-        let groupedData = d3.nest()
-            .key((d) => {
-                return d[SEX];
-            })
-            .key((d) => {
-                return Math.round(d[CURRENT_SALARY] / 5000) * 5000;
-            })
-            .rollup((d) => {
-                return d.length;
-            })
-            .entries(data)
-            .map(genderGroup => {
-                return {
-                    key: genderGroup.key,
-                    values: genderGroup.values.sort(function (x, y) {
-                        return d3.ascending(parseInt(x.key), parseInt(y.key));
-                    })
-                };
-            });
 
 // 5. X scale will use the index of our data
         let xScale = d3.scaleLinear()
