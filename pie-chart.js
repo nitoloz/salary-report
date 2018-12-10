@@ -1,18 +1,18 @@
-let dynamicPieChart = pieChart()
-    .width(width / 1.5)
-    .height(height / 1.5);
-
-let sexColorScale = d3.scaleOrdinal()
-    .domain(["M", "F"])
-    .range(["#80b1d3", "#fb8072"]);
-
-let sexPieChartTooltipFormatter = function (data) {
-    return `<tspan x="0">Sex: ${data.data.key === 'M' ? 'Male' : 'Female'}</tspan>
-            <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
-};
 
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
+        let dynamicPieChart = pieChart()
+            .width(width / 1.5)
+            .height(height / 1.5);
+
+        let sexColorScale = d3.scaleOrdinal()
+            .domain(["M", "F"])
+            .range(["#80b1d3", "#fb8072"]);
+
+        let sexPieChartTooltipFormatter = function (data) {
+            return `<tspan x="0">Sex: ${data.data.key === 'M' ? 'Male' : 'Female'}</tspan>
+            <tspan x="0" dy="1.2em">Respondents: ${data.data.value}</tspan>`;
+        };
 
         d3.selectAll("input")
             .on("change", function () {
