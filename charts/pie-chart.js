@@ -1,6 +1,6 @@
 function pieChart() {
 
-    let initialConfiguration = {
+    const initialConfiguration = {
         width: 1000,
         height: 600,
         data: [],
@@ -23,27 +23,27 @@ function pieChart() {
 
     function chart(selection) {
         selection.each(function () {
-            let svg = selection
+            const svg = selection
                 .append('svg')
                 .attr('height', height)
                 .attr('width', width);
 
-            let pieChartSvg = svg
+            const pieChartSvg = svg
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            let radius = Math.min(width, height) / 2;
+            const radius = Math.min(width, height) / 2;
 
-            let arc = d3.arc()
+            const arc = d3.arc()
                 .innerRadius(radius * 0.5)
                 .outerRadius(radius * 0.9)
                 .cornerRadius(8);
 
-            let pie = d3.pie()
+            const pie = d3.pie()
                 .value(d => d.value)
                 .sort(null);
 
-            let path = pieChartSvg.datum(data)
+            const path = pieChartSvg.datum(data)
                 .selectAll('path')
                 .data(pie)
                 .enter()
@@ -56,10 +56,9 @@ function pieChart() {
 
             updateData = function () {
 
-                let updatedPath = pieChartSvg.selectAll('path');
-                let updatedData = pie(data);
+                const updatedData = pie(data);
 
-                updatedPath = updatedPath.data(updatedData);
+                const updatedPath = pieChartSvg.selectAll('path').data(updatedData);
 
                 updatedPath.enter()
                     .append('path')
@@ -92,7 +91,7 @@ function pieChart() {
                 .call(legend);
 
             function arcTween(d) {
-                let i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
+                const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
                 return function (t) {
                     d.endAngle = i(t);
                     return arc(d)

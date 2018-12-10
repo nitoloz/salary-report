@@ -1,4 +1,3 @@
-
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         let dynamicPieChart = pieChart()
@@ -16,23 +15,36 @@ d3.csv('data/salaries-responses.csv')
 
         d3.selectAll("input")
             .on("change", function () {
-                if (this.value === 'City') {
-                    dynamicPieChart
-                        .groupByOptionLabel('City')
-                        .tooltipFormatter(null)
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(groupedDataCity);
-                } else {
-                    dynamicPieChart
-                        .groupByOptionLabel('Sex')
-                        .colorScale(sexColorScale)
-                        .tooltipFormatter(sexPieChartTooltipFormatter)
-                        .data(groupedDataSex);
+                switch (this.value) {
+                    case 'City':
+                        dynamicPieChart
+                            .groupByOptionLabel('City')
+                            .tooltipFormatter(null)
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(groupedDataCity);
+                        break;
+                    case 'Sex':
+                        dynamicPieChart
+                            .groupByOptionLabel('Sex')
+                            .colorScale(sexColorScale)
+                            .tooltipFormatter(sexPieChartTooltipFormatter)
+                            .data(groupedDataSex);
+                        break;
+                    case 'Seniority':
+                        dynamicPieChart
+                            .groupByOptionLabel('Seniority')
+                            .tooltipFormatter(null)
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(groupedDataSeniority);
+                        break;
+                    default:
+                        break;
                 }
             });
 
         let groupedDataCity = processPieChartData(data, CITY);
         let groupedDataSex = processPieChartData(data, SEX);
+        let groupedDataSeniority = processPieChartData(data, SENIORITY_LEVEL);
 
         dynamicPieChart
             .groupByOptionLabel('City')
