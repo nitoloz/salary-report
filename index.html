@@ -31,12 +31,20 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-light"  style="background-color: #e3f2fd;">
+    <a class="navbar-brand" href="#">
+        <img src="images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Salary Report 2017
+    </a>
+</nav>
 <div class="container-fluid">
-    <form>
-        <label><input type="radio" name="dataset" value="City" checked> City</label>
-        <label><input type="radio" name="dataset" value="Sex"> Sex</label>
-    </form>
     <div class="row mt-5">
+        <div>
+            <form>
+                <label><input type="radio" name="dataset" value="City" checked> City</label>
+                <label><input type="radio" name="dataset" value="Sex"> Sex</label>
+            </form>
+        </div>
         <div class="col-6 offset-3">
             <div id="pie-chart-area" style="margin: 0 auto;"></div>
         </div>
