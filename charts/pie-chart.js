@@ -9,7 +9,9 @@ function pieChart() {
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (data) => {
             return `<tspan x="0">${groupByOptionLabel}: ${data.data.key}</tspan>
-                    <tspan x="0" dy="1.2em">${valueLabel}: ${data.data.value}</tspan>`;
+                    <tspan x="0" dy="1.2em">${valueLabel}: ${data.data.value.value} (${data.data.value.extra.percentageValue}%)</tspan>
+                    <tspan x="0" dy="1.2em">Mean salary: ${data.data.value.extra.meanSalary}</tspan>
+                    <tspan x="0" dy="1.2em">Median salary: ${data.data.value.extra.medianSalary}</tspan>`;
         }
     };
 
@@ -40,7 +42,7 @@ function pieChart() {
                 .cornerRadius(8);
 
             const pie = d3.pie()
-                .value(d => d.value)
+                .value(d => d.value.value)
                 .sort(null);
 
             const path = pieChartSvg.datum(data)
@@ -102,7 +104,7 @@ function pieChart() {
                 selection.on("mouseover", function (d, i) {
                     pieChartSvg.append('text')
                         .attr('class', 'tooltipCircle')
-                        .attr('dy', -15)
+                        .attr('dy', -25)
                         .html(function () {
                             return tooltipFormatter(d);
                         })

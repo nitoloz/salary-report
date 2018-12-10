@@ -7,14 +7,23 @@ function processPieChartData(data, groupByOption, minimalLevel = 0.005) {
     data.forEach(d => internalMap[d[groupByOption]] ? internalMap[d[groupByOption]]++ : internalMap[d[groupByOption]] = 1);
 
     return d3.nest()
-        .key(d => internalMap[d[groupByOption]]/data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
-        .rollup(d => d.length)
+        .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
+        .rollup(d => {
+            return {
+                value: d.length,
+                extra: {
+                    percentageValue: Math.round(d.length / data.length * 100),
+                    meanSalary: Math.round(d3.mean(d.map(response => response[CURRENT_SALARY])) / 1000) * 1000,
+                    medianSalary: Math.round(d3.median(d.map(response => response[CURRENT_SALARY])) / 1000) * 1000,
+                }
+            }
+        })
         .entries(data)
         .sort((a, b) => b.key === OTHERS_GROUP
             ? -1
             : a.key === OTHERS_GROUP
                 ? Number.MAX_VALUE
-                : b.value - a.value);
+                : b.value.value - a.value.value);
 }
 
 function processLineChartData(data, xOption, trellisingOption) {
