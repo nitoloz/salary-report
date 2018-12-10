@@ -23,10 +23,12 @@ function pieChart() {
 
     function chart(selection) {
         selection.each(function () {
-            let pieChartSvg = selection
+            let svg = selection
                 .append('svg')
                 .attr('height', height)
-                .attr('width', width)
+                .attr('width', width);
+
+            let pieChartSvg = svg
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -80,6 +82,14 @@ function pieChart() {
                 // .attrTween("d", arcTween)
                     .remove();
             };
+
+            const legend = horizontalLegend()
+                .colorScale(colorScale)
+                .data(data.map(d => d.key));
+
+            svg.append("g")
+                .attr("transform", "translate(" + 10 + "," + (height - 20) + ")")
+                .call(legend);
 
             function arcTween(d) {
                 let i = d3.interpolate(d.startAngle + 0.1, d.endAngle);

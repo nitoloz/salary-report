@@ -10,7 +10,11 @@ function processPieChartData(data, groupByOption, minimalLevel = 0.005) {
         .key(d => internalMap[d[groupByOption]]/data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
         .rollup(d => d.length)
         .entries(data)
-        .sort((a, b) => b.value - a.value);
+        .sort((a, b) => b.key === OTHERS_GROUP
+            ? -1
+            : a.key === OTHERS_GROUP
+                ? Number.MAX_VALUE
+                : b.value - a.value);
 }
 
 function processLineChartData(data, xOption, trellisingOption) {
