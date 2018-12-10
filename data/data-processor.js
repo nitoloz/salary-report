@@ -1,12 +1,19 @@
-function processPieChartData(data, groupByOption){
+const OTHERS_GROUP = 'Others';
+
+function processPieChartData(data, groupByOption, minimalLevel = 0.005) {
     data = data.filter(d => d[groupByOption] !== '');
 
-    return d3.nest()
-        .key(d => d[groupByOption])
-        .rollup(d => d.length)
-        .entries(data);
+    const internalMap = new Map();
+    data.forEach(d => internalMap[d[groupByOption]] ? internalMap[d[groupByOption]]++ : internalMap[d[groupByOption]] = 1);
 
-}function processLineChartData(data, xOption, trellisingOption){
+    return d3.nest()
+        .key(d => internalMap[d[groupByOption]]/data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
+        .rollup(d => d.length)
+        .entries(data)
+        .sort((a, b) => b.value - a.value);
+}
+
+function processLineChartData(data, xOption, trellisingOption) {
     data = data.filter(d => parseInt(d[xOption]) > 0);
 
     return d3.nest()

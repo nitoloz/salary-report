@@ -39,7 +39,7 @@ function pieChart() {
 
             let pie = d3.pie()
                 .value(d => d.value)
-                .sort((a, b) => a.value - b.value);
+                .sort(null);
 
             let path = pieChartSvg.datum(data)
                 .selectAll('path')
