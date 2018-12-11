@@ -40,10 +40,16 @@
 <div class="container-fluid">
     <div class="row mt-2">
         <div class="col-3">
-            <form style="float:right">
-                <label><input type="radio" name="dataset" value="City" checked> City</label>
-                <label><input type="radio" name="dataset" value="Sex"> Sex</label>
-                <label><input type="radio" name="dataset" value="Seniority"> Seniority</label>
+            <form class="form-group">
+                <label for="pieChartSelect" class="col-form-label">Group by option: </label>
+                <select id="pieChartSelect" class="form-control float-right">
+                    <option value="City" selected>City</option>
+                    <option value="Sex">Sex</option>
+                    <option value="Seniority">Seniority</option>
+                    <option value="Language">Language</option>
+                    <option value="CompanyType">Company Type</option>
+                    <option value="Size">Company Size</option>
+                </select>
             </form>
         </div>
         <div class="col-6">
