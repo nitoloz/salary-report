@@ -7,6 +7,9 @@ d3.csv('data/salaries-responses.csv')
         const xAxisProperty = TOTAL_EXPERIENCE;
         const yAxisProperty = CURRENT_SALARY;
 
+        let xAxisLabel = 'Total experience (Years)';
+        let yAxisLabel = 'Salary (EUR)';
+
         data = data.filter(d => parseInt(d[yAxisProperty]) > 0 && parseInt(d[xAxisProperty]) > 0);
         let yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
         let xAxisValues = data.map(d => parseInt(d[xAxisProperty]));
@@ -58,7 +61,7 @@ d3.csv('data/salaries-responses.csv')
             .style('text-anchor', 'end')
             .style('font-size', '12')
             .style('fill', 'black')
-            .text('Total experience (years)');
+            .text('Total experience (Years)');
 
         let yAxis = d3.axisLeft(yScale)
             .tickFormat((d) => {
@@ -169,6 +172,14 @@ d3.csv('data/salaries-responses.csv')
                     .attr('stroke-width', 1);
                 tooltip.hide();
             });
+
+        svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", (margin.top / 2))
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("text-decoration", "underline")
+            .text(`${yAxisLabel} vs ${xAxisLabel}`);
     });
 
 

@@ -149,6 +149,13 @@ function lineChart() {
             });
 
 
+            lineChartSvg.append("text")
+                .attr("x", (width / 2))
+                .attr("y", (margin.top / 2))
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .style("text-decoration", "underline")
+                .text(`${yAxisLabel} vs ${xAxisLabel}`);
         })
     }
 

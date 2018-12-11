@@ -39,28 +39,29 @@
 </nav>
 <div class="container-fluid">
     <div class="row mt-2">
-        <div class="col-3">
-            <form class="form-group float-right">
-                <label for="pieChartSelect" class="col-form-label">Group by option: </label>
-                <select id="pieChartSelect" class="form-control float-right">
-                    <option value="City" selected>City</option>
-                    <option value="Sex">Sex</option>
-                    <option value="Seniority">Seniority</option>
-                    <option value="Language">Language</option>
-                    <option value="CompanyType">Company Type</option>
-                    <option value="Size">Company Size</option>
-                </select>
+        <div class="col-6 offset-3">
+            <form class="form-group float-center">
+                <div class="form-group row">
+                    <label for="pieChartSelect" class="col-sm-8 col-lg-4 col-form-label text-right">Respondents grouped
+                        by </label>
+                    <select id="pieChartSelect" class="col-sm-4 form-control">
+                        <option value="City" selected>City</option>
+                        <option value="Sex">Sex</option>
+                        <option value="Seniority">Seniority</option>
+                        <option value="Language">Language</option>
+                        <option value="CompanyType">Company Type</option>
+                        <option value="Size">Company Size</option>
+                    </select>
+                </div>
             </form>
-        </div>
-        <div class="col-6">
             <div id="pie-chart-area" style="margin: 0 auto;"></div>
         </div>
     </div>
-    <!--<h3 class="text-center mt-5">Salary Report 2017</h3>-->
+    <hr/>
     <div class="row mt-2">
         <div id="scatter-chart-area" style="margin: 0 auto;"></div>
     </div>
-    <!--<h3 class="text-center mt-5">Salary Report 2017</h3>-->
+    <hr/>
     <div class="row mt-2">
         <div id="line-chart-area" style="margin: 0 auto;"></div>
     </div>
