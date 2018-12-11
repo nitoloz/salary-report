@@ -65,9 +65,7 @@ function pieChart() {
                 .call(legend);
 
             updateData = function () {
-
                 const updatedData = pie(data);
-
                 const updatedPath = pieChartSvg.selectAll('path').data(updatedData);
 
                 updatedPath.enter()
@@ -81,14 +79,13 @@ function pieChart() {
                     .ease(d3.easeLinear)
                     .duration(750)
                     .attr('fill', (d) => colorScale(d.data.key))
-                    .attrTween('d', arcTween);
+                    .attrTween('d', enterArcTween);
 
-                //TODO improve exit behaviour
                 updatedPath.exit()
-                // .transition()
-                // .ease(d3.easeLinear)
-                // .duration(5000)
-                // .attrTween("d", arcTween)
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .attrTween("d", exitArcTween)
                     .remove();
 
                 legend
@@ -96,10 +93,18 @@ function pieChart() {
                     .data(data.map(d => d.key));
             };
 
-            function arcTween(d) {
+            function enterArcTween(d) {
                 const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
                 return function (t) {
                     d.endAngle = i(t);
+                    return arc(d)
+                }
+            }
+
+            function exitArcTween(d) {
+                const i = d3.interpolate(d.startAngle, d.endAngle);
+                return function (t) {
+                    d.startAngle = i(t);
                     return arc(d)
                 }
             }
