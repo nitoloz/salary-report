@@ -1,9 +1,19 @@
 d3.csv('data/salaries-responses.csv')
     .then((data) => {
         data.forEach(d => d[SEX] = d[SEX] === 'M' ? 'Male' : 'Female');
+
+        const meanSalary = Math.round(d3.mean(data.map(response => response[CURRENT_SALARY])) / 1000) * 1000;
+        const medianSalary = Math.round(d3.median(data.map(response => response[CURRENT_SALARY])) / 1000) * 1000;
+
+        let placeHolderTooltip = `<tspan x="0">December 2017</tspan>
+                                  <tspan x="0" dy="1.2em">Total respondents: ${data.length}</tspan>
+                                  <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
+                                  <tspan x="0" dy="1.2em">Median salary: ${medianSalary}</tspan>`;
+
         let dynamicPieChart = pieChart()
             .width(width / 1.5)
-            .height(height / 1.5);
+            .height(height / 1.5)
+            .placeHolderTooltip(placeHolderTooltip);
 
         let sexColorScale = d3.scaleOrdinal()
             .domain(["M", "F"])

@@ -12,7 +12,8 @@ function pieChart() {
                     <tspan x="0" dy="1.2em">${valueLabel}: ${data.data.value.value} (${data.data.value.extra.percentageValue}%)</tspan>
                     <tspan x="0" dy="1.2em">Mean salary: ${data.data.value.extra.meanSalary}</tspan>
                     <tspan x="0" dy="1.2em">Median salary: ${data.data.value.extra.medianSalary}</tspan>`;
-        }
+        },
+        placeHolderTooltip: null
     };
 
     let width = initialConfiguration.width,
@@ -21,6 +22,7 @@ function pieChart() {
         groupByOptionLabel = initialConfiguration.groupByOptionLabel,
         valueLabel = initialConfiguration.valueLabel,
         colorScale = initialConfiguration.colorScale,
+        placeHolderTooltip = initialConfiguration.placeHolderTooltip,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
 
     function chart(selection) {
@@ -63,6 +65,10 @@ function pieChart() {
             svg.append("g")
                 .attr("transform", `translate(${width / 2 + radius}, ${50})`)
                 .call(legend);
+
+            if (placeHolderTooltip) {
+                showTooltip(placeHolderTooltip, 'white');
+            }
 
             updateData = function () {
                 const updatedData = pie(data);
@@ -110,24 +116,30 @@ function pieChart() {
             }
 
             function appendTooltip(selection) {
-                selection.on("mouseover", function (d, i) {
-                    pieChartSvg.append('text')
-                        .attr('class', 'tooltipCircle')
-                        .attr('dy', -25)
-                        .html(function () {
-                            return tooltipFormatter(d);
-                        })
-                        .style('font-size', '.9em')
-                        .style('text-anchor', 'middle'); // centres text in tooltip
-
-                    pieChartSvg.append('circle')
-                        .attr('class', 'tooltipCircle')
-                        .attr('r', radius * 0.45) // radius of tooltip circle
-                        .style('fill', colorScale(d.data.key)) // colour based on category mouse is over
-                        .style('fill-opacity', 0.35);
+                selection.on("mouseover", function (d) {
+                    d3.selectAll('.tooltipCircle').remove();
+                    showTooltip(tooltipFormatter(d), colorScale(d.data.key));
                 }).on("mouseout", function () {
                     d3.selectAll('.tooltipCircle').remove();
+                    if(placeHolderTooltip){
+                        showTooltip(placeHolderTooltip, 'white')
+                    }
                 });
+            }
+
+            function showTooltip(tooltipContent, color) {
+                pieChartSvg.append('text')
+                    .attr('class', 'tooltipCircle')
+                    .attr('dy', -25)
+                    .html(() => tooltipContent)
+                    .style('font-size', '.9em')
+                    .style('text-anchor', 'middle');
+
+                pieChartSvg.append('circle')
+                    .attr('class', 'tooltipCircle')
+                    .attr('r', radius * 0.45)
+                    .style('fill', color)
+                    .style('fill-opacity', 0.35);
             }
 
         })
@@ -160,6 +172,12 @@ function pieChart() {
     chart.colorScale = function (value) {
         if (!arguments.length) return colorScale;
         colorScale = value;
+        return chart;
+    };
+
+    chart.placeHolderTooltip = function (value) {
+        if (!arguments.length) return placeHolderTooltip;
+        placeHolderTooltip = value;
         return chart;
     };
 
