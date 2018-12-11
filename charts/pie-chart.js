@@ -56,6 +56,14 @@ function pieChart() {
 
             path.call(appendTooltip);
 
+            const legend = stackedLegend()
+                .colorScale(colorScale)
+                .data(data.map(d => d.key));
+
+            svg.append("g")
+                .attr("transform", `translate(${width / 2 + radius}, ${50})`)
+                .call(legend);
+
             updateData = function () {
 
                 const updatedData = pie(data);
@@ -82,15 +90,11 @@ function pieChart() {
                 // .duration(5000)
                 // .attrTween("d", arcTween)
                     .remove();
+
+                legend
+                    .colorScale(colorScale)
+                    .data(data.map(d => d.key));
             };
-
-            const legend = horizontalLegend()
-                .colorScale(colorScale)
-                .data(data.map(d => d.key));
-
-            svg.append("g")
-                .attr("transform", `translate(${width / 2 + radius}, ${50})`)
-                .call(legend);
 
             function arcTween(d) {
                 const i = d3.interpolate(d.startAngle + 0.1, d.endAngle);
