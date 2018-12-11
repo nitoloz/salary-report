@@ -89,7 +89,7 @@ function pieChart() {
                 .data(data.map(d => d.key));
 
             svg.append("g")
-                .attr("transform", "translate(" + 10 + "," + (height - 20) + ")")
+                .attr("transform", `translate(${width / 2 + radius}, ${50})`)
                 .call(legend);
 
             function arcTween(d) {
