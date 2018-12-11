@@ -1,10 +1,18 @@
 const OTHERS_GROUP = 'Others';
 
-function processPieChartData(data, groupByOption, minimalLevel = 0.005) {
+function processPieChartData(data, groupByOption, customSortingFunction, minimalLevel = 0.005) {
     data = data.filter(d => d[groupByOption] !== '');
 
     const internalMap = new Map();
     data.forEach(d => internalMap[d[groupByOption]] ? internalMap[d[groupByOption]]++ : internalMap[d[groupByOption]] = 1);
+
+    const defaultSortingFunction = (a, b) => {
+        return b.key === OTHERS_GROUP
+            ? -1
+            : a.key === OTHERS_GROUP
+                ? Number.MAX_VALUE
+                : b.value.value - a.value.value
+    };
 
     return d3.nest()
         .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
@@ -19,11 +27,7 @@ function processPieChartData(data, groupByOption, minimalLevel = 0.005) {
             }
         })
         .entries(data)
-        .sort((a, b) => b.key === OTHERS_GROUP
-            ? -1
-            : a.key === OTHERS_GROUP
-                ? Number.MAX_VALUE
-                : b.value.value - a.value.value);
+        .sort(customSortingFunction ? customSortingFunction : defaultSortingFunction);
 }
 
 function processLineChartData(data, xOption, trellisingOption) {
