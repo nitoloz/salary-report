@@ -50,14 +50,14 @@ function lineChart() {
 
             const xAxis = d3.axisBottom(xScale)
                 .tickFormat((d) => {
-                    return "EUR " + d / 1000 + "K";
+                    return `EUR ${d / 1000} K`;
                 })
                 .tickSize(-height + margin.top + margin.bottom)
                 .tickSizeOuter(0);
 
             const gXAxis = lineChartSvg.append("g")
                 .attr("class", "x axis")
-                .attr("transform", "translate(0," + (height - margin.top) + ")")
+                .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
             gXAxis.append('text')
@@ -77,7 +77,7 @@ function lineChart() {
 
             const gYAxis = lineChartSvg.append("g")
                 .attr("class", "y axis")
-                .attr("transform", "translate(" + margin.left + ",0)")
+                .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
 
@@ -119,7 +119,7 @@ function lineChart() {
                     .enter()
                     .append("circle")
                     .attr("class", "dot" + index) // Assign a class for styling
-                    .attr("cx", function (d, i) {
+                    .attr("cx", function (d) {
                         return xScale(parseInt(d.key))
                     })
                     .attr("cy", function (d) {

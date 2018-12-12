@@ -34,7 +34,7 @@ function pieChart() {
 
             const pieChartSvg = svg
                 .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
             const radius = Math.min(width, height) / 2;
 
@@ -53,7 +53,7 @@ function pieChart() {
                 .enter()
                 .append('path')
                 .attr('d', arc)
-                .attr('fill', (d, i) => colorScale(d.data.key))
+                .attr('fill', (d) => colorScale(d.data.key))
                 .style('stroke', 'white');
 
             path.call(appendTooltip);
@@ -121,7 +121,7 @@ function pieChart() {
                     showTooltip(tooltipFormatter(d), colorScale(d.data.key));
                 }).on("mouseout", function () {
                     d3.selectAll('.tooltipCircle').remove();
-                    if(placeHolderTooltip){
+                    if (placeHolderTooltip) {
                         showTooltip(placeHolderTooltip, 'white')
                     }
                 });

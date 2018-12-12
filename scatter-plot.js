@@ -41,7 +41,7 @@ d3.csv('data/salaries-responses.csv')
             .append("rect")
             .attr("width", width - margin.left - margin.right)
             .attr("height", height - margin.top - margin.bottom)
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            .attr('transform', `translate(${margin.left},${margin.top})`);
 
         //Axes setup
         let xAxis = d3.axisBottom(xScale)
@@ -50,7 +50,7 @@ d3.csv('data/salaries-responses.csv')
 
         let gXAxis = svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + (height - margin.top) + ")")
+            .attr("transform", `translate(0,${(height - margin.top)})`)
             .call(xAxis);
 
         gXAxis.append('text') // X-axis Label
@@ -61,18 +61,18 @@ d3.csv('data/salaries-responses.csv')
             .style('text-anchor', 'end')
             .style('font-size', '12')
             .style('fill', 'black')
-            .text('Total experience (Years)');
+            .text(xAxisLabel);
 
         let yAxis = d3.axisLeft(yScale)
             .tickFormat((d) => {
-                return "EUR " + d / 1000 + "K";
+                return `EUR ${d / 1000} K`;
             })
             .tickSize(-width + margin.left + margin.right)
             .tickSizeOuter(0);
 
         let gYAxis = svg.append("g")
             .attr("class", "y axis")
-            .attr("transform", "translate(" + margin.left + ",0)")
+            .attr("transform", `translate(${margin.left},0)`)
             .call(yAxis);
 
         gYAxis.append('text') // y-axis Label
@@ -84,7 +84,7 @@ d3.csv('data/salaries-responses.csv')
             .style('font-size', '12')
             .style('fill', 'black')
             .style('text-anchor', 'end')
-            .text('Salary (EUR)');
+            .text(yAxisLabel);
 
         //Zoom setup
         let zoom = d3.zoom()
@@ -114,7 +114,7 @@ d3.csv('data/salaries-responses.csv')
             .attr("height", height - margin.top - margin.bottom)
             .style("fill", "none")
             .style("pointer-events", "all")
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            .attr('transform', `translate(${margin.left},${margin.top})`)
             .call(zoom);
 
         let tooltip = d3.tip()
