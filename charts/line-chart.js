@@ -156,6 +156,15 @@ function lineChart() {
                 .style("font-size", "16px")
                 .style("text-decoration", "underline")
                 .text(`${yAxisLabel} vs ${xAxisLabel}`);
+
+
+            const legend = stackedLegend()
+                .colorScale(colorScale)
+                .data(colorScale.domain());
+
+            lineChartSvg.append("g")
+                .attr("transform", `translate(${width - 120}, 0)`)
+                .call(legend);
         })
     }
 

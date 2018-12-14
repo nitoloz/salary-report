@@ -6,9 +6,14 @@ d3.csv('data/salaries-responses.csv')
     .then((data) => {
         const xAxisProperty = TOTAL_EXPERIENCE;
         const yAxisProperty = CURRENT_SALARY;
+        const trellisingProperty = SEX;
 
         let xAxisLabel = 'Total experience (Years)';
         let yAxisLabel = 'Salary (EUR)';
+
+        data.forEach(d => {
+            d[SEX] = d[SEX] === 'M' ? 'Male' : 'Female';
+        });
 
         data = data.filter(d => parseInt(d[yAxisProperty]) > 0 && parseInt(d[xAxisProperty]) > 0);
         let yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
@@ -20,13 +25,13 @@ d3.csv('data/salaries-responses.csv')
                 d3.max([0, d3.max(xAxisValues)])
             ]).range([margin.left, width - margin.right]);
 
-        let yScale = d3.scaleLog()
+        let yScale = d3.scaleLinear()
             .domain([
                 d3.min([d3.min(yAxisValues)]),
                 d3.max([d3.max(yAxisValues)])
             ])
             .range([height - margin.bottom, margin.top])
-            .base(100);
+            // .base(100);
 
         let svg = d3.select("#scatter-chart-area")
             .append('svg')
@@ -134,7 +139,7 @@ d3.csv('data/salaries-responses.csv')
 
         //Points setup
         let colorScale = d3.scaleOrdinal() // D3 Version 4
-            .domain(["M", "F"])
+            .domain(["Male", "Female"])
             .range(["#80b1d3", "#fb8072"]);
 
         let circlesG = svg.append("g")
@@ -154,7 +159,7 @@ d3.csv('data/salaries-responses.csv')
             .attr('stroke', 'grey')
             .attr('stroke-width', 1)
             .attr('fill', function (d, i) {
-                return colorScale(d[SEX])
+                return colorScale(d[trellisingProperty])
             })
             .on('mouseover', function (d) {
                 d3.select(this)
@@ -180,6 +185,14 @@ d3.csv('data/salaries-responses.csv')
             .style("font-size", "16px")
             .style("text-decoration", "underline")
             .text(`${yAxisLabel} vs ${xAxisLabel}`);
+
+        const legend = stackedLegend()
+            .colorScale(colorScale)
+            .data(colorScale.domain());
+
+        svg.append("g")
+            .attr("transform", `translate(${width - 120}, 0)`)
+            .call(legend);
     });
 
 
