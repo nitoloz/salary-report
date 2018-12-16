@@ -1,7 +1,5 @@
 linePlotInitializer = (data) => {
-    const colorScale = d3.scaleOrdinal()
-        .domain(["Male", "Female"])
-        .range(["#80b1d3", "#fb8072"]);
+    const colorScale = Utils.getSexColorScale();
 
     const groupedData = processLineChartData(data, CURRENT_SALARY, SEX);
 

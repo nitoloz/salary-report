@@ -13,9 +13,7 @@ pieChartInitializer = (data) => {
         .height(height / 1.5)
         .placeHolderTooltip(placeHolderTooltip);
 
-    const sexColorScale = d3.scaleOrdinal()
-        .domain(["Male", "Female"])
-        .range(["#80b1d3", "#fb8072"]);
+    const sexColorScale = Utils.getSexColorScale();
 
     document.querySelector('select[id="pieChartSelect"]').onchange = function (event) {
         switch (event.target.value) {

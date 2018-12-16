@@ -31,7 +31,7 @@ d3.csv('data/salaries-responses.csv')
                 d3.max([d3.max(yAxisValues)])
             ])
             .range([height - margin.bottom, margin.top])
-            // .base(100);
+        // .base(100);
 
         let svg = d3.select("#scatter-chart-area")
             .append('svg')
@@ -138,9 +138,7 @@ d3.csv('data/salaries-responses.csv')
         svg.call(tooltip);
 
         //Points setup
-        let colorScale = d3.scaleOrdinal() // D3 Version 4
-            .domain(["Male", "Female"])
-            .range(["#80b1d3", "#fb8072"]);
+        let colorScale = Utils.getSexColorScale();
 
         let circlesG = svg.append("g")
             .attr("clip-path", "url(#clip)");
