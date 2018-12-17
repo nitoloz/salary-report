@@ -33,4 +33,14 @@ class Utils {
             .style('text-anchor', 'end')
             .text(text);
     }
+
+    static appendTitle(selection, x, y, text) {
+        selection.append("text")
+            .attr("x",x)
+            .attr("y",y)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("text-decoration", "underline")
+            .text(text);
+    }
 }

@@ -166,13 +166,7 @@ function scatterPlot() {
                     tooltip.hide();
                 });
 
-            svg.append("text")
-                .attr("x", (width / 2))
-                .attr("y", (margin.top / 2))
-                .attr("text-anchor", "middle")
-                .style("font-size", "16px")
-                .style("text-decoration", "underline")
-                .text(`${yAxisLabel} vs ${xAxisLabel}`);
+            Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             const legend = stackedLegend()
                 .colorScale(colorScale)
