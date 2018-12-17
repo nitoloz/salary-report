@@ -39,14 +39,9 @@ function lineChart() {
                 .range([height - margin.top, margin.bottom]); // output
 
             const line = d3.line()
-                .x(function (d) {
-                    return xScale(d.key);
-                })
-                .y(function (d) {
-                    return yScale(d.value);
-                })
-                .curve(d3.curveMonotoneX) // apply smoothing to the line
-
+                .x(d => xScale(d.key))
+                .y(d => yScale(d.value))
+                .curve(d3.curveMonotoneX);
 
             const xAxis = d3.axisBottom(xScale)
                 .tickFormat((d) => {
@@ -60,15 +55,7 @@ function lineChart() {
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
-            gXAxis.append('text')
-                .attr('class', 'label')
-                .attr('y', -25)
-                .attr('x', width - margin.right)
-                .attr('dy', '.71em')
-                .style('text-anchor', 'end')
-                .style('font-size', '12')
-                .style('fill', 'black')
-                .text(xAxisLabel);
+            Utils.appendXAxis(gXAxis, width - margin.right, -25, xAxisLabel);
 
             const yAxis = d3.axisLeft(yScale)
                 .ticks(10)
@@ -80,24 +67,12 @@ function lineChart() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
-
-            gYAxis.append('text')
-                .attr('class', 'label')
-                .attr('transform', 'rotate(-90)')
-                .attr('x', -50)
-                .attr('y', 5)
-                .attr('dy', '.71em')
-                .style('font-size', '12')
-                .style('fill', 'black')
-                .style('text-anchor', 'end')
-                .text(yAxisLabel);
+            Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
 
             const tooltip = d3.tip()
                 .attr("class", "d3-tip")
                 .offset([-8, 0])
-                .html(function (d) {
-                    return tooltipFormatter(d)
-                });
+                .html(tooltipFormatter);
 
             lineChartSvg.call(tooltip);
 

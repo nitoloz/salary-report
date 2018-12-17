@@ -10,9 +10,14 @@ function scatterPlot() {
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
-        tooltipFormatter: (data) => {
-            return `${xAxisLabel}: ${data.key}<br>
-            ${yAxisLabel}: ${data.value}`;
+        tooltipFormatter: (d) => {
+            return `Position: ${d[POSITION]}<br>
+            Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
+            Salary 12.2017: ${d[CURRENT_SALARY]}<br>
+            Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
+            First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
+            Company Size: ${d[COMPANY_SIZE]}<br>
+            Age: ${d[AGE] || 'no data'}`;
         }
     };
 
@@ -71,15 +76,7 @@ function scatterPlot() {
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
-            gXAxis.append('text') // X-axis Label
-                .attr('class', 'label')
-                .attr('y', -12)
-                .attr('x', width - margin.right)
-                .attr('dy', '.71em')
-                .style('text-anchor', 'end')
-                .style('font-size', '12')
-                .style('fill', 'black')
-                .text(xAxisLabel);
+            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat((d) => {
@@ -93,16 +90,7 @@ function scatterPlot() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
-            gYAxis.append('text') // y-axis Label
-                .attr('class', 'label')
-                .attr('transform', 'rotate(-90)')
-                .attr('x', -50)
-                .attr('y', 5)
-                .attr('dy', '.71em')
-                .style('font-size', '12')
-                .style('fill', 'black')
-                .style('text-anchor', 'end')
-                .text(yAxisLabel);
+            Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
 
             //Zoom setup
             const zoom = d3.zoom()
@@ -138,20 +126,9 @@ function scatterPlot() {
             const tooltip = d3.tip()
                 .attr("class", "d3-tip")
                 .offset([-8, 0])
-                .html(function (d) {
-                    return `Position: ${d[POSITION]}<br>
-                Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
-                Salary 12.2017: ${d[CURRENT_SALARY]}<br>
-                Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
-                First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
-                Company Size: ${d[COMPANY_SIZE]}<br>
-                Age: ${d[AGE] || 'no data'}`
-                });
+                .html(tooltipFormatter);
 
             svg.call(tooltip);
-
-            //Points setup
-            // let colorScale = Utils.getSexColorScale();
 
             const circlesG = svg.append("g")
                 .attr("clip-path", "url(#clip)");
