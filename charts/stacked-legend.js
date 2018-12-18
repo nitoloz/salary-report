@@ -1,6 +1,7 @@
 function stackedLegend() {
     let colorScale = d3.scaleOrdinal(d3.schemeSet3);
     let data = [];
+    let updateLegendData = null;
 
     function chart(selection) {
         selection.each(function () {
@@ -14,7 +15,7 @@ function stackedLegend() {
 
             legend.call(appendLegendItem);
 
-            updateLegendData = function () {
+            updateLegendData = () => {
 
                 const updatedLegend = selection
                     .selectAll(".legend")

@@ -125,13 +125,13 @@ function lineChart() {
 
             Utils.appendTitle(lineChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
-            const legend = stackedLegend()
+            const lineChartLegend = stackedLegend()
                 .colorScale(colorScale)
                 .data(colorScale.domain());
 
             lineChartSvg.append("g")
                 .attr("transform", `translate(${width - 120}, 0)`)
-                .call(legend);
+                .call(lineChartLegend);
         })
     }
 

@@ -168,13 +168,13 @@ function scatterPlot() {
 
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
-            const legend = stackedLegend()
+            const scatterPlotLegend = stackedLegend()
                 .colorScale(colorScale)
                 .data(colorScale.domain());
 
             svg.append("g")
                 .attr("transform", `translate(${width - 120}, 0)`)
-                .call(legend);
+                .call(scatterPlotLegend);
         })
     }
 

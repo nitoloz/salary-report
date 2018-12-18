@@ -58,13 +58,13 @@ function pieChart() {
 
             path.call(appendTooltip);
 
-            const legend = stackedLegend()
+            const pieLegend = stackedLegend()
                 .colorScale(colorScale)
                 .data(data.map(d => d.key));
 
             svg.append("g")
                 .attr("transform", `translate(${width / 2 + radius}, ${50})`)
-                .call(legend);
+                .call(pieLegend);
 
             if (placeHolderTooltip) {
                 showTooltip(placeHolderTooltip, 'white');
@@ -94,7 +94,7 @@ function pieChart() {
                     .attrTween("d", exitArcTween)
                     .remove();
 
-                legend
+                pieLegend
                     .colorScale(colorScale)
                     .data(data.map(d => d.key));
             };
