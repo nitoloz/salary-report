@@ -53,3 +53,24 @@ function processLineChartData(data, xOption, trellisingOption) {
             };
         });
 }
+
+function processBoxPlotData(data, xOption, yOption) {
+    data = data.filter(d => parseInt(d[xOption]) > 0);
+
+    return d3.nest()
+        .key((d) => {
+            return d[xOption];
+        })
+        .rollup((d) => {
+            return d;
+        })
+        .entries(data)
+        .map(group => {
+            return {
+                key: group.key,
+                values: group.value.sort(function (x, y) {
+                    return d3.ascending(parseInt(x[yOption]), parseInt(y[yOption]));
+                })
+            };
+        });
+}

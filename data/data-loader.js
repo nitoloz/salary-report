@@ -8,7 +8,7 @@ d3.csv('data/salaries-responses.csv')
         linePlotInitializer(data);
         pieChartInitializer(data);
         scatterChartInitializer(data);
-        // boxPlotInitializer(data);
+        boxPlotInitializer(data);
     });
 
 

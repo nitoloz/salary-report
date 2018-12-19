@@ -49,7 +49,7 @@ function scatterPlot() {
                     d3.min([d3.min(yAxisValues)]),
                     d3.max([d3.max(yAxisValues)])
                 ])
-                .range([height - margin.bottom, margin.top])
+                .range([height - margin.bottom, margin.top]);
             // .base(100);
 
             const svg = selection.append('svg')

@@ -1,67 +1,76 @@
 function boxPlot() {
+
+    let initialConfiguration = {
+        width: 1000,
+        height: 600,
+        data: [],
+        xAxisProperty: TOTAL_EXPERIENCE,
+        yAxisProperty: CURRENT_SALARY,
+        trellisingProperty: SEX,
+        xAxisLabel: 'Total experience (Years)',
+        yAxisLabel: 'Salary (EUR)',
+        // colorScale: d3.scaleOrdinal(d3.schemeSet3),
+        // tooltipFormatter: (d) => {
+        //     return `<!--Position: ${d[POSITION]}<br>-->
+        <!--Total Experience: ${d[TOTAL_EXPERIENCE]}<br>-->
+        // Salary 12.2017: ${d[CURRENT_SALARY]}<br>
+        // Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
+        // First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
+        // Company Size: ${d[COMPANY_SIZE]}<br>
+        // Age: ${d[AGE] || 'no data'}`;
+        // }
+    };
+
+    let width = initialConfiguration.width,
+        height = initialConfiguration.height,
+        data = initialConfiguration.data,
+        // xAxisLabel = initialConfiguration.xAxisLabel,
+        // yAxisLabel = initialConfiguration.yAxisLabel,
+        xAxisProperty = initialConfiguration.xAxisProperty,
+        yAxisProperty = initialConfiguration.yAxisProperty,
+        trellisingProperty = initialConfiguration.trellisingProperty;
+    // colorScale = initialConfiguration.colorScale,
+    // tooltipFormatter = initialConfiguration.tooltipFormatter;
+
     function chart(selection) {
         selection.each(function () {
+            const xDomainValues = data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
+            const yDomainValues = data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
 
             let barWidth = 30;
 
-// Generate five 100 count, normal distributions with random means
-            let groupCounts = {};
-            let globalCounts = [];
-            let meanGenerator = d3.randomUniform(10);
-            for (i = 0; i <= 5; i++) {
-                let randomMean = meanGenerator();
-                let generator = d3.randomNormal(randomMean);
-                let key = i.toString();
-                groupCounts[key] = [];
-
-                for (j = 0; j < 100; j++) {
-                    let entry = generator();
-                    groupCounts[key].push(entry);
-                    globalCounts.push(entry);
-                }
-            }
-
-// Sort group counts so quantile methods work
-            for (let key in groupCounts) {
-                let groupCount = groupCounts[key];
-                groupCounts[key] = groupCount.sort(sortNumber);
-            }
-
-// Setup a color scale for filling each box
-            let colorScale = d3.scaleOrdinal(d3.schemeCategory10)
-                .domain(Object.keys(groupCounts));
 
 // Prepare the data for the box plots
             let boxPlotData = [];
-            for (let [key, groupCount] of Object.entries(groupCounts)) {
-                let localMin = d3.min(groupCount);
-                let localMax = d3.max(groupCount);
-
+            // for (let [boxKey, boxEntries] of Object.entries(data)) {
+            data.forEach((boxObject) => {
+                const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
+                let localMin = d3.min(boxValues);
+                let localMax = d3.max(boxValues);
                 let obj = {};
-                obj["key"] = key;
-                obj["counts"] = groupCount;
-                obj["quartile"] = boxQuartiles(groupCount);
+                obj["key"] = boxObject.key;
+                obj["counts"] = boxValues;
+                obj["quartile"] = boxQuartiles(boxValues);
                 obj["whiskers"] = [localMin, localMax];
-                obj["color"] = colorScale(key);
+                // obj["color"] = colorScale(boxObject.key);
                 boxPlotData.push(obj);
-            }
+            });
+
+// Setup a color scale for filling each box
+            let colorScale = d3.scaleLinear().domain(boxPlotData.map(box => box.quartile[1])).range(['blue', 'red']);
+            boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
 // Compute an ordinal xScale for the keys in boxPlotData
             let xScale = d3.scalePoint()
-                .domain(Object.keys(groupCounts))
+                .domain(xDomainValues)
                 .rangeRound([0, width])
                 .padding([0.5]);
 
 // Compute a global y scale based on the global counts
-            let min = d3.min(globalCounts);
-            let max = d3.max(globalCounts);
             let yScale = d3.scaleLinear()
-                .domain([min, max])
+                .domain([d3.min(yDomainValues), d3.max(yDomainValues)])
                 .range([height, 0]);
 
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
             let svg = selection.append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
@@ -209,6 +218,24 @@ function boxPlot() {
             }
         })
     }
+
+    chart.width = function (value) {
+        if (!arguments.length) return width;
+        width = value;
+        return chart;
+    };
+
+    chart.height = function (value) {
+        if (!arguments.length) return height;
+        height = value;
+        return chart;
+    };
+
+    chart.data = function (value) {
+        if (!arguments.length) return data;
+        data = value;
+        return chart;
+    };
 
     return chart;
 }
