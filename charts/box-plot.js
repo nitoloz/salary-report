@@ -10,15 +10,14 @@ function boxPlot() {
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         // colorScale: d3.scaleOrdinal(d3.schemeSet3),
-        // tooltipFormatter: (d) => {
-        //     return `<!--Position: ${d[POSITION]}<br>-->
-        <!--Total Experience: ${d[TOTAL_EXPERIENCE]}<br>-->
-        // Salary 12.2017: ${d[CURRENT_SALARY]}<br>
-        // Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
-        // First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
-        // Company Size: ${d[COMPANY_SIZE]}<br>
-        // Age: ${d[AGE] || 'no data'}`;
-        // }
+        tooltipFormatter: (d) => {
+            return `${xAxisLabel}: ${d.key}<br>
+            Lower whisker: ${d.whiskers[0]}<br>
+            1'st quartile: ${d.quartile[0]}<br>
+            Median: ${d.quartile[1]}<br>
+            3'rd quartile: ${d.quartile[2]}<br>
+            Upper whisker: ${d.whiskers[1]}`;
+        }
     };
 
     let width = initialConfiguration.width,
@@ -27,10 +26,10 @@ function boxPlot() {
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
         xAxisProperty = initialConfiguration.xAxisProperty,
-        yAxisProperty = initialConfiguration.yAxisProperty;
-    // trellisingProperty = initialConfiguration.trellisingProperty;
-    // colorScale = initialConfiguration.colorScale,
-    // tooltipFormatter = initialConfiguration.tooltipFormatter;
+        yAxisProperty = initialConfiguration.yAxisProperty,
+        // trellisingProperty = initialConfiguration.trellisingProperty;
+        // colorScale = initialConfiguration.colorScale,
+        tooltipFormatter = initialConfiguration.tooltipFormatter;
 
     function chart(selection) {
         selection.each(function () {
@@ -43,7 +42,6 @@ function boxPlot() {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
                 return {
                     key: boxObject.key,
-                    counts: boxValues,
                     quartile: boxQuartiles(boxValues),
                     whiskers: [d3.min(boxValues), d3.max(boxValues)],
                     rawValues: boxObject.values
@@ -73,8 +71,14 @@ function boxPlot() {
                 .attr("height", height)
                 .append("g");
 
-// append a group for the box plot elements
             const g = svg.append("g");
+
+            const tooltip = d3.tip()
+                .attr("class", "d3-tip")
+                .offset([-8, 0])
+                .html(tooltipFormatter);
+
+            svg.call(tooltip);
 
 // Draw the boxes of the box plot, filled and on top of vertical lines
             const rects = g.selectAll("rect")
@@ -87,7 +91,23 @@ function boxPlot() {
                 .attr("y", (datum) => yScale(datum.quartile[2]))
                 .attr("fill", (datum) => datum.color)
                 .attr("stroke", "#000")
-                .attr("stroke-width", 1);
+                .attr("stroke-width", 1)
+                .on('mouseover', function (d) {
+                    // d3.select(this)
+                    //     .transition()
+                    //     .duration(100)
+                    //     .attr('r', 10)
+                    //     .attr('stroke-width', 3);
+                    tooltip.show(d);
+                })
+                .on('mouseout', function () {
+                    // d3.select(this)
+                    //     .transition()
+                    //     .duration(100)
+                    //     .attr('r', 5)
+                    //     .attr('stroke-width', 1);
+                    tooltip.hide();
+                });
 
 // Now render all the horizontal lines at once - the whiskers and the median
             const horizontalLineConfigs = [
@@ -189,6 +209,18 @@ function boxPlot() {
     chart.height = function (value) {
         if (!arguments.length) return height;
         height = value;
+        return chart;
+    };
+
+    chart.xAxisLabel = function (value) {
+        if (!arguments.length) return xAxisLabel;
+        xAxisLabel = value;
+        return chart;
+    };
+
+    chart.yAxisLabel = function (value) {
+        if (!arguments.length) return yAxisLabel;
+        yAxisLabel = value;
         return chart;
     };
 
