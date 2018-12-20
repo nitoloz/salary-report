@@ -11,7 +11,9 @@ function pieChart() {
             return `<tspan x="0">${groupByOptionLabel}: ${data.data.key}</tspan>
                     <tspan x="0" dy="1.2em">${valueLabel}: ${data.data.value.value} (${data.data.value.extra.percentageValue}%)</tspan>
                     <tspan x="0" dy="1.2em">Mean salary: ${data.data.value.extra.meanSalary}</tspan>
-                    <tspan x="0" dy="1.2em">Median salary: ${data.data.value.extra.medianSalary}</tspan>`;
+                    <tspan x="0" dy="2em">1st quartile: ${data.data.value.extra.quartiles[0]}</tspan>
+                    <tspan x="0" dy="1.2em">Median salary: ${data.data.value.extra.quartiles[1]}</tspan>
+                    <tspan x="0" dy="1.2em">3rd quartile: ${data.data.value.extra.quartiles[2]}</tspan>`;
         },
         placeHolderTooltip: null
     };
@@ -130,7 +132,7 @@ function pieChart() {
             function showTooltip(tooltipContent, color) {
                 pieChartSvg.append('text')
                     .attr('class', 'tooltipCircle')
-                    .attr('dy', -25)
+                    .attr('dy', -35)
                     .html(() => tooltipContent)
                     .style('font-size', '.9em')
                     .style('text-anchor', 'middle');

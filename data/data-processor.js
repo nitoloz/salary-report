@@ -17,12 +17,17 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
     return d3.nest()
         .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
         .rollup(d => {
+            const values = d.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
             return {
                 value: d.length,
                 extra: {
                     percentageValue: Math.round(d.length / data.length * 100),
-                    meanSalary: Math.round(d3.mean(d.map(response => response[CURRENT_SALARY])) / 1000) * 1000,
-                    medianSalary: Math.round(d3.median(d.map(response => response[CURRENT_SALARY])) / 1000) * 1000,
+                    quartiles:[
+                        d3.quantile(values, .25),
+                        d3.quantile(values, .5),
+                        d3.quantile(values, .75)
+                    ],
+                    meanSalary: Math.round(d3.mean(values) / 1000) * 1000,
                 }
             }
         })
@@ -55,7 +60,7 @@ function processLineChartData(data, xOption, trellisingOption) {
 }
 
 function processBoxPlotData(data, xOption, yOption) {
-    data = data.filter(d => parseInt(d[xOption]) > 0);
+    data = data.filter(d => parseInt(d[xOption]) > 0 && parseInt(d[yOption]) > 0 );
 
     return d3.nest()
         .key((d) => {

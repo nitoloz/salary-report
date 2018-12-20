@@ -1,12 +1,20 @@
 pieChartInitializer = (data) => {
 
-    const meanSalary = Math.round(d3.mean(data.map(response => response[CURRENT_SALARY])) / 1000) * 1000;
-    const medianSalary = Math.round(d3.median(data.map(response => response[CURRENT_SALARY])) / 1000) * 1000;
+    const salariesValues = data.map(response => response[CURRENT_SALARY]);
+    const meanSalary = Math.round(d3.mean(salariesValues) / 1000) * 1000;
+
+    const quartiles = [
+        d3.quantile(salariesValues, .25),
+        d3.quantile(salariesValues, .5),
+        d3.quantile(salariesValues, .75)
+    ];
 
     const placeHolderTooltip = `<tspan x="0">December 2017</tspan>
-                                  <tspan x="0" dy="1.2em">Total respondents: ${data.length}</tspan>
-                                  <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
-                                  <tspan x="0" dy="1.2em">Median salary: ${medianSalary}</tspan>`;
+                                <tspan x="0" dy="1.2em">Total respondents: ${data.length}</tspan>
+                                <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
+                                <tspan x="0" dy="2em">1st quartile: ${quartiles[0]}</tspan>
+                                <tspan x="0" dy="1.2em">Median salary: ${quartiles[1]}</tspan>
+                                <tspan x="0" dy="1.2em">3rd quartile: ${quartiles[2]}</tspan>`;
 
     const dynamicPieChart = pieChart()
         .width(width / 1.5)
