@@ -118,15 +118,17 @@ function pieChart() {
             }
 
             function appendTooltip(selection) {
-                selection.on("mouseover", function (d) {
-                    d3.selectAll('.tooltipCircle').remove();
-                    showTooltip(tooltipFormatter(d), colorScale(d.data.key));
-                }).on("mouseout", function () {
-                    d3.selectAll('.tooltipCircle').remove();
-                    if (placeHolderTooltip) {
-                        showTooltip(placeHolderTooltip, 'white')
-                    }
-                });
+                selection
+                    .on("mouseover", (d) => {
+                        d3.selectAll('.tooltipCircle').remove();
+                        showTooltip(tooltipFormatter(d), colorScale(d.data.key));
+                    })
+                    .on("mouseout", () => {
+                        d3.selectAll('.tooltipCircle').remove();
+                        if (placeHolderTooltip) {
+                            showTooltip(placeHolderTooltip, 'white')
+                        }
+                    });
             }
 
             function showTooltip(tooltipContent, color) {

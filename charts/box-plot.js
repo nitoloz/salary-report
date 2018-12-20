@@ -8,7 +8,6 @@ function boxPlot() {
         yAxisProperty: CURRENT_SALARY,
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
-        // colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (d) => {
             return `${xAxisLabel}: ${d.key}<br>
             Lower whisker: ${d.whiskers[0]}<br>
@@ -27,14 +26,12 @@ function boxPlot() {
         yAxisLabel = initialConfiguration.yAxisLabel,
         xAxisProperty = initialConfiguration.xAxisProperty,
         yAxisProperty = initialConfiguration.yAxisProperty,
-        // colorScale = initialConfiguration.colorScale,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
 
     function chart(selection) {
         selection.each(function () {
             const xDomainValues = data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
-
 
             const boxPlotData = data.map((boxObject) => {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
@@ -80,7 +77,6 @@ function boxPlot() {
             svg.call(tooltip);
 
             const boxElementsGroup = svg.append("g");
-
             boxElementsGroup.selectAll("rect")
                 .data(boxPlotData)
                 .enter()
@@ -157,12 +153,8 @@ function boxPlot() {
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
-            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
-
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat((d) => {
-                    return `EUR ${d / 1000} K`;
-                })
+                .tickFormat(d => `EUR ${d / 1000} K`)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 
@@ -171,8 +163,8 @@ function boxPlot() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
+            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
-
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             function boxQuartiles(d) {

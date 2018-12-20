@@ -50,7 +50,6 @@ function scatterPlot() {
                     d3.max([d3.max(yAxisValues)])
                 ])
                 .range([height - margin.bottom, margin.top]);
-            // .base(100);
 
             const svg = selection.append('svg')
                 .attr('height', height)
@@ -66,7 +65,6 @@ function scatterPlot() {
                 .attr("height", height - margin.top - margin.bottom)
                 .attr('transform', `translate(${margin.left},${margin.top})`);
 
-            //Axes setup
             const xAxis = d3.axisBottom(xScale)
                 .tickSize(-height + margin.top + margin.bottom)
                 .tickSizeOuter(0);
@@ -76,12 +74,9 @@ function scatterPlot() {
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
-            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
 
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat((d) => {
-                    return `EUR ${d / 1000} K`;
-                })
+                .tickFormat((d) =>  `EUR ${d / 1000} K`)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 
@@ -90,7 +85,9 @@ function scatterPlot() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
+            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
+            Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             //Zoom setup
             const zoom = d3.zoom()
@@ -107,12 +104,8 @@ function scatterPlot() {
                 gXAxis.call(xAxis.scale(newXScale));
                 gYAxis.call(yAxis.scale(newYScale));
                 circles.data(data)
-                    .attr('cx', function (d) {
-                        return newXScale(parseInt(d[xAxisProperty]))
-                    })
-                    .attr('cy', function (d) {
-                        return newYScale(parseInt(d[yAxisProperty]))
-                    });
+                    .attr('cx', d => newXScale(parseInt(d[xAxisProperty])))
+                    .attr('cy', d => newYScale(parseInt(d[yAxisProperty])));
             }
 
             svg.append("rect")
@@ -137,19 +130,13 @@ function scatterPlot() {
                 .data(data)
                 .enter()
                 .append('circle')
-                .attr('cx', function (d) {
-                    return xScale(parseInt(d[xAxisProperty]))
-                })
-                .attr('cy', function (d) {
-                    return yScale(parseInt(d[yAxisProperty]))
-                })
+                .attr('cx', d => xScale(parseInt(d[xAxisProperty])))
+                .attr('cy', d => yScale(parseInt(d[yAxisProperty])))
                 .attr('r', '5')
                 .attr('stroke', 'grey')
                 .attr('stroke-width', 1)
-                .attr('fill', function (d) {
-                    return colorScale(d[trellisingProperty])
-                })
-                .on('mouseover', function (d) {
+                .attr('fill', d => colorScale(d[trellisingProperty]))
+                .on('mouseover', (d) => {
                     d3.select(this)
                         .transition()
                         .duration(100)
@@ -157,7 +144,7 @@ function scatterPlot() {
                         .attr('stroke-width', 3);
                     tooltip.show(d);
                 })
-                .on('mouseout', function () {
+                .on('mouseout', () => {
                     d3.select(this)
                         .transition()
                         .duration(100)
@@ -165,8 +152,6 @@ function scatterPlot() {
                         .attr('stroke-width', 1);
                     tooltip.hide();
                 });
-
-            Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             const scatterPlotLegend = stackedLegend()
                 .colorScale(colorScale)

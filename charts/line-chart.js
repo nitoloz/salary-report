@@ -31,12 +31,12 @@ function lineChart() {
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v.value))).flat();
 
             const xScale = d3.scaleLinear()
-                .domain([d3.min(xDomainValues), d3.max(xDomainValues)]) // input
-                .range([margin.left, width - margin.right]); // output
+                .domain([d3.min(xDomainValues), d3.max(xDomainValues)])
+                .range([margin.left, width - margin.right]);
 
             const yScale = d3.scaleLinear()
-                .domain([d3.min(yDomainValues), d3.max(yDomainValues)]) // input
-                .range([height - margin.top, margin.bottom]); // output
+                .domain([d3.min(yDomainValues), d3.max(yDomainValues)])
+                .range([height - margin.top, margin.bottom]);
 
             const line = d3.line()
                 .x(d => xScale(d.key))
@@ -44,9 +44,7 @@ function lineChart() {
                 .curve(d3.curveMonotoneX);
 
             const xAxis = d3.axisBottom(xScale)
-                .tickFormat((d) => {
-                    return `EUR ${d / 1000} K`;
-                })
+                .tickFormat(d => `EUR ${d / 1000} K`)
                 .tickSize(-height + margin.top + margin.bottom)
                 .tickSizeOuter(0);
 
@@ -54,8 +52,6 @@ function lineChart() {
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
-
-            Utils.appendXAxis(gXAxis, width - margin.right, -25, xAxisLabel);
 
             const yAxis = d3.axisLeft(yScale)
                 .ticks(10)
@@ -67,7 +63,9 @@ function lineChart() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
+            Utils.appendXAxis(gXAxis, width - margin.right, -25, xAxisLabel);
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
+            Utils.appendTitle(lineChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             const tooltip = d3.tip()
                 .attr("class", "d3-tip")
@@ -78,14 +76,12 @@ function lineChart() {
 
             data.forEach((genderGroup) => {
                 lineChartSvg.append("path")
-                    .datum(genderGroup.values) // 10. Binds data to the line
+                    .datum(genderGroup.values)
                     .attr("stroke-width", 3)
                     .attr("fill", "none")
                     .attr("opacity", "0.5")
-                    .attr("stroke", function () {
-                        return colorScale(genderGroup.key);
-                    })
-                    .attr("d", line); // 11. Calls the line generator
+                    .attr("stroke", () => colorScale(genderGroup.key))
+                    .attr("d", line);
             });
 
             data.forEach((genderGroup, index) => {
@@ -93,18 +89,12 @@ function lineChart() {
                     .data(genderGroup.values)
                     .enter()
                     .append("circle")
-                    .attr("class", "dot" + index) // Assign a class for styling
-                    .attr("cx", function (d) {
-                        return xScale(parseInt(d.key))
-                    })
-                    .attr("cy", function (d) {
-                        return yScale(d.value)
-                    })
+                    .attr("class", "dot" + index)
+                    .attr("cx", d => xScale(parseInt(d.key)))
+                    .attr("cy", d => yScale(d.value))
                     .attr("r", 5)
-                    .attr("fill", function () {
-                        return colorScale(genderGroup.key);
-                    })
-                    .on("mouseover", function (d) {
+                    .attr("fill", () => colorScale(genderGroup.key))
+                    .on("mouseover", (d) => {
                         d3.select(this)
                             .transition()
                             .duration(100)
@@ -113,7 +103,7 @@ function lineChart() {
                         tooltip.show(d);
 
                     })
-                    .on("mouseout", function () {
+                    .on("mouseout", () => {
                         d3.select(this)
                             .transition()
                             .duration(100)
@@ -122,8 +112,6 @@ function lineChart() {
                         tooltip.hide();
                     });
             });
-
-            Utils.appendTitle(lineChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             const lineChartLegend = stackedLegend()
                 .colorScale(colorScale)

@@ -1,6 +1,6 @@
 pieChartInitializer = (data) => {
 
-    const salariesValues = data.map(response => response[CURRENT_SALARY]);
+    const salariesValues = data.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
     const meanSalary = Math.round(d3.mean(salariesValues) / 1000) * 1000;
 
     const quartiles = [
