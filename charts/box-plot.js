@@ -168,6 +168,8 @@ function boxPlot() {
 
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
 
+            Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
+
             function boxQuartiles(d) {
                 return [
                     d3.quantile(d, .25),
