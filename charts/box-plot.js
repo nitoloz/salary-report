@@ -58,18 +58,20 @@ function boxPlot() {
 
             let xScale = d3.scalePoint()
                 .domain(xDomainValues)
-                .rangeRound([0, width])
+                .rangeRound([margin.left, width - margin.right])
                 .padding([0.5]);
 
             let yScale = d3.scaleLinear()
-                .domain([d3.min(yDomainValues), d3.max(yDomainValues)])
-                .range([height, 0]);
+                .domain([
+                    d3.min(yDomainValues),
+                    d3.max(yDomainValues)
+                ])
+                .range([height - margin.bottom, margin.top]);
 
             let svg = selection.append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                .attr("width", width)
+                .attr("height", height)
+                .append("g");
 
 // append a group for the box plot elements
             let g = svg.append("g");
@@ -93,10 +95,7 @@ function boxPlot() {
                 .enter()
                 .append("rect")
                 .attr("width", barWidth)
-                .attr("height", function (datum) {
-                    let quartiles = datum.quartile;
-                    return yScale(quartiles[0]) - yScale(quartiles[2]);
-                })
+                .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
                 .attr("x", (datum) => xScale(datum.key) - (barWidth / 2))
                 .attr("y", (datum) => yScale(datum.quartile[2]))
                 .attr("fill", (datum) => datum.color)
@@ -146,11 +145,12 @@ function boxPlot() {
             }
 //x-axis
             svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
+                .attr("transform", `translate(0,${height - margin.top})`)
                 .call(d3.axisBottom(xScale));
 
 // Add the Y Axis
             svg.append("g")
+                .attr("transform", `translate(${margin.left},0)`)
                 .call(d3.axisLeft(yScale));
 
             function boxQuartiles(d) {
