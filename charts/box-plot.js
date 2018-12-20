@@ -12,9 +12,9 @@ function boxPlot() {
         tooltipFormatter: (d) => {
             return `${xAxisLabel}: ${d.key}<br>
             Lower whisker: ${d.whiskers[0]}<br>
-            1'st quartile: ${d.quartile[0]}<br>
+            1st quartile: ${d.quartile[0]}<br>
             Median: ${d.quartile[1]}<br>
-            3'rd quartile: ${d.quartile[2]}<br>
+            3rd quartile: ${d.quartile[2]}<br>
             Upper whisker: ${d.whiskers[1]}<br>
             Number of respondents: ${d.rawValues.length}`;
         }
@@ -35,7 +35,6 @@ function boxPlot() {
             const xDomainValues = data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
 
-            const barWidth = 30;
 
             const boxPlotData = data.map((boxObject) => {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
@@ -53,10 +52,13 @@ function boxPlot() {
 
             boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
-            const xScale = d3.scalePoint()
+            const xScale = d3.scaleBand()
                 .domain(xDomainValues)
-                .rangeRound([margin.left, width - margin.right])
-                .padding([0.5]);
+                .range([margin.left, width - margin.right])
+                .paddingInner(0.1)
+                .paddingOuter(0.1);
+
+            const barWidth = xScale.bandwidth();
 
             const yScale = d3.scaleLinear()
                 .domain([
@@ -70,8 +72,6 @@ function boxPlot() {
                 .attr("height", height)
                 .append("g");
 
-            const g = svg.append("g");
-
             const tooltip = d3.tip()
                 .attr("class", "d3-tip")
                 .offset([-8, 0])
@@ -79,77 +79,63 @@ function boxPlot() {
 
             svg.call(tooltip);
 
-// Draw the boxes of the box plot, filled and on top of vertical lines
-            const rects = g.selectAll("rect")
+            const boxElementsGroup = svg.append("g");
+
+            boxElementsGroup.selectAll("rect")
                 .data(boxPlotData)
                 .enter()
                 .append("rect")
                 .attr("width", barWidth)
                 .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
-                .attr("x", (datum) => xScale(datum.key) - (barWidth / 2))
+                .attr("x", (datum) => xScale(datum.key))
                 .attr("y", (datum) => yScale(datum.quartile[2]))
                 .attr("fill", (datum) => datum.color)
                 .attr("stroke", "#000")
                 .attr("stroke-width", 1)
-                .on('mouseover', function (d) {
-                    // d3.select(this)
-                    //     .transition()
-                    //     .duration(100)
-                    //     .attr('r', 10)
-                    //     .attr('stroke-width', 3);
-                    tooltip.show(d);
-                })
-                .on('mouseout', function () {
-                    // d3.select(this)
-                    //     .transition()
-                    //     .duration(100)
-                    //     .attr('r', 5)
-                    //     .attr('stroke-width', 1);
-                    tooltip.hide();
-                });
+                .on('mouseover', d => tooltip.show(d))
+                .on('mouseout', () => tooltip.hide());
 
-// Now render all the horizontal lines at once - the whiskers and the median
             const horizontalLineConfigs = [
                 //Line between lower whisker and box
                 {
-                    x1: (datum) => xScale(datum.key),
+                    x1: (datum) => xScale(datum.key) + barWidth / 2,
                     y1: (datum) => yScale(datum.whiskers[0]),
-                    x2: (datum) => xScale(datum.key),
+                    x2: (datum) => xScale(datum.key) + barWidth / 2,
                     y2: (datum) => yScale(datum.quartile[0])
                 },
                 //Line between upper whisker and box
                 {
-                    x1: (datum) => xScale(datum.key),
+                    x1: (datum) => xScale(datum.key) + barWidth / 2,
                     y1: (datum) => yScale(datum.quartile[2]),
-                    x2: (datum) => xScale(datum.key),
+                    x2: (datum) => xScale(datum.key) + barWidth / 2,
                     y2: (datum) => yScale(datum.whiskers[1])
                 },
                 // Top whisker
                 {
-                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    x1: (datum) => xScale(datum.key),
                     y1: (datum) => yScale(datum.whiskers[0]),
-                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    x2: (datum) => xScale(datum.key) + barWidth,
                     y2: (datum) => yScale(datum.whiskers[0])
                 },
                 // Median line
                 {
-                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    x1: (datum) => xScale(datum.key),
                     y1: (datum) => yScale(datum.quartile[1]),
-                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    x2: (datum) => xScale(datum.key) + barWidth,
                     y2: (datum) => yScale(datum.quartile[1])
                 },
                 // Bottom whisker
                 {
-                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    x1: (datum) => xScale(datum.key),
                     y1: (datum) => yScale(datum.whiskers[1]),
-                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    x2: (datum) => xScale(datum.key) + barWidth,
                     y2: (datum) => yScale(datum.whiskers[1])
                 }
             ];
 
             horizontalLineConfigs.forEach(lineConfig => {
                 // Draw the whiskers at the min for this series
-                let horizontalLine = g.selectAll(".whiskers")
+                boxElementsGroup.selectAll(".whiskers")
                     .data(boxPlotData)
                     .enter()
                     .append("line")
