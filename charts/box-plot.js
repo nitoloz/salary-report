@@ -6,7 +6,7 @@ function boxPlot() {
         data: [],
         xAxisProperty: TOTAL_EXPERIENCE,
         yAxisProperty: CURRENT_SALARY,
-        trellisingProperty: SEX,
+        // trellisingProperty: SEX,
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         // colorScale: d3.scaleOrdinal(d3.schemeSet3),
@@ -24,11 +24,11 @@ function boxPlot() {
     let width = initialConfiguration.width,
         height = initialConfiguration.height,
         data = initialConfiguration.data,
-        // xAxisLabel = initialConfiguration.xAxisLabel,
-        // yAxisLabel = initialConfiguration.yAxisLabel,
+        xAxisLabel = initialConfiguration.xAxisLabel,
+        yAxisLabel = initialConfiguration.yAxisLabel,
         xAxisProperty = initialConfiguration.xAxisProperty,
-        yAxisProperty = initialConfiguration.yAxisProperty,
-        trellisingProperty = initialConfiguration.trellisingProperty;
+        yAxisProperty = initialConfiguration.yAxisProperty;
+    // trellisingProperty = initialConfiguration.trellisingProperty;
     // colorScale = initialConfiguration.colorScale,
     // tooltipFormatter = initialConfiguration.tooltipFormatter;
 
@@ -41,32 +41,26 @@ function boxPlot() {
 
 
 // Prepare the data for the box plots
-            let boxPlotData = [];
-            // for (let [boxKey, boxEntries] of Object.entries(data)) {
-            data.forEach((boxObject) => {
+            const boxPlotData = data.map((boxObject) => {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
-                let localMin = d3.min(boxValues);
-                let localMax = d3.max(boxValues);
-                let obj = {};
-                obj["key"] = boxObject.key;
-                obj["counts"] = boxValues;
-                obj["quartile"] = boxQuartiles(boxValues);
-                obj["whiskers"] = [localMin, localMax];
-                // obj["color"] = colorScale(boxObject.key);
-                boxPlotData.push(obj);
+                return {
+                    key: boxObject.key,
+                    counts: boxValues,
+                    quartile: boxQuartiles(boxValues),
+                    whiskers: [d3.min(boxValues), d3.max(boxValues)]
+                };
             });
 
-// Setup a color scale for filling each box
-            let colorScale = d3.scaleLinear().domain(boxPlotData.map(box => box.quartile[1])).range(['blue', 'red']);
+            let colorScale = d3.scaleLinear()
+                .domain(boxPlotData.map(box => box.quartile[1]))
+                .range(['blue', 'red']);
             boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
-// Compute an ordinal xScale for the keys in boxPlotData
             let xScale = d3.scalePoint()
                 .domain(xDomainValues)
                 .rangeRound([0, width])
                 .padding([0.5]);
 
-// Compute a global y scale based on the global counts
             let yScale = d3.scaleLinear()
                 .domain([d3.min(yDomainValues), d3.max(yDomainValues)])
                 .range([height, 0]);
@@ -75,8 +69,7 @@ function boxPlot() {
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
-                .attr("transform",
-                    "translate(" + margin.left + "," + margin.top + ")");
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // append a group for the box plot elements
             let g = svg.append("g");
@@ -86,18 +79,10 @@ function boxPlot() {
                 .data(boxPlotData)
                 .enter()
                 .append("line")
-                .attr("x1", function (datum) {
-                    return xScale(datum.key);
-                })
-                .attr("y1", function (datum) {
-                    return yScale(datum.whiskers[0]);
-                })
-                .attr("x2", function (datum) {
-                    return xScale(datum.key);
-                })
-                .attr("y2", function (datum) {
-                    return yScale(datum.whiskers[1]);
-                })
+                .attr("x1", (datum) => xScale(datum.key))
+                .attr("y1", (datum) => yScale(datum.whiskers[0]))
+                .attr("x2", (datum) => xScale(datum.key))
+                .attr("y2", (datum) => yScale(datum.whiskers[1]))
                 .attr("stroke", "#000")
                 .attr("stroke-width", 1)
                 .attr("fill", "none");
@@ -110,18 +95,11 @@ function boxPlot() {
                 .attr("width", barWidth)
                 .attr("height", function (datum) {
                     let quartiles = datum.quartile;
-                    let height = yScale(quartiles[0]) - yScale(quartiles[2]);
-                    return height;
+                    return yScale(quartiles[0]) - yScale(quartiles[2]);
                 })
-                .attr("x", function (datum) {
-                    return xScale(datum.key) - (barWidth / 2);
-                })
-                .attr("y", function (datum) {
-                    return yScale(datum.quartile[2]);
-                })
-                .attr("fill", function (datum) {
-                    return datum.color;
-                })
+                .attr("x", (datum) => xScale(datum.key) - (barWidth / 2))
+                .attr("y", (datum) => yScale(datum.quartile[2]))
+                .attr("fill", (datum) => datum.color)
                 .attr("stroke", "#000")
                 .attr("stroke-width", 1);
 
@@ -129,48 +107,24 @@ function boxPlot() {
             let horizontalLineConfigs = [
                 // Top whisker
                 {
-                    x1: function (datum) {
-                        return xScale(datum.key) - barWidth / 2
-                    },
-                    y1: function (datum) {
-                        return yScale(datum.whiskers[0])
-                    },
-                    x2: function (datum) {
-                        return xScale(datum.key) + barWidth / 2
-                    },
-                    y2: function (datum) {
-                        return yScale(datum.whiskers[0])
-                    }
+                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    y1: (datum) => yScale(datum.whiskers[0]),
+                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    y2: (datum) => yScale(datum.whiskers[0])
                 },
                 // Median line
                 {
-                    x1: function (datum) {
-                        return xScale(datum.key) - barWidth / 2
-                    },
-                    y1: function (datum) {
-                        return yScale(datum.quartile[1])
-                    },
-                    x2: function (datum) {
-                        return xScale(datum.key) + barWidth / 2
-                    },
-                    y2: function (datum) {
-                        return yScale(datum.quartile[1])
-                    }
+                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    y1: (datum) => yScale(datum.quartile[1]),
+                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    y2: (datum) => yScale(datum.quartile[1])
                 },
                 // Bottom whisker
                 {
-                    x1: function (datum) {
-                        return xScale(datum.key) - barWidth / 2
-                    },
-                    y1: function (datum) {
-                        return yScale(datum.whiskers[1])
-                    },
-                    x2: function (datum) {
-                        return xScale(datum.key) + barWidth / 2
-                    },
-                    y2: function (datum) {
-                        return yScale(datum.whiskers[1])
-                    }
+                    x1: (datum) => xScale(datum.key) - barWidth / 2,
+                    y1: (datum) => yScale(datum.whiskers[1]),
+                    x2: (datum) => xScale(datum.key) + barWidth / 2,
+                    y2: (datum) => yScale(datum.whiskers[1])
                 }
             ];
 
@@ -190,11 +144,6 @@ function boxPlot() {
                     .attr("stroke-width", 1)
                     .attr("fill", "none");
             }
-
-// Move the left axis over 25 pixels, and the top axis over 35 pixels
-//let axisY = svg.append("g").attr("transform", "translate(25,0)");
-//let axisX = svg.append("g").attr("transform", "translate(35,0)");
-
 //x-axis
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
@@ -210,11 +159,6 @@ function boxPlot() {
                     d3.quantile(d, .5),
                     d3.quantile(d, .75)
                 ];
-            }
-
-// Perform a numeric sort on an array
-            function sortNumber(a, b) {
-                return a - b;
             }
         })
     }
