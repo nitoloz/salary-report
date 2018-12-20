@@ -39,7 +39,6 @@ function boxPlot() {
 
             let barWidth = 30;
 
-
 // Prepare the data for the box plots
             const boxPlotData = data.map((boxObject) => {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
@@ -54,6 +53,7 @@ function boxPlot() {
             let colorScale = d3.scaleLinear()
                 .domain(boxPlotData.map(box => box.quartile[1]))
                 .range(['blue', 'red']);
+
             boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
             let xScale = d3.scalePoint()
@@ -76,19 +76,6 @@ function boxPlot() {
 // append a group for the box plot elements
             let g = svg.append("g");
 
-// Draw the box plot vertical lines
-            let verticalLines = g.selectAll(".verticalLines")
-                .data(boxPlotData)
-                .enter()
-                .append("line")
-                .attr("x1", (datum) => xScale(datum.key))
-                .attr("y1", (datum) => yScale(datum.whiskers[0]))
-                .attr("x2", (datum) => xScale(datum.key))
-                .attr("y2", (datum) => yScale(datum.whiskers[1]))
-                .attr("stroke", "#000")
-                .attr("stroke-width", 1)
-                .attr("fill", "none");
-
 // Draw the boxes of the box plot, filled and on top of vertical lines
             let rects = g.selectAll("rect")
                 .data(boxPlotData)
@@ -104,6 +91,20 @@ function boxPlot() {
 
 // Now render all the horizontal lines at once - the whiskers and the median
             let horizontalLineConfigs = [
+                //Line between lower whisker and box
+                {
+                    x1: (datum) => xScale(datum.key),
+                    y1: (datum) => yScale(datum.whiskers[0]),
+                    x2: (datum) => xScale(datum.key),
+                    y2: (datum) => yScale(datum.quartile[0])
+                },
+                //Line between upper whisker and box
+                {
+                    x1: (datum) => xScale(datum.key),
+                    y1: (datum) => yScale(datum.quartile[2]),
+                    x2: (datum) => xScale(datum.key),
+                    y2: (datum) => yScale(datum.whiskers[1])
+                },
                 // Top whisker
                 {
                     x1: (datum) => xScale(datum.key) - barWidth / 2,
@@ -144,14 +145,32 @@ function boxPlot() {
                     .attr("fill", "none");
             }
 //x-axis
-            svg.append("g")
-                .attr("transform", `translate(0,${height - margin.top})`)
-                .call(d3.axisBottom(xScale));
+            const xAxis = d3.axisBottom(xScale)
+                .tickSize(-height + margin.top + margin.bottom)
+                .tickSizeOuter(0);
+
+            const gXAxis = svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", `translate(0,${(height - margin.top)})`)
+                .call(xAxis);
+
+            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
 
 // Add the Y Axis
-            svg.append("g")
+
+            const yAxis = d3.axisLeft(yScale)
+                .tickFormat((d) => {
+                    return `EUR ${d / 1000} K`;
+                })
+                .tickSize(-width + margin.left + margin.right)
+                .tickSizeOuter(0);
+
+            const gYAxis = svg.append("g")
+                .attr("class", "y axis")
                 .attr("transform", `translate(${margin.left},0)`)
-                .call(d3.axisLeft(yScale));
+                .call(yAxis);
+
+            Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
 
             function boxQuartiles(d) {
                 return [
