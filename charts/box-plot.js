@@ -6,7 +6,6 @@ function boxPlot() {
         data: [],
         xAxisProperty: TOTAL_EXPERIENCE,
         yAxisProperty: CURRENT_SALARY,
-        // trellisingProperty: SEX,
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         // colorScale: d3.scaleOrdinal(d3.schemeSet3),
@@ -16,7 +15,8 @@ function boxPlot() {
             1'st quartile: ${d.quartile[0]}<br>
             Median: ${d.quartile[1]}<br>
             3'rd quartile: ${d.quartile[2]}<br>
-            Upper whisker: ${d.whiskers[1]}`;
+            Upper whisker: ${d.whiskers[1]}<br>
+            Number of respondents: ${d.rawValues.length}`;
         }
     };
 
@@ -27,7 +27,6 @@ function boxPlot() {
         yAxisLabel = initialConfiguration.yAxisLabel,
         xAxisProperty = initialConfiguration.xAxisProperty,
         yAxisProperty = initialConfiguration.yAxisProperty,
-        // trellisingProperty = initialConfiguration.trellisingProperty;
         // colorScale = initialConfiguration.colorScale,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
 
