@@ -37,47 +37,47 @@ function boxPlot() {
             const xDomainValues = data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
 
-            let barWidth = 30;
+            const barWidth = 30;
 
-// Prepare the data for the box plots
             const boxPlotData = data.map((boxObject) => {
                 const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
                 return {
                     key: boxObject.key,
                     counts: boxValues,
                     quartile: boxQuartiles(boxValues),
-                    whiskers: [d3.min(boxValues), d3.max(boxValues)]
+                    whiskers: [d3.min(boxValues), d3.max(boxValues)],
+                    rawValues: boxObject.values
                 };
             });
 
-            let colorScale = d3.scaleLinear()
+            const colorScale = d3.scaleLinear()
                 .domain(boxPlotData.map(box => box.quartile[1]))
                 .range(['blue', 'red']);
 
             boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
-            let xScale = d3.scalePoint()
+            const xScale = d3.scalePoint()
                 .domain(xDomainValues)
                 .rangeRound([margin.left, width - margin.right])
                 .padding([0.5]);
 
-            let yScale = d3.scaleLinear()
+            const yScale = d3.scaleLinear()
                 .domain([
                     d3.min(yDomainValues),
                     d3.max(yDomainValues)
                 ])
                 .range([height - margin.bottom, margin.top]);
 
-            let svg = selection.append("svg")
+            const svg = selection.append("svg")
                 .attr("width", width)
                 .attr("height", height)
                 .append("g");
 
 // append a group for the box plot elements
-            let g = svg.append("g");
+            const g = svg.append("g");
 
 // Draw the boxes of the box plot, filled and on top of vertical lines
-            let rects = g.selectAll("rect")
+            const rects = g.selectAll("rect")
                 .data(boxPlotData)
                 .enter()
                 .append("rect")
@@ -90,7 +90,7 @@ function boxPlot() {
                 .attr("stroke-width", 1);
 
 // Now render all the horizontal lines at once - the whiskers and the median
-            let horizontalLineConfigs = [
+            const horizontalLineConfigs = [
                 //Line between lower whisker and box
                 {
                     x1: (datum) => xScale(datum.key),
@@ -128,9 +128,7 @@ function boxPlot() {
                 }
             ];
 
-            for (let i = 0; i < horizontalLineConfigs.length; i++) {
-                let lineConfig = horizontalLineConfigs[i];
-
+            horizontalLineConfigs.forEach(lineConfig => {
                 // Draw the whiskers at the min for this series
                 let horizontalLine = g.selectAll(".whiskers")
                     .data(boxPlotData)
@@ -143,8 +141,8 @@ function boxPlot() {
                     .attr("stroke", "#000")
                     .attr("stroke-width", 1)
                     .attr("fill", "none");
-            }
-//x-axis
+            });
+
             const xAxis = d3.axisBottom(xScale)
                 .tickSize(-height + margin.top + margin.bottom)
                 .tickSizeOuter(0);
@@ -155,8 +153,6 @@ function boxPlot() {
                 .call(xAxis);
 
             Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
-
-// Add the Y Axis
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat((d) => {
