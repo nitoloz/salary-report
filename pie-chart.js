@@ -61,6 +61,12 @@ pieChartInitializer = (data) => {
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedByCompanySize);
                 break;
+            case 'JobNumber':
+                dynamicPieChart
+                    .groupByOptionLabel('Europe Job Number')
+                    .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                    .data(dataGroupedByJobNumber);
+                break;
             default:
                 break;
         }
@@ -71,6 +77,7 @@ pieChartInitializer = (data) => {
     const dataGroupedBySeniority = processPieChartData(data, SENIORITY_LEVEL);
     const dataGroupedByCompanyType = processPieChartData(data, COMPANY_TYPE);
     const dataGroupedByLanguage = processPieChartData(data, WORK_LANGUAGE);
+    const dataGroupedByJobNumber = processPieChartData(data, EUROPE_JOB_COUNT);
 
     const companySizesOrder = ['10 or less', '10-50', '50-100', '100-1000', '1000+'];
     const dataGroupedByCompanySize = processPieChartData(data, COMPANY_SIZE, (a, b) => {
