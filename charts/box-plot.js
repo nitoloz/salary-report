@@ -41,13 +41,15 @@ function boxPlot() {
                     whiskers: [d3.min(boxValues), d3.max(boxValues)],
                     rawValues: boxObject.values
                 };
-            });
+            }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
 
-            const colorScale = d3.scaleLinear()
-                .domain(boxPlotData.map(box => box.quartile[1]))
-                .range(['blue', 'red']);
+            // const medians = boxPlotData.map(box => box.quartile[1]);
+            //
+            // const colorScale = d3.scaleLinear()
+            //     .domain([d3.min(medians), d3.max(medians)])
+            //     .range(['blue', 'red']);
 
-            boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
+            // boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
 
             const xScale = d3.scaleBand()
                 .domain(xDomainValues)
@@ -85,7 +87,8 @@ function boxPlot() {
                 .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
                 .attr("x", (datum) => xScale(datum.key))
                 .attr("y", (datum) => yScale(datum.quartile[2]))
-                .attr("fill", (datum) => datum.color)
+                // .attr("fill", (datum) => datum.color)
+                .attr("fill", 'lightgrey')
                 .attr("stroke", "#000")
                 .attr("stroke-width", 1)
                 .on('mouseover', d => tooltip.show(d))
