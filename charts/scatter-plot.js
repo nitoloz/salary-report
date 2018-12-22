@@ -12,12 +12,15 @@ function scatterPlot() {
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (d) => {
             return `Position: ${d[POSITION]}<br>
-            Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
             Salary 12.2017: ${d[CURRENT_SALARY]}<br>
             Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
-            First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br>
-            Company Size: ${d[COMPANY_SIZE]}<br>
-            Age: ${d[AGE] || 'no data'}`;
+            Age: ${d[AGE] || 'no data'} <br>
+            Sex: ${d[SEX] || 'no data'} <br>
+            City: ${d[CITY] || 'no data'} <br>
+            Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
+            First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br> 
+            Work Language: ${d[WORK_LANGUAGE]}<br> 
+            Company Size: ${d[COMPANY_SIZE]}`;
         }
     };
 
