@@ -118,7 +118,7 @@ function lineChart() {
                 .data(colorScale.domain());
 
             lineChartSvg.append("g")
-                .attr("transform", `translate(${width - 120}, 0)`)
+                .attr("transform", `translate(${width - 150}, 5)`)
                 .call(lineChartLegend);
         })
     }

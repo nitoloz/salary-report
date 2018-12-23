@@ -22,7 +22,7 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
                 value: d.length,
                 extra: {
                     percentageValue: Math.round(d.length / data.length * 100),
-                    quartiles:[
+                    quartiles: [
                         d3.quantile(values, .25),
                         d3.quantile(values, .5),
                         d3.quantile(values, .75)
@@ -40,7 +40,12 @@ function processLineChartData(data, xOption, trellisingOption) {
 
     return d3.nest()
         .key((d) => {
-            return d[trellisingOption];
+            const suffix = xOption === CURRENT_SALARY
+                ? ', 2017'
+                : xOption === PREVIOUS_SALARY
+                    ? ', 2016'
+                    : '';
+            return d[trellisingOption] + suffix;
         })
         .key((d) => {
             return Math.round(d[xOption] / 5000) * 5000;
@@ -60,7 +65,7 @@ function processLineChartData(data, xOption, trellisingOption) {
 }
 
 function processBoxPlotData(data, xOption, yOption) {
-    data = data.filter(d => parseInt(d[xOption]) > 0 && parseInt(d[yOption]) > 0 );
+    data = data.filter(d => parseInt(d[xOption]) > 0 && parseInt(d[yOption]) > 0);
 
     return d3.nest()
         .key((d) => {

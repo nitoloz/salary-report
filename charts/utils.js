@@ -8,6 +8,10 @@ class Utils {
             .domain(["Male", "Female"])
             .range(["#80b1d3", "#fb8072"]);
     }
+    static getSexColorScaleWithoutDomain() {
+        return d3.scaleOrdinal() // D3 Version 4
+            .range(["#80b1d3", "#fb8072"]);
+    }
 
     static appendXAxis(selection, x, y, text) {
         selection.append('text')
