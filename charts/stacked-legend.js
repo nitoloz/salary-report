@@ -2,6 +2,7 @@ function stackedLegend() {
     let colorScale = d3.scaleOrdinal(d3.schemeSet3);
     let data = [];
     let updateLegendData = null;
+    let columns = 1;
 
     function chart(selection) {
         selection.each(function () {
@@ -11,7 +12,7 @@ function stackedLegend() {
                 .data(data)
                 .enter().append('g')
                 .attr("class", "legend")
-                .attr("transform", (d, i) => `translate(0,${i * 20})`);
+                .attr("transform", (d, i) => `translate(${(i % columns) * 100},${Math.trunc(i / columns) * 20})`);
 
             legend.call(appendLegendItem);
 
@@ -69,6 +70,12 @@ function stackedLegend() {
     chart.colorScale = function (value) {
         if (!arguments.length) return colorScale;
         colorScale = value;
+        return chart;
+    };
+
+    chart.columns = function (value) {
+        if (!arguments.length) return columns;
+        columns = value;
         return chart;
     };
 
