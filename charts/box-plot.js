@@ -10,12 +10,13 @@ function boxPlot() {
         yAxisLabel: 'Salary (EUR)',
         tooltipFormatter: (d) => {
             return `${xAxisLabel}: ${d.key}<br>
-            Lower whisker: ${d.whiskers[0]}<br>
+            Number of respondents: ${d.rawValues.length}<br>
+            Male: ${d.maleCount}%, Female: ${d.femaleCount}%<br><br>
+            5th percentile: ${d.whiskers[0]}<br>
             1st quartile: ${d.quartile[0]}<br>
             Median: ${d.quartile[1]}<br>
             3rd quartile: ${d.quartile[2]}<br>
-            Upper whisker: ${d.whiskers[1]}<br>
-            Number of respondents: ${d.rawValues.length}`;
+            95th percentile: ${d.whiskers[1]}`;
         }
     };
 
@@ -38,7 +39,9 @@ function boxPlot() {
                 return {
                     key: boxObject.key,
                     quartile: boxQuartiles(boxValues),
-                    whiskers: [d3.min(boxValues), d3.max(boxValues)],
+                    whiskers: boxWhiskers(boxValues),
+                    maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
+                    femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
                     rawValues: boxObject.values
                 };
             }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
@@ -175,6 +178,13 @@ function boxPlot() {
                     d3.quantile(d, .25),
                     d3.quantile(d, .5),
                     d3.quantile(d, .75)
+                ];
+            }
+
+            function boxWhiskers(d) {
+                return [
+                    Math.round(d3.quantile(d, .05)),
+                    Math.round(d3.quantile(d, .95))
                 ];
             }
         })
