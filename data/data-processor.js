@@ -18,6 +18,7 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
         .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
         .rollup(d => {
             const values = d.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
+            const raises = d.map(response => response[CURRENT_SALARY] - response[PREVIOUS_SALARY]).sort((a, b) => a - b);
             return {
                 value: d.length,
                 extra: {
@@ -28,6 +29,7 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
                         d3.quantile(values, .75)
                     ],
                     meanSalary: Math.round(d3.mean(values) / 1000) * 1000,
+                    medianRaise: d3.median(raises)
                 }
             }
         })

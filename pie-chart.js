@@ -3,6 +3,10 @@ pieChartInitializer = (data) => {
     const salariesValues = data.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
     const meanSalary = Math.round(d3.mean(salariesValues) / 1000) * 1000;
 
+    const raisesValues = data.filter(response => response[CURRENT_SALARY] >= 0 && response[PREVIOUS_SALARY] >= 0)
+        .map(response => response[CURRENT_SALARY] - response[PREVIOUS_SALARY]).sort((a, b) => a - b);
+    const medianRaise = Math.round(d3.median(raisesValues) / 100) * 100;
+
     const quartiles = [
         d3.quantile(salariesValues, .25),
         d3.quantile(salariesValues, .5),
@@ -14,7 +18,8 @@ pieChartInitializer = (data) => {
                                 <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
                                 <tspan x="0" dy="2em">1st quartile: ${quartiles[0]}</tspan>
                                 <tspan x="0" dy="1.2em">Median salary: ${quartiles[1]}</tspan>
-                                <tspan x="0" dy="1.2em">3rd quartile: ${quartiles[2]}</tspan>`;
+                                <tspan x="0" dy="1.2em">3rd quartile: ${quartiles[2]}</tspan>
+                                <tspan x="0" dy="1.2em">Median raise: ${medianRaise}</tspan>`;
 
     const dynamicPieChart = pieChart()
         .width(width / 1.5)
