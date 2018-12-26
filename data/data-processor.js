@@ -63,7 +63,20 @@ function processLineChartData(data, xOption, trellisingOption) {
                     return d3.ascending(parseInt(x.key), parseInt(y.key));
                 })
             };
-        });
+        })
+        // .map(group => {
+        //     let square = 0;
+        //     for (let i = 0; i < group.values.length - 1; i++) {
+        //         square += (group.values[i].value + group.values[i + 1].value) / 2;
+        //     }
+        //     const coef = 100 / square;
+        //     return {
+        //         key: group.key,
+        //         values: group.values.map((point) => {
+        //             return {key: point.key, value: point.value * coef};
+        //         })
+        //     };
+        // });
 }
 
 function processBoxPlotData(data, xOption, yOption) {
