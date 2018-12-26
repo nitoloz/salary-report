@@ -64,19 +64,23 @@ function processLineChartData(data, xOption, trellisingOption) {
                 })
             };
         })
-        // .map(group => {
-        //     let square = 0;
-        //     for (let i = 0; i < group.values.length - 1; i++) {
-        //         square += (group.values[i].value + group.values[i + 1].value) / 2;
-        //     }
-        //     const coef = 100 / square;
-        //     return {
-        //         key: group.key,
-        //         values: group.values.map((point) => {
-        //             return {key: point.key, value: point.value * coef};
-        //         })
-        //     };
-        // });
+        .map(group => {
+            let integral = 0;
+            for (let i = 0; i < group.values.length - 1; i++) {
+                integral += (group.values[i].value + group.values[i + 1].value) / 2;
+            }
+            const coefficient = 100 / integral;
+            return {
+                key: group.key,
+                values: group.values.map((point) => {
+                    return {
+                        key: point.key,
+                        value: Math.round(point.value * coefficient * 10) / 10,
+                        absoluteValue: point.value
+                    };
+                })
+            };
+        });
 }
 
 function processBoxPlotData(data, xOption, yOption) {

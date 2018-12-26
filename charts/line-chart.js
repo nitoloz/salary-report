@@ -54,6 +54,7 @@ function lineChart() {
                 .call(xAxis);
 
             const yAxis = d3.axisLeft(yScale)
+                .tickFormat(d => `${d}%`)
                 .ticks(10)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
@@ -115,6 +116,7 @@ function lineChart() {
 
             const lineChartLegend = stackedLegend()
                 .colorScale(colorScale)
+                // .columns(2)
                 .data(colorScale.domain());
 
             lineChartSvg.append("g")
