@@ -75,6 +75,7 @@ function processLineChartData(data, xOption, trellisingOption) {
                 values: group.values.map((point) => {
                     return {
                         key: point.key,
+                        groupKey: group.key,
                         value: Math.round(point.value * coefficient * 10) / 10,
                         absoluteValue: point.value
                     };
