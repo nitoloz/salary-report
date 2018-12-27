@@ -68,6 +68,13 @@ function groupedBarChart() {
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(barChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
+            const tooltip = d3.tip()
+                .attr("class", "d3-tip")
+                .offset([-8, 0])
+                .html(tooltipFormatter);
+
+            barChartSvg.call(tooltip);
+
             barChartSvg.append("g")
                 .selectAll("g")
                 .data(data)
@@ -89,6 +96,23 @@ function groupedBarChart() {
                 })
                 .attr("fill", function (d) {
                     return colorScale(d.groupKey);
+                })
+                .on("mouseover", (d) => {
+                    d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr('r', 10)
+                        .attr('stroke-width', 3);
+                    tooltip.show(d);
+
+                })
+                .on("mouseout", () => {
+                    d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr('r', 5)
+                        .attr('stroke-width', 1);
+                    tooltip.hide();
                 });
 
             const lineChartLegend = stackedLegend()
