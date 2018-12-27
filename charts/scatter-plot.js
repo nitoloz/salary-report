@@ -79,7 +79,7 @@ function scatterPlot() {
 
 
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat((d) =>  `EUR ${d / 1000} K`)
+                .tickFormat((d) => `EUR ${d / 1000} K`)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 
@@ -97,7 +97,9 @@ function scatterPlot() {
                 .scaleExtent([1 / 2, 7])
                 .extent([[0, 0], [width, height]])
                 .filter(function () {
-                    return d3.event.type === 'wheel' ? d3.event.ctrlKey : true;
+                    return d3.event.type === 'touchstart'
+                        ? false : d3.event.type === 'wheel'
+                            ? d3.event.ctrlKey : true;
                 })
                 .on("zoom", zoomed);
 
