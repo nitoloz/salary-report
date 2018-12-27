@@ -80,23 +80,13 @@ function groupedBarChart() {
                 .data(data)
                 .enter()
                 .selectAll("rect")
-                .data(function (d) {
-                    return d.values;
-                })
+                .data(d => d.values)
                 .enter().append("rect")
-                .attr("x", function (d) {
-                    return innerGroupScale(d.groupKey) + groupsScale(d.key);
-                })
-                .attr("y", function (d) {
-                    return yScale(d.value);
-                })
+                .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
+                .attr("y", d => yScale(d.value))
                 .attr("width", innerGroupScale.bandwidth())
-                .attr("height", function (d) {
-                    return height - yScale(d.value) - margin.bottom;
-                })
-                .attr("fill", function (d) {
-                    return colorScale(d.groupKey);
-                })
+                .attr("height", d => height - yScale(d.value) - margin.bottom)
+                .attr("fill", d => colorScale(d.groupKey))
                 .on("mouseover", (d) => {
                     d3.select(this)
                         .transition()
@@ -115,14 +105,14 @@ function groupedBarChart() {
                     tooltip.hide();
                 });
 
-            const lineChartLegend = stackedLegend()
+            const barChartLegend = stackedLegend()
                 .colorScale(colorScale)
                 // .columns(2)
                 .data(colorScale.domain());
 
             barChartSvg.append("g")
                 .attr("transform", `translate(${width - 150}, 5)`)
-                .call(lineChartLegend);
+                .call(barChartLegend);
         })
     }
 
