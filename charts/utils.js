@@ -4,13 +4,19 @@ const width = 1000;
 
 class Utils {
     static getSexColorScale() {
-        return d3.scaleOrdinal() // D3 Version 4
+        return d3.scaleOrdinal()
             .domain(["Male", "Female"])
             .range(["#80b1d3", "#fb8072"]);
     }
+
     static getSexColorScaleWithoutDomain() {
-        return d3.scaleOrdinal() // D3 Version 4
+        return d3.scaleOrdinal()
             .range(["#80b1d3", "#fb8072"]);
+    }
+
+    static getExtendedSexColorScaleWithoutDomain() {
+        return d3.scaleOrdinal()
+            .range(['#80b1d380', '#fb807280', "#80b1d3", "#fb8072"]);
     }
 
     static appendXAxis(selection, x, y, text) {
@@ -40,8 +46,8 @@ class Utils {
 
     static appendTitle(selection, x, y, text) {
         selection.append("text")
-            .attr("x",x)
-            .attr("y",y)
+            .attr("x", x)
+            .attr("y", y)
             .attr("text-anchor", "middle")
             .style("font-size", "16px")
             .style("text-decoration", "underline")
