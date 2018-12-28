@@ -1,6 +1,6 @@
 const OTHERS_GROUP = 'Others';
 
-function processPieChartData(data, groupByOption, customSortingFunction, minimalLevel = 0.005) {
+function processPieChartData(data, groupByOption, customSortingFunction, minimalLevel = 0.006) {
     data = data.filter(d => d[groupByOption] !== '');
 
     const internalMap = new Map();
@@ -47,7 +47,8 @@ function processLineChartData(data, xOption, trellisingOption) {
                 : xOption === PREVIOUS_SALARY
                     ? ', 2016'
                     : '';
-            return d[trellisingOption] + suffix;
+            // return d[trellisingOption] + suffix;
+            return d[trellisingOption];
         })
         .key((d) => {
             return Math.round(d[xOption] / 5000) * 5000;
