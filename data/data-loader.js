@@ -1,4 +1,4 @@
-d3.csv('data/salaries-responses.csv')
+d3.csv('data/salaries-responses-2018.csv')
     .then((data) => {
         data.forEach(d => {
             d[SEX] = d[SEX] === 'M' ? 'Male' : 'Female';
