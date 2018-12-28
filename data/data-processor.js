@@ -90,7 +90,7 @@ function processBoxPlotData(data, xOption, yOption) {
 
     return d3.nest()
         .key((d) => {
-            return d[xOption];
+            return xOption === TOTAL_EXPERIENCE ? Math.round(d[xOption]) : d[xOption];
         })
         .rollup((d) => {
             return d;
