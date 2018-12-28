@@ -12,8 +12,8 @@ function scatterPlot() {
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (d) => {
             return `Position: ${d[POSITION]}<br>
-            Salary 12.2017: ${d[CURRENT_SALARY]}<br>
-            Salary 12.2016: ${d[PREVIOUS_SALARY]}<br>
+            Salary ${selectedYear}: ${d[CURRENT_SALARY]}<br>
+            Salary Previous Year: ${d[PREVIOUS_SALARY]}<br>
             Age: ${d[AGE] || 'no data'} <br>
             Sex: ${d[SEX] || 'no data'} <br>
             City: ${d[CITY] || 'no data'} <br>
@@ -79,7 +79,7 @@ function scatterPlot() {
 
 
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat((d) => `EUR ${d / 1000} K`)
+                .tickFormat((d) => `EUR ${d / 1000}K`)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 

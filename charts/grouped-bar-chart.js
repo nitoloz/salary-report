@@ -27,7 +27,7 @@ function groupedBarChart() {
                 .attr('height', height)
                 .attr('width', width);
 
-            const xDomainValues = [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())]
+            const xDomainValues = [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v.value))).flat();
 
             const groupsScale = d3.scaleBand()
@@ -45,7 +45,7 @@ function groupedBarChart() {
                 .range([height - margin.top, margin.bottom]);
 
             const xAxis = d3.axisBottom(groupsScale)
-                .tickFormat(d => `${d / 1000} K`)
+                .tickFormat(d => `${d / 1000}K`)
                 .tickSizeOuter(0);
 
             const gXAxis = barChartSvg.append("g")

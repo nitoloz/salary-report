@@ -21,7 +21,7 @@ groupedBarChartInitializer = (data) => {
         .yAxisLabel('Share of respondents (%)')
         .tooltipFormatter((d) => {
             return `Average salary (EUR): ${d.key}<br>
-            Share of respondents: ${d.value}%<br>
+            Share of ${d.groupKey} respondents: ${d.value}%<br>
             Number of respondents: ${d.absoluteValue}<br>
             Yearly difference: ${d.valueDifference}%`;
         })

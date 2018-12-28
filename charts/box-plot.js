@@ -160,7 +160,7 @@ function boxPlot() {
                 .call(xAxis);
 
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat(d => `EUR ${d / 1000} K`)
+                .tickFormat(d => `EUR ${d / 1000}K`)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 
