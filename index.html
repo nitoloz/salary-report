@@ -37,9 +37,16 @@
 <body>
 <nav class="navbar navbar-light">
     <a class="navbar-brand" href="#">
-        <img src="images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        Salary Report 2017
+        <form class="form-inline">
+            <img src="images/icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Salary Report
+            <select id="yearSelect" class="form-control ml-3">
+                <option value="2018" selected>2018</option>
+                <option value="2017">2017</option>
+            </select>
+        </form>
     </a>
+
 </nav>
 <div class="container-fluid">
     <div class="row mt-2">
@@ -55,7 +62,7 @@
                         <option value="Language">Language</option>
                         <option value="CompanyType">Company Type</option>
                         <option value="Size">Company Size</option>
-                        <option value="JobNumber">Europe Job Number</option>
+                        <!--<option value="JobNumber">Europe Job Number</option>-->
                     </select>
                 </div>
             </form>
@@ -64,7 +71,7 @@
     </div>
     <!--<hr/>-->
     <!--<div class="row mt-2">-->
-        <!--<div id="line-chart-area" class="mx-auto"></div>-->
+    <!--<div id="line-chart-area" class="mx-auto"></div>-->
     <!--</div>-->
     <hr/>
     <div class="row mt-2">
