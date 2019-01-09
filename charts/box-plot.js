@@ -90,7 +90,6 @@ function boxPlot() {
                 .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
                 .attr("x", (datum) => xScale(datum.key))
                 .attr("y", (datum) => yScale(datum.quartile[2]))
-                // .attr("fill", (datum) => datum.color)
                 .attr("fill", 'lightgrey')
                 .attr("stroke", "#000")
                 .attr("stroke-width", 1)
@@ -135,20 +134,21 @@ function boxPlot() {
                 }
             ];
 
-            horizontalLineConfigs.forEach(lineConfig => {
-                // Draw the whiskers at the min for this series
-                boxElementsGroup.selectAll(".whiskers")
-                    .data(boxPlotData)
-                    .enter()
-                    .append("line")
-                    .attr("x1", lineConfig.x1)
-                    .attr("y1", lineConfig.y1)
-                    .attr("x2", lineConfig.x2)
-                    .attr("y2", lineConfig.y2)
-                    .attr("stroke", "#000")
-                    .attr("stroke-width", 1)
-                    .attr("fill", "none");
-            });
+            // Draw the whiskers at the min for this series
+            boxElementsGroup.selectAll(".whiskers")
+                .data(boxWhiskersCoordinates(boxPlotData))
+                .enter()
+                .selectAll("line")
+                .data(d => d)
+                .enter()
+                .append("line")
+                .attr("x1", d => d.x1)
+                .attr("y1", d => d.y1)
+                .attr("x2", d => d.x2)
+                .attr("y2", d => d.y2)
+                .attr("stroke", "#000")
+                .attr("stroke-width", 1)
+                .attr("fill", "none");
 
             const xAxis = d3.axisBottom(xScale)
                 .tickSize(-height + margin.top + margin.bottom)
@@ -187,6 +187,49 @@ function boxPlot() {
                     Math.round(d3.quantile(d, .95))
                 ];
             }
+
+            function boxWhiskersCoordinates(boxPlotData) {
+                return boxPlotData.map(box => {
+                    return horizontalLineConfigs.map(lineConfig => {
+                        return {
+                            x1: lineConfig.x1(box),
+                            y1: lineConfig.y1(box),
+                            x2: lineConfig.x2(box),
+                            y2: lineConfig.y2(box)
+                        };
+                    })
+                });
+            }
+
+            // updateData = function () {
+            //     const updatedData = pie(data);
+            //     const updatedPath = pieChartSvg.selectAll('path').data(updatedData);
+            //
+            //     updatedPath.enter()
+            //         .append('path')
+            //         .attr('fill', (d) => colorScale(d.data.key))
+            //         .attr('d', arc)
+            //         .call(appendTooltip);
+            //
+            //     updatedPath
+            //         .transition()
+            //         .ease(d3.easeLinear)
+            //         .duration(750)
+            //         .attr('fill', (d) => colorScale(d.data.key))
+            //         .attrTween('d', enterArcTween);
+            //
+            //     updatedPath.exit()
+            //         .transition()
+            //         .ease(d3.easeLinear)
+            //         .duration(100)
+            //         .attrTween("d", exitArcTween)
+            //         .remove();
+            //
+            //     pieLegend
+            //         .colorScale(colorScale)
+            //         .data(data.map(d => d.key));
+            // };
+
         })
     }
 
@@ -217,6 +260,7 @@ function boxPlot() {
     chart.data = function (value) {
         if (!arguments.length) return data;
         data = value;
+        if (typeof updateData === 'function') updateData();
         return chart;
     };
 
