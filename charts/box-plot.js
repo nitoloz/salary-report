@@ -31,36 +31,15 @@ function boxPlot() {
 
     function chart(selection) {
         selection.each(function () {
-            const xDomainValues = data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
-            const yDomainValues = data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
-
-            const boxPlotData = data.map((boxObject) => {
-                const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
-                return {
-                    key: boxObject.key,
-                    quartile: boxQuartiles(boxValues),
-                    whiskers: boxWhiskers(boxValues),
-                    maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
-                    femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
-                    rawValues: boxObject.values
-                };
-            }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
-
-            // const medians = boxPlotData.map(box => box.quartile[1]);
-            //
-            // const colorScale = d3.scaleLinear()
-            //     .domain([d3.min(medians), d3.max(medians)])
-            //     .range(['blue', 'red']);
-
-            // boxPlotData.forEach(box => box.color = colorScale(box.quartile[1]));
+            let xDomainValues = getXDomainValues(data);
+            let yDomainValues = getYDomainValues(data);
+            let boxPlotData = getBoxPlotData(data);
 
             const xScale = d3.scaleBand()
                 .domain(xDomainValues)
                 .range([margin.left, width - margin.right])
                 .paddingInner(0.1)
                 .paddingOuter(0.1);
-
-            const barWidth = xScale.bandwidth();
 
             const yScale = d3.scaleLinear()
                 .domain([
@@ -82,11 +61,12 @@ function boxPlot() {
             svg.call(tooltip);
 
             const boxElementsGroup = svg.append("g");
+
             boxElementsGroup.selectAll("rect")
                 .data(boxPlotData)
                 .enter()
                 .append("rect")
-                .attr("width", barWidth)
+                .attr("width", xScale.bandwidth())
                 .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
                 .attr("x", (datum) => xScale(datum.key))
                 .attr("y", (datum) => yScale(datum.quartile[2]))
@@ -96,49 +76,12 @@ function boxPlot() {
                 .on('mouseover', d => tooltip.show(d))
                 .on('mouseout', () => tooltip.hide());
 
-            const horizontalLineConfigs = [
-                //Line between lower whisker and box
-                {
-                    x1: (datum) => xScale(datum.key) + barWidth / 2,
-                    y1: (datum) => yScale(datum.whiskers[0]),
-                    x2: (datum) => xScale(datum.key) + barWidth / 2,
-                    y2: (datum) => yScale(datum.quartile[0])
-                },
-                //Line between upper whisker and box
-                {
-                    x1: (datum) => xScale(datum.key) + barWidth / 2,
-                    y1: (datum) => yScale(datum.quartile[2]),
-                    x2: (datum) => xScale(datum.key) + barWidth / 2,
-                    y2: (datum) => yScale(datum.whiskers[1])
-                },
-                // Top whisker
-                {
-                    x1: (datum) => xScale(datum.key),
-                    y1: (datum) => yScale(datum.whiskers[0]),
-                    x2: (datum) => xScale(datum.key) + barWidth,
-                    y2: (datum) => yScale(datum.whiskers[0])
-                },
-                // Median line
-                {
-                    x1: (datum) => xScale(datum.key),
-                    y1: (datum) => yScale(datum.quartile[1]),
-                    x2: (datum) => xScale(datum.key) + barWidth,
-                    y2: (datum) => yScale(datum.quartile[1])
-                },
-                // Bottom whisker
-                {
-                    x1: (datum) => xScale(datum.key),
-                    y1: (datum) => yScale(datum.whiskers[1]),
-                    x2: (datum) => xScale(datum.key) + barWidth,
-                    y2: (datum) => yScale(datum.whiskers[1])
-                }
-            ];
-
             // Draw the whiskers at the min for this series
             boxElementsGroup.selectAll(".whiskers")
                 .data(boxWhiskersCoordinates(boxPlotData))
                 .enter()
                 .append("line")
+                .attr("class", "whiskers")
                 .attr("x1", d => d.x1)
                 .attr("y1", d => d.y1)
                 .attr("x2", d => d.x2)
@@ -185,9 +128,71 @@ function boxPlot() {
                 ];
             }
 
+            function getXDomainValues(data) {
+                return data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
+            }
+
+            function getYDomainValues(data) {
+                return data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
+            }
+
+            function getBoxPlotData(data) {
+                return data.map((boxObject) => {
+                    const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
+                    return {
+                        key: boxObject.key,
+                        quartile: boxQuartiles(boxValues),
+                        whiskers: boxWhiskers(boxValues),
+                        maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
+                        femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
+                        rawValues: boxObject.values
+                    };
+                }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
+            }
+
+            function getHorizontalLineConfigs() {
+                return [
+                    //Line between lower whisker and box
+                    {
+                        x1: (datum) => xScale(datum.key) + xScale.bandwidth() / 2,
+                        y1: (datum) => yScale(datum.whiskers[0]),
+                        x2: (datum) => xScale(datum.key) + xScale.bandwidth() / 2,
+                        y2: (datum) => yScale(datum.quartile[0])
+                    },
+                    //Line between upper whisker and box
+                    {
+                        x1: (datum) => xScale(datum.key) + xScale.bandwidth() / 2,
+                        y1: (datum) => yScale(datum.quartile[2]),
+                        x2: (datum) => xScale(datum.key) + xScale.bandwidth() / 2,
+                        y2: (datum) => yScale(datum.whiskers[1])
+                    },
+                    // Top whisker
+                    {
+                        x1: (datum) => xScale(datum.key),
+                        y1: (datum) => yScale(datum.whiskers[0]),
+                        x2: (datum) => xScale(datum.key) + xScale.bandwidth(),
+                        y2: (datum) => yScale(datum.whiskers[0])
+                    },
+                    // Median line
+                    {
+                        x1: (datum) => xScale(datum.key),
+                        y1: (datum) => yScale(datum.quartile[1]),
+                        x2: (datum) => xScale(datum.key) + xScale.bandwidth(),
+                        y2: (datum) => yScale(datum.quartile[1])
+                    },
+                    // Bottom whisker
+                    {
+                        x1: (datum) => xScale(datum.key),
+                        y1: (datum) => yScale(datum.whiskers[1]),
+                        x2: (datum) => xScale(datum.key) + xScale.bandwidth(),
+                        y2: (datum) => yScale(datum.whiskers[1])
+                    }
+                ];
+            }
+
             function boxWhiskersCoordinates(boxPlotData) {
                 return boxPlotData.map(box => {
-                    return horizontalLineConfigs.map(lineConfig => {
+                    return getHorizontalLineConfigs().map(lineConfig => {
                         return {
                             x1: lineConfig.x1(box),
                             y1: lineConfig.y1(box),
@@ -198,34 +203,83 @@ function boxPlot() {
                 }).flat();
             }
 
-            // updateData = function () {
-            //     const updatedData = pie(data);
-            //     const updatedPath = pieChartSvg.selectAll('path').data(updatedData);
-            //
-            //     updatedPath.enter()
-            //         .append('path')
-            //         .attr('fill', (d) => colorScale(d.data.key))
-            //         .attr('d', arc)
-            //         .call(appendTooltip);
-            //
-            //     updatedPath
-            //         .transition()
-            //         .ease(d3.easeLinear)
-            //         .duration(750)
-            //         .attr('fill', (d) => colorScale(d.data.key))
-            //         .attrTween('d', enterArcTween);
-            //
-            //     updatedPath.exit()
-            //         .transition()
-            //         .ease(d3.easeLinear)
-            //         .duration(100)
-            //         .attrTween("d", exitArcTween)
-            //         .remove();
-            //
-            //     pieLegend
-            //         .colorScale(colorScale)
-            //         .data(data.map(d => d.key));
-            // };
+            updateData = function () {
+                boxPlotData = getBoxPlotData(data);
+                xScale.domain(getXDomainValues(data));
+                xAxis.scale(xScale);
+                yDomainValues = getYDomainValues(data);
+                yScale.domain([
+                    d3.min(yDomainValues),
+                    d3.max(yDomainValues)
+                ]);
+                yAxis.scale(yScale);
+
+                const updatedBoxes = boxElementsGroup.selectAll('rect').data(boxPlotData);
+                const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(boxPlotData));
+
+                const t = d3.transition()
+                    .duration(750);
+
+                svg.select('.x')
+                    .transition(t)
+                    .call(xAxis);
+
+                svg.select('.y')
+                    .transition(t)
+                    .call(yAxis);
+
+                updatedBoxes.enter()
+                    .append("rect")
+                    .attr("width", xScale.bandwidth())
+                    .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
+                    .attr("x", (datum) => xScale(datum.key))
+                    .attr("y", (datum) => yScale(datum.quartile[2]))
+                    .attr("fill", 'lightgrey')
+                    .attr("stroke", "#000")
+                    .attr("stroke-width", 1)
+                    .on('mouseover', d => tooltip.show(d))
+                    .on('mouseout', () => tooltip.hide());
+
+                updatedBoxes
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(750)
+                    .attr("width", xScale.bandwidth())
+                    .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
+                    .attr("x", (datum) => xScale(datum.key))
+                    .attr("y", (datum) => yScale(datum.quartile[2]));
+
+                updatedBoxes.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+
+                updatedLines.enter()
+                    .append("line")
+                    .attr("x1", d => d.x1)
+                    .attr("y1", d => d.y1)
+                    .attr("x2", d => d.x2)
+                    .attr("y2", d => d.y2)
+                    .attr("stroke", "#000")
+                    .attr("stroke-width", 1)
+                    .attr("fill", "none");
+
+                updatedLines
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(750)
+                    .attr("x1", d => d.x1)
+                    .attr("y1", d => d.y1)
+                    .attr("x2", d => d.x2)
+                    .attr("y2", d => d.y2);
+
+                updatedLines.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+            };
 
         })
     }
