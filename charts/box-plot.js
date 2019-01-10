@@ -33,7 +33,6 @@ function boxPlot() {
         selection.each(function () {
             let xDomainValues = getXDomainValues(data);
             let yDomainValues = getYDomainValues(data);
-            let boxPlotData = getBoxPlotData(data);
 
             const xScale = d3.scaleBand()
                 .domain(xDomainValues)
@@ -63,7 +62,7 @@ function boxPlot() {
             const boxElementsGroup = svg.append("g");
 
             boxElementsGroup.selectAll("rect")
-                .data(boxPlotData)
+                .data(data)
                 .enter()
                 .append("rect")
                 .attr("width", xScale.bandwidth())
@@ -78,7 +77,7 @@ function boxPlot() {
 
             // Draw the whiskers at the min for this series
             boxElementsGroup.selectAll(".whiskers")
-                .data(boxWhiskersCoordinates(boxPlotData))
+                .data(boxWhiskersCoordinates(data))
                 .enter()
                 .append("line")
                 .attr("class", "whiskers")
@@ -113,41 +112,14 @@ function boxPlot() {
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
-            function boxQuartiles(d) {
-                return [
-                    d3.quantile(d, .25),
-                    d3.quantile(d, .5),
-                    d3.quantile(d, .75)
-                ];
-            }
 
-            function boxWhiskers(d) {
-                return [
-                    Math.round(d3.quantile(d, .05)),
-                    Math.round(d3.quantile(d, .95))
-                ];
-            }
 
             function getXDomainValues(data) {
-                return data.map(group => group.key).flat().sort((a, b) => parseInt(a) - parseInt(b));
+                return data.map(group => group.key);
             }
 
             function getYDomainValues(data) {
-                return data.map(group => group.values.map(v => parseInt(v[yAxisProperty]))).flat().sort((a, b) => a - b);
-            }
-
-            function getBoxPlotData(data) {
-                return data.map((boxObject) => {
-                    const boxValues = boxObject.values.map(entry => parseInt(entry[yAxisProperty]));
-                    return {
-                        key: boxObject.key,
-                        quartile: boxQuartiles(boxValues),
-                        whiskers: boxWhiskers(boxValues),
-                        maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
-                        femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
-                        rawValues: boxObject.values
-                    };
-                }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
+                return data.map(group => group.whiskers).flat().sort((a, b) => a - b);
             }
 
             function getHorizontalLineConfigs() {
@@ -204,9 +176,9 @@ function boxPlot() {
             }
 
             updateData = function () {
-                boxPlotData = getBoxPlotData(data);
                 xScale.domain(getXDomainValues(data));
                 xAxis.scale(xScale);
+
                 yDomainValues = getYDomainValues(data);
                 yScale.domain([
                     d3.min(yDomainValues),
@@ -214,8 +186,8 @@ function boxPlot() {
                 ]);
                 yAxis.scale(yScale);
 
-                const updatedBoxes = boxElementsGroup.selectAll('rect').data(boxPlotData);
-                const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(boxPlotData));
+                const updatedBoxes = boxElementsGroup.selectAll('rect').data(data);
+                const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(data));
 
                 const t = d3.transition()
                     .duration(750);

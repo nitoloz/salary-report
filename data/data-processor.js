@@ -103,5 +103,31 @@ function processBoxPlotData(data, xOption, yOption) {
                     return d3.ascending(parseInt(x[yOption]), parseInt(y[yOption]));
                 })
             };
-        });
+        })
+        .map((boxObject) => {
+            const boxValues = boxObject.values.map(entry => parseInt(entry[yOption]));
+            return {
+                key: boxObject.key,
+                quartile: boxQuartiles(boxValues),
+                whiskers: boxWhiskers(boxValues),
+                maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
+                femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
+                rawValues: boxObject.values
+            };
+        }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
+}
+
+function boxQuartiles(d) {
+    return [
+        d3.quantile(d, .25),
+        d3.quantile(d, .5),
+        d3.quantile(d, .75)
+    ];
+}
+
+function boxWhiskers(d) {
+    return [
+        Math.round(d3.quantile(d, .05)),
+        Math.round(d3.quantile(d, .95))
+    ];
 }
