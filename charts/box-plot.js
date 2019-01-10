@@ -12,11 +12,11 @@ function boxPlot() {
             return `${xAxisLabel}: ${d.key}<br>
             Number of respondents: ${d.rawValues.length}<br>
             Male: ${d.maleCount}%, Female: ${d.femaleCount}%<br><br>
-            5th percentile: ${d.whiskers[0]}<br>
-            1st quartile: ${d.quartile[0]}<br>
-            Median: ${d.quartile[1]}<br>
+            95th percentile: ${d.whiskers[1]}<br>
             3rd quartile: ${d.quartile[2]}<br>
-            95th percentile: ${d.whiskers[1]}`;
+            Median: ${d.quartile[1]}<br>
+            1st quartile: ${d.quartile[0]}<br>
+            5th percentile: ${d.whiskers[0]}`;
         }
     };
 
@@ -111,7 +111,6 @@ function boxPlot() {
             Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
-
 
 
             function getXDomainValues(data) {
