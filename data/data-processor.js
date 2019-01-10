@@ -85,8 +85,8 @@ function processLineChartData(data, xOption, trellisingOption) {
         });
 }
 
-function processBoxPlotData(data, xOption, yOption) {
-    data = data.filter(d => parseInt(d[xOption]) > 0 && parseInt(d[yOption]) > 0);
+function processBoxPlotData(data, xOption, yOption, customSortingFunction) {
+    data = data.filter(d => d[xOption] !== '' && d[yOption] !== '');
 
     return d3.nest()
         .key((d) => {
@@ -114,7 +114,7 @@ function processBoxPlotData(data, xOption, yOption) {
                 femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
                 rawValues: boxObject.values
             };
-        }).sort((a, b) => parseInt(a.key) - parseInt(b.key));
+        }).sort(customSortingFunction ? customSortingFunction : (a, b) => parseInt(a.key) - parseInt(b.key));
 }
 
 function boxQuartiles(d) {

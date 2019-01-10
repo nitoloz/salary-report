@@ -28,6 +28,8 @@ function boxPlot() {
         xAxisProperty = initialConfiguration.xAxisProperty,
         yAxisProperty = initialConfiguration.yAxisProperty,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
+    let updateData = null;
+
 
     function chart(selection) {
         selection.each(function () {

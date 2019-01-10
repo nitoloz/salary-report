@@ -27,6 +27,7 @@ function pieChart() {
         colorScale = initialConfiguration.colorScale,
         placeHolderTooltip = initialConfiguration.placeHolderTooltip,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
+    let updateData = null;
 
     function chart(selection) {
         selection.each(function () {
