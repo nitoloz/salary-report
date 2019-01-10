@@ -138,9 +138,6 @@ function boxPlot() {
             boxElementsGroup.selectAll(".whiskers")
                 .data(boxWhiskersCoordinates(boxPlotData))
                 .enter()
-                .selectAll("line")
-                .data(d => d)
-                .enter()
                 .append("line")
                 .attr("x1", d => d.x1)
                 .attr("y1", d => d.y1)
@@ -198,7 +195,7 @@ function boxPlot() {
                             y2: lineConfig.y2(box)
                         };
                     })
-                });
+                }).flat();
             }
 
             // updateData = function () {
