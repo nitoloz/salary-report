@@ -88,8 +88,8 @@ function scatterPlot() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
-            Utils.appendXAxis(gXAxis, width - margin.right, -12, xAxisLabel);
-            Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
+            Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
+            Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             //Zoom setup

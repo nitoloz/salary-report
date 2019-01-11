@@ -19,9 +19,9 @@ class Utils {
             .range(['#80b1d380', '#fb807280', "#80b1d3", "#fb8072"]);
     }
 
-    static appendXAxis(selection, x, y, text) {
+    static appendXAxisTitle(selection, x, y, text) {
         selection.append('text')
-            .attr('class', 'label')
+            .attr('class', 'label x axis')
             .attr('y', y)
             .attr('x', x)
             .attr('dy', '.71em')
@@ -31,9 +31,9 @@ class Utils {
             .text(text);
     }
 
-    static appendYAxis(selection, x, y, text) {
+    static appendYAxisTitle(selection, x, y, text) {
         selection.append('text')
-            .attr('class', 'label')
+            .attr('class', 'label y axis')
             .attr('transform', 'rotate(-90)')
             .attr('x', x)
             .attr('y', y)

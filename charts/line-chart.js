@@ -64,8 +64,8 @@ function lineChart() {
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
 
-            Utils.appendXAxis(gXAxis, width - margin.right, -25, xAxisLabel);
-            Utils.appendYAxis(gYAxis, -50, 5, yAxisLabel);
+            Utils.appendXAxisTitle(gXAxis, width - margin.right, -25, xAxisLabel);
+            Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(lineChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
             const tooltip = d3.tip()
