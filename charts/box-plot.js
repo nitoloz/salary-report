@@ -93,7 +93,7 @@ function boxPlot() {
 
             const gXAxis = svg.append("g")
                 .attr("class", "x axis")
-                .attr("transform", `translate(0,${(height - margin.top)})`)
+                .attr("transform", `translate(0,${(height - margin.bottom)})`)
                 .call(xAxis);
 
             const yAxis = d3.axisLeft(yScale)
@@ -108,7 +108,7 @@ function boxPlot() {
 
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
-            Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
+            // Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
 
             function getXDomainValues(data) {
@@ -250,7 +250,8 @@ function boxPlot() {
                     .duration(100)
                     .remove();
 
-                svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
+                // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
+                svg.select('.x.axis.label').text(xAxisLabel);
             };
 
         })

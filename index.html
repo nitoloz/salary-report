@@ -130,9 +130,13 @@
     <div class="row mt-2">
         <div class="col-8 offset-2">
             <form class="form-group float-center">
-                <div class="form-group row">
-                    <label for="boxPlotSelect" class="col-sm-8 col-lg-4 col-form-label text-right">X Axis Option </label>
-                    <select id="boxPlotSelect" class="col-sm-4 form-control">
+                <div class="form-group row" style=" margin: 0 auto; width:80%">
+                    <select id="boxPlotYAxisSelect" class="col-sm-5 form-control">
+                        <option value="Salary">Salary</option>
+                        <option value="Raise" disabled>Raise</option>
+                    </select>
+                    <span class="col-sm-2 text-center">vs</span>
+                    <select id="boxPlotXAxisSelect" class="col-sm-5 form-control">
                         <option value="Experience">Total Experience</option>
                         <option value="City">City</option>
                         <option value="Sex">Sex</option>

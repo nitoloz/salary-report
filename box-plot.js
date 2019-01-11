@@ -18,7 +18,7 @@ boxPlotInitializer = (data) => {
     d3.select("#box-plot-area")
         .call(salaryBoxPlot);
 
-    document.querySelector('select[id="boxPlotSelect"]').onchange = function (event) {
+    document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = function (event) {
         switch (event.target.value) {
             case 'Experience':
                 salaryBoxPlot
