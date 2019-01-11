@@ -85,12 +85,17 @@ function processLineChartData(data, xOption, trellisingOption) {
         });
 }
 
-function processBoxPlotData(data, xOption, yOption, customSortingFunction) {
+function processBoxPlotData(data, xOption, yOption, customSortingFunction, minimalLevel = 0.006) {
     data = data.filter(d => d[xOption] !== '' && d[yOption] !== '');
+    const internalMap = new Map();
+    data.forEach(d => internalMap[d[xOption]] ? internalMap[d[xOption]]++ : internalMap[d[xOption]] = 1);
 
     return d3.nest()
         .key((d) => {
-            return xOption === TOTAL_EXPERIENCE ? Math.round(d[xOption]) : d[xOption];
+            return xOption === TOTAL_EXPERIENCE ? Math.round(d[xOption])
+                : internalMap[d[xOption]] / data.length > minimalLevel
+                    ? d[xOption]
+                    : OTHERS_GROUP;
         })
         .rollup((d) => {
             return d;

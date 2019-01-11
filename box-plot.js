@@ -1,12 +1,14 @@
 boxPlotInitializer = (data) => {
 
+    const sortByMedian = (a, b) => parseInt(a.quartile[1]) - parseInt(b.quartile[1]);
+
     const boxPlotExperienceData = processBoxPlotData(data, TOTAL_EXPERIENCE, CURRENT_SALARY);
-    const boxPlotLanguageData = processBoxPlotData(data, WORK_LANGUAGE, CURRENT_SALARY);
-    const boxPlotCityData = processBoxPlotData(data, CITY, CURRENT_SALARY);
-    const boxPlotSexData = processBoxPlotData(data, SEX, CURRENT_SALARY);
-    const boxPlotSeniorityData = processBoxPlotData(data, SENIORITY_LEVEL, CURRENT_SALARY);
-    const boxPlotCompanySizeData = processBoxPlotData(data, COMPANY_SIZE, CURRENT_SALARY);
-    const boxPlotCompanyTypeData = processBoxPlotData(data, COMPANY_TYPE, CURRENT_SALARY);
+    const boxPlotLanguageData = processBoxPlotData(data, WORK_LANGUAGE, CURRENT_SALARY, sortByMedian);
+    const boxPlotCityData = processBoxPlotData(data, CITY, CURRENT_SALARY, sortByMedian);
+    const boxPlotSexData = processBoxPlotData(data, SEX, CURRENT_SALARY, sortByMedian);
+    const boxPlotSeniorityData = processBoxPlotData(data, SENIORITY_LEVEL, CURRENT_SALARY, sortByMedian);
+    const boxPlotCompanySizeData = processBoxPlotData(data, COMPANY_SIZE, CURRENT_SALARY, sortByMedian);
+    const boxPlotCompanyTypeData = processBoxPlotData(data, COMPANY_TYPE, CURRENT_SALARY, sortByMedian);
 
     const salaryBoxPlot = boxPlot()
         .width(width)
