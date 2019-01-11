@@ -46,6 +46,7 @@ class Utils {
 
     static appendTitle(selection, x, y, text) {
         selection.append("text")
+            .attr('class', 'title')
             .attr("x", x)
             .attr("y", y)
             .attr("text-anchor", "middle")

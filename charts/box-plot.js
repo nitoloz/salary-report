@@ -4,8 +4,6 @@ function boxPlot() {
         width: 1000,
         height: 600,
         data: [],
-        xAxisProperty: TOTAL_EXPERIENCE,
-        yAxisProperty: CURRENT_SALARY,
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         tooltipFormatter: (d) => {
@@ -25,8 +23,6 @@ function boxPlot() {
         data = initialConfiguration.data,
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
-        xAxisProperty = initialConfiguration.xAxisProperty,
-        yAxisProperty = initialConfiguration.yAxisProperty,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
     let updateData = null;
 
@@ -230,6 +226,7 @@ function boxPlot() {
 
                 updatedLines.enter()
                     .append("line")
+                    .attr('class', 'whiskers')
                     .attr("x1", d => d.x1)
                     .attr("y1", d => d.y1)
                     .attr("x2", d => d.x2)
@@ -252,6 +249,8 @@ function boxPlot() {
                     .ease(d3.easeLinear)
                     .duration(100)
                     .remove();
+
+                svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
             };
 
         })

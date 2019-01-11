@@ -128,7 +128,24 @@
     </div>
     <hr/>
     <div class="row mt-2">
-        <div id="box-plot-area" class="mx-auto"></div>
+        <div class="col-8 offset-2">
+            <form class="form-group float-center">
+                <div class="form-group row">
+                    <label for="boxPlotSelect" class="col-sm-8 col-lg-4 col-form-label text-right">Respondents grouped
+                        by </label>
+                    <select id="boxPlotSelect" class="col-sm-4 form-control">
+                        <option value="Experience">Total Experience</option>
+                        <option value="City">City</option>
+                        <option value="Sex">Sex</option>
+                        <option value="Seniority">Seniority</option>
+                        <option value="Language">Language</option>
+                        <option value="CompanyType">Company Type</option>
+                        <option value="Size">Company Size</option>
+                    </select>
+                </div>
+            </form>
+            <div id="box-plot-area" class="mx-auto"></div>
+        </div>
     </div>
     <hr/>
     <div class="row mt-2">
