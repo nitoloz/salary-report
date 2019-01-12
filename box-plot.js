@@ -2,13 +2,49 @@ boxPlotInitializer = (data) => {
 
     const sortByMedian = (a, b) => parseInt(a.quartile[1]) - parseInt(b.quartile[1]);
 
+    const xAxisOptions = [
+        {
+            selectLabel: 'Experience',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: TOTAL_EXPERIENCE
+        },
+        {
+            selectLabel: 'City',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: CITY
+        },
+        {
+            selectLabel: 'Sex',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: SEX
+        },
+        {
+            selectLabel: 'Seniority',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: SENIORITY_LEVEL
+        },
+        {
+            selectLabel: 'CompanyType',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: COMPANY_TYPE
+        },
+        {
+            selectLabel: 'Language',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: WORK_LANGUAGE
+        },
+        {
+            selectLabel: 'Size',
+            axisLabel: 'Total experience (Years)',
+            groupByOption: COMPANY_SIZE
+        }
+    ];
+
+    let selectedXAxisOption = xAxisOptions[0];
+    let selectedYAxisOption = CURRENT_SALARY;
+
     const boxPlotExperienceData = processBoxPlotData(data, TOTAL_EXPERIENCE, CURRENT_SALARY);
-    const boxPlotLanguageData = processBoxPlotData(data, WORK_LANGUAGE, CURRENT_SALARY, sortByMedian);
-    const boxPlotCityData = processBoxPlotData(data, CITY, CURRENT_SALARY, sortByMedian);
-    const boxPlotSexData = processBoxPlotData(data, SEX, CURRENT_SALARY, sortByMedian);
-    const boxPlotSeniorityData = processBoxPlotData(data, SENIORITY_LEVEL, CURRENT_SALARY, sortByMedian);
-    const boxPlotCompanySizeData = processBoxPlotData(data, COMPANY_SIZE, CURRENT_SALARY, sortByMedian);
-    const boxPlotCompanyTypeData = processBoxPlotData(data, COMPANY_TYPE, CURRENT_SALARY, sortByMedian);
+
 
     const salaryBoxPlot = boxPlot()
         .width(width)
@@ -19,44 +55,17 @@ boxPlotInitializer = (data) => {
         .call(salaryBoxPlot);
 
     document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = function (event) {
-        switch (event.target.value) {
-            case 'Experience':
-                salaryBoxPlot
-                    .xAxisLabel('Total experience (Years)')
-                    .data(boxPlotExperienceData);
-                break;
-            case 'City':
-                salaryBoxPlot
-                    .xAxisLabel('City')
-                    .data(boxPlotCityData);
-                break;
-            case 'Sex':
-                salaryBoxPlot
-                    .xAxisLabel('Sex')
-                    .data(boxPlotSexData);
-                break;
-            case 'Seniority':
-                salaryBoxPlot
-                    .xAxisLabel('Seniority')
-                    .data(boxPlotSeniorityData);
-                break;
-            case 'CompanyType':
-                salaryBoxPlot
-                    .xAxisLabel('Company Type')
-                    .data(boxPlotCompanyTypeData);
-                break;
-            case 'Language':
-                salaryBoxPlot
-                    .xAxisLabel('Language')
-                    .data(boxPlotLanguageData);
-                break;
-            case 'Size':
-                salaryBoxPlot
-                    .xAxisLabel('Size')
-                    .data(boxPlotCompanySizeData);
-                break;
-            default:
-                break;
-        }
+        selectedXAxisOption = xAxisOptions.find(option => option.selectLabel === event.target.value);
+        updateBoxPlot();
+
     };
+
+    function updateBoxPlot() {
+        const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
+        ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption)
+        : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption, sortByMedian);
+        salaryBoxPlot
+            .xAxisLabel(selectedXAxisOption.axisLabel)
+            .data(boxPlotData);
+    }
 };

@@ -9,7 +9,6 @@ const COLUMN_NAMES_2018 = {
     CURRENT_SALARY: 'Current Salary',
     PREVIOUS_SALARY: 'Salary one year ago',
     FIRST_EUROPE_SALARY: 'Salary two years ago',
-    EUROPE_JOB_COUNT: '',
     WORK_LANGUAGE: 'Main language at work',
     COMPANY_SIZE: 'Company size',
     COMPANY_TYPE: 'Company type',
@@ -27,7 +26,7 @@ const COLUMN_NAMES_2017 = {
     CURRENT_SALARY: 'Текущая ЗП',
     PREVIOUS_SALARY: 'ЗП год назад',
     FIRST_EUROPE_SALARY: 'Какая была первая ЗП в Европе',
-    EUROPE_JOB_COUNT: 'Какая по счету у вас сейчас работа в Европе',
+    // EUROPE_JOB_COUNT: 'Какая по счету у вас сейчас работа в Европе',
     WORK_LANGUAGE: 'Основной язык на работе',
     COMPANY_SIZE: 'Размер компании',
     COMPANY_TYPE: 'Тип компании',
@@ -43,7 +42,6 @@ let CITY = COLUMN_NAMES_2018.CITY;
 let CURRENT_SALARY = COLUMN_NAMES_2018.CURRENT_SALARY;
 let PREVIOUS_SALARY = COLUMN_NAMES_2018.PREVIOUS_SALARY;
 let FIRST_EUROPE_SALARY = COLUMN_NAMES_2018.FIRST_EUROPE_SALARY;
-let EUROPE_JOB_COUNT = 'Какая по счету у вас сейчас работа в Европе';
 let WORK_LANGUAGE = COLUMN_NAMES_2018.WORK_LANGUAGE;
 let COMPANY_SIZE = COLUMN_NAMES_2018.COMPANY_SIZE;
 let COMPANY_TYPE = COLUMN_NAMES_2018.COMPANY_TYPE;
@@ -61,7 +59,6 @@ function updateColumnNames(CURRENT_COLUMN_NAMES) {
     CURRENT_SALARY = CURRENT_COLUMN_NAMES.CURRENT_SALARY;
     PREVIOUS_SALARY = CURRENT_COLUMN_NAMES.PREVIOUS_SALARY;
     FIRST_EUROPE_SALARY = CURRENT_COLUMN_NAMES.FIRST_EUROPE_SALARY;
-    EUROPE_JOB_COUNT = 'Какая по счету у вас сейчас работа в Европе';
     WORK_LANGUAGE = CURRENT_COLUMN_NAMES.WORK_LANGUAGE;
     COMPANY_SIZE = CURRENT_COLUMN_NAMES.COMPANY_SIZE;
     COMPANY_TYPE = CURRENT_COLUMN_NAMES.COMPANY_TYPE;
