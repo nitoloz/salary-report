@@ -40,7 +40,7 @@ boxPlotInitializer = (data) => {
         }
     ];
 
- const yAxisOptions = [
+    const yAxisOptions = [
         {
             selectLabel: 'Salary',
             axisLabel: 'Salary (EUR)',
@@ -80,7 +80,11 @@ boxPlotInitializer = (data) => {
     function updateBoxPlot() {
         const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
             ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption)
-            : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
+            : selectedXAxisOption.groupByOption === COMPANY_SIZE
+                ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption,
+                    (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
+                : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
+
         salaryBoxPlot
             .xAxisLabel(selectedXAxisOption.axisLabel)
             .yAxisLabel(selectedYAxisOption.axisLabel)

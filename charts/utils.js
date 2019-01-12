@@ -1,6 +1,7 @@
 const margin = {top: 50, right: 50, bottom: 50, left: 100};
 const height = 600;
 const width = 1000;
+const companySizesOrder = ['10 or less', '10-50', '50-100', '100-1000', '1000+'];
 
 class Utils {
     static getSexColorScale() {
