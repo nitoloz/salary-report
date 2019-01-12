@@ -252,6 +252,7 @@ function boxPlot() {
 
                 // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
                 svg.select('.x.axis.label').text(xAxisLabel);
+                svg.select('.y.axis.label').text(yAxisLabel);
             };
 
         })
