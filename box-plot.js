@@ -10,32 +10,32 @@ boxPlotInitializer = (data) => {
         },
         {
             selectLabel: 'City',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'City',
             groupByOption: CITY
         },
         {
             selectLabel: 'Sex',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'Sex',
             groupByOption: SEX
         },
         {
             selectLabel: 'Seniority',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'Seniority Level',
             groupByOption: SENIORITY_LEVEL
         },
         {
             selectLabel: 'CompanyType',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'Company Type',
             groupByOption: COMPANY_TYPE
         },
         {
             selectLabel: 'Language',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'Language',
             groupByOption: WORK_LANGUAGE
         },
         {
             selectLabel: 'Size',
-            axisLabel: 'Total experience (Years)',
+            axisLabel: 'Company Size',
             groupByOption: COMPANY_SIZE
         }
     ];
