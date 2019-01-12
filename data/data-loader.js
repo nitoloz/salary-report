@@ -31,6 +31,9 @@ function loadData() {
             data.forEach(d => {
                 d[SEX] = d[SEX] === 'M' ? 'Male' : 'Female';
                 d[COMPANY_SIZE] = d[COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[COMPANY_SIZE];
+                d[SALARY_RAISE] = d[CURRENT_SALARY] >= 0 && d[PREVIOUS_SALARY] >= 0
+                    ? d[CURRENT_SALARY] - d[PREVIOUS_SALARY]
+                    : 0;
             });
 
             groupedBarChartInitializer(data);

@@ -40,8 +40,21 @@ boxPlotInitializer = (data) => {
         }
     ];
 
+ const yAxisOptions = [
+        {
+            selectLabel: 'Salary',
+            axisLabel: 'Salary (EUR)',
+            groupByOption: CURRENT_SALARY
+        },
+        {
+            selectLabel: 'Raise',
+            axisLabel: 'Salary Raise (EUR)',
+            groupByOption: SALARY_RAISE
+        }
+    ];
+
     let selectedXAxisOption = xAxisOptions[0];
-    let selectedYAxisOption = CURRENT_SALARY;
+    let selectedYAxisOption = yAxisOptions[0];
 
     const boxPlotExperienceData = processBoxPlotData(data, TOTAL_EXPERIENCE, CURRENT_SALARY);
 
@@ -57,15 +70,20 @@ boxPlotInitializer = (data) => {
     document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = function (event) {
         selectedXAxisOption = xAxisOptions.find(option => option.selectLabel === event.target.value);
         updateBoxPlot();
+    };
 
+    document.querySelector('select[id="boxPlotYAxisSelect"]').onchange = function (event) {
+        selectedYAxisOption = yAxisOptions.find(option => option.selectLabel === event.target.value);
+        updateBoxPlot();
     };
 
     function updateBoxPlot() {
         const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
-        ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption)
-        : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption, sortByMedian);
+            ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption)
+            : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
         salaryBoxPlot
             .xAxisLabel(selectedXAxisOption.axisLabel)
+            .yAxisLabel(selectedYAxisOption.axisLabel)
             .data(boxPlotData);
     }
 };
