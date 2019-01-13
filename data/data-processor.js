@@ -85,7 +85,7 @@ function processLineChartData(data, xOption, trellisingOption) {
         });
 }
 
-function processBoxPlotData(data, xOption, yOption, customSortingFunction, minimalLevel = 0.006) {
+function processBoxPlotData(data, xOption, yOption, customSortingFunction, minimalLevel = 0.003) {
     data = data.filter(d => d[xOption] !== '' && d[yOption] !== '');
     const internalMap = new Map();
     data.forEach(d => internalMap[d[xOption]] ? internalMap[d[xOption]]++ : internalMap[d[xOption]] = 1);
