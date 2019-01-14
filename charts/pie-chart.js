@@ -105,7 +105,7 @@ function pieChart() {
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
                     pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
                     previousLabelY = pos[1];
-                    return [arc.centroid(d), outerArc.centroid(d), pos]
+                    return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
 
             updateData = function () {
@@ -195,7 +195,7 @@ function pieChart() {
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
                     pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
                     previousLabelY = pos[1];
-                    return [arc.centroid(d), outerArc.centroid(d), pos]
+                    return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
             };
 
