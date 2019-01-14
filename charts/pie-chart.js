@@ -193,7 +193,7 @@ function pieChart() {
                 pieChartSvg.selectAll('polyline').attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 30) ? previousLabelY - 20 : pos[1];
+                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
                     previousLabelY = pos[1];
                     return [arc.centroid(d), outerArc.centroid(d), pos]
                 });
