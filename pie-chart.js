@@ -22,8 +22,8 @@ pieChartInitializer = (data) => {
                                 <tspan x="0" dy="1.2em">Median raise: ${medianRaise}</tspan>`;
 
     const dynamicPieChart = pieChart()
-        .width(width / 1.5)
-        .height(height / 1.5)
+        .width(width / 1.2)
+        .height(height / 1.2)
         .placeHolderTooltip(placeHolderTooltip);
 
     const sexColorScale = Utils.getSexColorScale();

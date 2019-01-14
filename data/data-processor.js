@@ -1,6 +1,6 @@
 const OTHERS_GROUP = 'Others';
 
-function processPieChartData(data, groupByOption, customSortingFunction, minimalLevel = 0.006) {
+function processPieChartData(data, groupByOption, customSortingFunction, minimalLevel = 0.01) {
     data = data.filter(d => d[groupByOption] !== '');
 
     const internalMap = new Map();

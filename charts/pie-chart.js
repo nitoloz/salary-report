@@ -28,6 +28,7 @@ function pieChart() {
         placeHolderTooltip = initialConfiguration.placeHolderTooltip,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
     let updateData = null;
+    let previousLabelY;
 
     function chart(selection) {
         selection.each(function () {
@@ -44,16 +45,20 @@ function pieChart() {
 
             const arc = d3.arc()
                 .innerRadius(radius * 0.5)
-                .outerRadius(radius * 0.9)
+                .outerRadius(radius * 0.8)
                 .cornerRadius(8);
+
+            const outerArc = d3.arc()
+                .outerRadius(radius * 0.8)
+                .innerRadius(radius * 0.9);
 
             const pie = d3.pie()
                 .value(d => d.value.value)
                 .sort(null);
 
-            const path = pieChartSvg.datum(data)
+            const path = pieChartSvg
                 .selectAll('path')
-                .data(pie)
+                .data(pie(data))
                 .enter()
                 .append('path')
                 .attr('d', arc)
@@ -62,21 +67,52 @@ function pieChart() {
 
             path.call(appendTooltip);
 
-            const pieLegend = stackedLegend()
-                .colorScale(colorScale)
-                .data(data.map(d => d.key));
-
-            svg.append("g")
-                .attr("transform", `translate(${width / 2 + radius}, ${50})`)
-                .call(pieLegend);
-
             if (placeHolderTooltip) {
                 showTooltip(placeHolderTooltip, 'white');
             }
 
+            pieChartSvg
+                .selectAll('.label')
+                .data(pie(data))
+                .enter()
+                .append('text')
+                .attr('class', 'label')
+                .attr('dy', '.35em')
+                .html(function (d) {
+                    return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
+                })
+                .attr('transform', function (d) {
+                    let pos = outerArc.centroid(d);
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
+                    previousLabelY = pos[1];
+                    return 'translate(' + pos + ')';
+                })
+                .style('text-anchor', function (d) {
+                    return (midAngle(d)) < Math.PI ? 'start' : 'end';
+                });
+
+            pieChartSvg.datum(data)
+                .selectAll('polyline')
+                .data(pie)
+                .enter()
+                .append('polyline')
+                .attr('fill', 'none')
+                .attr('stroke-width', 1)
+                .attr('stroke', 'black')
+                .attr('points', function (d) {
+                    let pos = outerArc.centroid(d);
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
+                    previousLabelY = pos[1];
+                    return [arc.centroid(d), outerArc.centroid(d), pos]
+                });
+
             updateData = function () {
                 const updatedData = pie(data);
                 const updatedPath = pieChartSvg.selectAll('path').data(updatedData);
+                const updatedLabel = pieChartSvg.selectAll('.label').data(updatedData);
+                const updatedPolylines = pieChartSvg.selectAll('polyline').data(updatedData);
 
                 updatedPath.enter()
                     .append('path')
@@ -98,9 +134,69 @@ function pieChart() {
                     .attrTween("d", exitArcTween)
                     .remove();
 
-                pieLegend
-                    .colorScale(colorScale)
-                    .data(data.map(d => d.key));
+
+                updatedLabel.enter()
+                    .append('text')
+                    .attr('class', 'label')
+                    .attr('dy', '.35em')
+                    .html(function (d) {
+                        return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
+                    })
+                    .style('text-anchor', function (d) {
+                        return (midAngle(d)) < Math.PI ? 'start' : 'end';
+                    });
+
+                updatedLabel
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(750)
+                    .style('text-anchor', function (d) {
+                        return (midAngle(d)) < Math.PI ? 'start' : 'end';
+                    })
+                    .style('opacity', 0)
+                    .on("end", function () {
+                        d3.select(this)
+                            .html(function (d) {
+                                return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
+                            })
+                            .style('opacity', 1);
+                    });
+
+                updatedLabel.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+
+                updatedPolylines.enter()
+                    .append('polyline')
+                    .attr('fill', 'none')
+                    .attr('stroke-width', 1)
+                    .attr('stroke', 'black');
+
+                updatedPolylines.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+
+                previousLabelY = null;
+                pieChartSvg.selectAll('.label').attr('transform', function (d) {
+                    let pos = outerArc.centroid(d);
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
+                    previousLabelY = pos[1];
+                    return 'translate(' + pos + ')';
+                });
+
+                previousLabelY = null;
+                pieChartSvg.selectAll('polyline').attr('points', function (d) {
+                    let pos = outerArc.centroid(d);
+                    pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 30) ? previousLabelY - 20 : pos[1];
+                    previousLabelY = pos[1];
+                    return [arc.centroid(d), outerArc.centroid(d), pos]
+                });
             };
 
             function enterArcTween(d) {
@@ -146,6 +242,10 @@ function pieChart() {
                     .attr('r', radius * 0.45)
                     .style('fill', color)
                     .style('fill-opacity', 0.35);
+            }
+
+            function midAngle(d) {
+                return d.startAngle + (d.endAngle - d.startAngle) / 2;
             }
 
         })
