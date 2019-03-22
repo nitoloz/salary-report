@@ -1,7 +1,7 @@
+let selectedXAxisOption, selectedYAxisOption, salaryBoxPlot;
+const sortByMedian = (a, b) => parseInt(a.quartile[1]) - parseInt(b.quartile[1]);
+
 boxPlotInitializer = (data) => {
-
-    const sortByMedian = (a, b) => parseInt(a.quartile[1]) - parseInt(b.quartile[1]);
-
     const xAxisOptions = [
         {
             selectLabel: 'Experience',
@@ -53,13 +53,13 @@ boxPlotInitializer = (data) => {
         }
     ];
 
-    let selectedXAxisOption = xAxisOptions[0];
-    let selectedYAxisOption = yAxisOptions[0];
+    selectedXAxisOption = xAxisOptions[0];
+    selectedYAxisOption = yAxisOptions[0];
 
     const boxPlotExperienceData = processBoxPlotData(data, TOTAL_EXPERIENCE, CURRENT_SALARY);
 
 
-    const salaryBoxPlot = boxPlot()
+    salaryBoxPlot = boxPlot()
         .width(width)
         .height(height)
         .data(boxPlotExperienceData);
@@ -69,25 +69,25 @@ boxPlotInitializer = (data) => {
 
     document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = function (event) {
         selectedXAxisOption = xAxisOptions.find(option => option.selectLabel === event.target.value);
-        updateBoxPlot();
+        updateBoxPlot(data);
     };
 
     document.querySelector('select[id="boxPlotYAxisSelect"]').onchange = function (event) {
         selectedYAxisOption = yAxisOptions.find(option => option.selectLabel === event.target.value);
-        updateBoxPlot();
+        updateBoxPlot(data);
     };
-
-    function updateBoxPlot() {
-        const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
-            ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption)
-            : selectedXAxisOption.groupByOption === COMPANY_SIZE
-                ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption,
-                    (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
-                : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
-
-        salaryBoxPlot
-            .xAxisLabel(selectedXAxisOption.axisLabel)
-            .yAxisLabel(selectedYAxisOption.axisLabel)
-            .data(boxPlotData);
-    }
 };
+
+function updateBoxPlot(data) {
+    const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
+        ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption)
+        : selectedXAxisOption.groupByOption === COMPANY_SIZE
+            ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption,
+                (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
+            : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
+
+    salaryBoxPlot
+        .xAxisLabel(selectedXAxisOption.axisLabel)
+        .yAxisLabel(selectedYAxisOption.axisLabel)
+        .data(boxPlotData);
+}

@@ -1,4 +1,5 @@
 let selectedYear = '2018';
+let loadedData = [];
 
 document.querySelector('select[id="yearSelect"]').onchange = function (event) {
     switch (event.target.value) {
@@ -35,12 +36,17 @@ function loadData() {
                     ? d[CURRENT_SALARY] - d[PREVIOUS_SALARY]
                     : 0;
             });
-
+            loadedData = data;
             groupedBarChartInitializer(data);
             pieChartInitializer(data);
             scatterChartInitializer(data);
             boxPlotInitializer(data);
         });
+}
+
+function showFilteredCharts(filter, key) {
+    const filteredData = loadedData.filter(entry => entry[key] === filter);
+    updateBoxPlot(filteredData);
 }
 
 
