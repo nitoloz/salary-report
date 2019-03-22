@@ -5,6 +5,7 @@ function pieChart() {
         height: 600,
         data: [],
         groupByOptionLabel: 'City',
+        groupByOption: CITY,
         valueLabel: 'Respondents',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (data) => {
@@ -23,6 +24,7 @@ function pieChart() {
         height = initialConfiguration.height,
         data = initialConfiguration.data,
         groupByOptionLabel = initialConfiguration.groupByOptionLabel,
+        groupByOption = initialConfiguration.groupByOption,
         valueLabel = initialConfiguration.valueLabel,
         colorScale = initialConfiguration.colorScale,
         placeHolderTooltip = initialConfiguration.placeHolderTooltip,
@@ -226,6 +228,9 @@ function pieChart() {
                         if (placeHolderTooltip) {
                             showTooltip(placeHolderTooltip, 'white')
                         }
+                    })
+                    .on("click", (d) => {
+                        showFilteredCharts(d.data.key, groupByOption)
                     });
             }
 
@@ -284,6 +289,12 @@ function pieChart() {
     chart.placeHolderTooltip = function (value) {
         if (!arguments.length) return placeHolderTooltip;
         placeHolderTooltip = value;
+        return chart;
+    };
+
+    chart.groupByOption = function (value) {
+        if (!arguments.length) return groupByOption;
+        groupByOption = value;
         return chart;
     };
 

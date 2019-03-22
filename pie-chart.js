@@ -33,36 +33,42 @@ pieChartInitializer = (data) => {
             case 'City':
                 dynamicPieChart
                     .groupByOptionLabel('City')
+                    .groupByOption(CITY)
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedByCity);
                 break;
             case 'Sex':
                 dynamicPieChart
                     .groupByOptionLabel('Sex')
+                    .groupByOption(SEX)
                     .colorScale(sexColorScale)
                     .data(dataGroupedBySex);
                 break;
             case 'Seniority':
                 dynamicPieChart
                     .groupByOptionLabel('Seniority')
+                    .groupByOption(SENIORITY_LEVEL)
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedBySeniority);
                 break;
             case 'CompanyType':
                 dynamicPieChart
                     .groupByOptionLabel('Type')
+                    .groupByOption(COMPANY_TYPE)
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedByCompanyType);
                 break;
             case 'Language':
                 dynamicPieChart
                     .groupByOptionLabel('Language')
+                    .groupByOption(WORK_LANGUAGE)
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedByLanguage);
                 break;
             case 'Size':
                 dynamicPieChart
                     .groupByOptionLabel('Size')
+                    .groupByOption(COMPANY_SIZE)
                     .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                     .data(dataGroupedByCompanySize);
                 break;
