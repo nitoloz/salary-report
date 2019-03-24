@@ -64,6 +64,7 @@ function pieChart() {
                 .enter()
                 .append('path')
                 .attr('d', arc)
+                .attr('class', 'pie-section')
                 .attr('fill', (d) => colorScale(d.data.key))
                 .style('stroke', 'white');
 
@@ -120,6 +121,7 @@ function pieChart() {
                     .append('path')
                     .attr('fill', (d) => colorScale(d.data.key))
                     .attr('d', arc)
+                    .attr('class', 'pie-section')
                     .call(appendTooltip);
 
                 updatedPath

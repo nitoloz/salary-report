@@ -1,0 +1,15 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.1);
+    shape-rendering: crispEdges;
+}
+
+.focus circle {
+    fill: none;
+    stroke: steelblue;
+}
+
+.pie-section:hover {
+    cursor: pointer;
+}

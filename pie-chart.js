@@ -95,4 +95,4 @@ pieChartInitializer = (data) => {
 
     d3.select("#pie-chart-area")
         .call(dynamicPieChart);
-}
+};
