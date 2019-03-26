@@ -8,6 +8,7 @@
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="d3/d3-tip.css">
     <link rel="stylesheet" type="text/css" href="charts/charts.css">
+    <link rel="stylesheet" type="text/css" href="sidepanel.css">
 
     <script src="d3/d3.min.js"></script>
     <script src="d3/d3-tip.js"></script>
@@ -60,6 +61,14 @@
     </style>
 </head>
 <body>
+
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+</div>
 <nav class="navbar navbar-light sticky-top">
     <a class="navbar-brand">
         <form class="form-inline">
@@ -88,6 +97,7 @@
     </a>
 </nav>
 <div class="container-fluid">
+    <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
     <div class="row mt-2">
         <div class="col-8 offset-2">
             <form class="form-group float-center">
