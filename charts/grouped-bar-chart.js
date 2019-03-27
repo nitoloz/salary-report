@@ -20,6 +20,7 @@ function groupedBarChart() {
         yAxisLabel = initialConfiguration.yAxisLabel,
         colorScale = initialConfiguration.colorScale,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
+    let updateData = null;
 
     function chart(selection) {
         selection.each(function () {
@@ -113,6 +114,89 @@ function groupedBarChart() {
             barChartSvg.append("g")
                 .attr("transform", `translate(${width - 150}, 5)`)
                 .call(barChartLegend);
+
+            updateData = function () {
+                // xScale.domain(getXDomainValues(data));
+                // xAxis.scale(xScale);
+                //
+                // yDomainValues = getYDomainValues(data);
+                // yScale.domain([
+                //     d3.min(yDomainValues),
+                //     d3.max(yDomainValues)
+                // ]);
+                // yAxis.scale(yScale);
+                //
+                // const updatedBoxes = boxElementsGroup.selectAll('rect').data(data);
+                // const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(data));
+                //
+                // const t = d3.transition()
+                //     .duration(750);
+                //
+                // svg.select('.x')
+                //     .transition(t)
+                //     .call(xAxis);
+                //
+                // svg.select('.y')
+                //     .transition(t)
+                //     .call(yAxis);
+                //
+                // updatedBoxes.enter()
+                //     .append("rect")
+                //     .attr("width", xScale.bandwidth())
+                //     .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
+                //     .attr("x", (datum) => xScale(datum.key))
+                //     .attr("y", (datum) => yScale(datum.quartile[2]))
+                //     .attr("fill", 'lightgrey')
+                //     .attr("stroke", "#000")
+                //     .attr("stroke-width", 1)
+                //     .on('mouseover', d => tooltip.show(d))
+                //     .on('mouseout', () => tooltip.hide());
+                //
+                // updatedBoxes
+                //     .transition()
+                //     .ease(d3.easeLinear)
+                //     .duration(750)
+                //     .attr("width", xScale.bandwidth())
+                //     .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
+                //     .attr("x", (datum) => xScale(datum.key))
+                //     .attr("y", (datum) => yScale(datum.quartile[2]));
+                //
+                // updatedBoxes.exit()
+                //     .transition()
+                //     .ease(d3.easeLinear)
+                //     .duration(100)
+                //     .remove();
+                //
+                // updatedLines.enter()
+                //     .append("line")
+                //     .attr('class', 'whiskers')
+                //     .attr("x1", d => d.x1)
+                //     .attr("y1", d => d.y1)
+                //     .attr("x2", d => d.x2)
+                //     .attr("y2", d => d.y2)
+                //     .attr("stroke", "#000")
+                //     .attr("stroke-width", 1)
+                //     .attr("fill", "none");
+                //
+                // updatedLines
+                //     .transition()
+                //     .ease(d3.easeLinear)
+                //     .duration(750)
+                //     .attr("x1", d => d.x1)
+                //     .attr("y1", d => d.y1)
+                //     .attr("x2", d => d.x2)
+                //     .attr("y2", d => d.y2);
+                //
+                // updatedLines.exit()
+                //     .transition()
+                //     .ease(d3.easeLinear)
+                //     .duration(100)
+                //     .remove();
+                //
+                // // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
+                // svg.select('.x.axis.label').text(xAxisLabel);
+                // svg.select('.y.axis.label').text(yAxisLabel);
+            };
         })
     }
 
@@ -163,6 +247,7 @@ function groupedBarChart() {
     chart.data = function (value) {
         if (!arguments.length) return data;
         data = value;
+        if (typeof updateData === 'function') updateData();
         return chart;
     };
 
