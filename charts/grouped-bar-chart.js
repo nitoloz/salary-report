@@ -28,8 +28,8 @@ function groupedBarChart() {
                 .attr('height', height)
                 .attr('width', width);
 
-            const xDomainValues = [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
-            const yDomainValues = data.map(group => group.values.map(v => parseInt(v.value))).flat();
+            let xDomainValues = getXDomainValues(data);
+            let yDomainValues = getYDomainValues(data);
 
             const groupsScale = d3.scaleBand()
                 .rangeRound([margin.left, width - margin.right])
@@ -116,29 +116,30 @@ function groupedBarChart() {
                 .call(barChartLegend);
 
             updateData = function () {
-                // xScale.domain(getXDomainValues(data));
-                // xAxis.scale(xScale);
-                //
-                // yDomainValues = getYDomainValues(data);
-                // yScale.domain([
-                //     d3.min(yDomainValues),
-                //     d3.max(yDomainValues)
-                // ]);
-                // yAxis.scale(yScale);
+                groupsScale.domain(getXDomainValues(data));
+                xAxis.scale(groupsScale);
+
+                innerGroupScale.domain(data.map(group => group.key));
+
+                yDomainValues = getYDomainValues(data);
+                yScale.domain([d3.min(yDomainValues), d3.max(yDomainValues)])
+
+                yAxis.scale(yScale);
+
+                const t = d3.transition()
+                    .duration(750);
+
+                svg.select('.x')
+                    .transition(t)
+                    .call(xAxis);
+
+                svg.select('.y')
+                    .transition(t)
+                    .call(yAxis);
                 //
                 // const updatedBoxes = boxElementsGroup.selectAll('rect').data(data);
                 // const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(data));
                 //
-                // const t = d3.transition()
-                //     .duration(750);
-                //
-                // svg.select('.x')
-                //     .transition(t)
-                //     .call(xAxis);
-                //
-                // svg.select('.y')
-                //     .transition(t)
-                //     .call(yAxis);
                 //
                 // updatedBoxes.enter()
                 //     .append("rect")
@@ -197,6 +198,9 @@ function groupedBarChart() {
                 // svg.select('.x.axis.label').text(xAxisLabel);
                 // svg.select('.y.axis.label').text(yAxisLabel);
             };
+
+            getXDomainValues = (data) => [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
+            getYDomainValues = (data) => data.map(group => group.values.map(v => parseInt(v.value))).flat();
         })
     }
 
