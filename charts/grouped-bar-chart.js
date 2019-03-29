@@ -199,8 +199,13 @@ function groupedBarChart() {
                 // svg.select('.y.axis.label').text(yAxisLabel);
             };
 
-            getXDomainValues = (data) => [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
-            getYDomainValues = (data) => data.map(group => group.values.map(v => parseInt(v.value))).flat();
+            function getXDomainValues(data) {
+                return [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
+            }
+
+            function getYDomainValues(data) {
+                return data.map(group => group.values.map(v => parseInt(v.value))).flat();
+            }
         })
     }
 
