@@ -38,7 +38,7 @@ function groupedBarChart() {
 
             const innerGroupScale = d3.scaleBand()
                 .padding(0.05)
-                .domain(data.map(group => group.key))
+                .domain([...new Set(data.map(v => v.groupKey))])
                 .rangeRound([0, groupsScale.bandwidth()]);
 
             const yScale = d3.scaleLinear()
@@ -77,11 +77,9 @@ function groupedBarChart() {
             barChartSvg.call(tooltip);
 
             barChartSvg.append("g")
-                .selectAll("g")
-                .data(data)
-                .enter()
+                .attr('class', 'rect-group')
                 .selectAll("rect")
-                .data(d => d.values)
+                .data(data)
                 .enter().append("rect")
                 .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
                 .attr("y", d => yScale(d.value))
@@ -119,92 +117,80 @@ function groupedBarChart() {
                 groupsScale.domain(getXDomainValues(data));
                 xAxis.scale(groupsScale);
 
-                innerGroupScale.domain(data.map(group => group.key));
+                innerGroupScale
+                    .domain([...new Set(data.map(v => v.groupKey))])
+                    .rangeRound([0, groupsScale.bandwidth()]);
 
                 yDomainValues = getYDomainValues(data);
-                yScale.domain([d3.min(yDomainValues), d3.max(yDomainValues)])
+                yScale.domain([d3.min(yDomainValues), d3.max(yDomainValues)]);
 
                 yAxis.scale(yScale);
 
                 const t = d3.transition()
                     .duration(750);
 
-                svg.select('.x')
+                barChartSvg.select('.x')
                     .transition(t)
                     .call(xAxis);
 
-                svg.select('.y')
+                barChartSvg.select('.y')
                     .transition(t)
                     .call(yAxis);
-                //
-                // const updatedBoxes = boxElementsGroup.selectAll('rect').data(data);
-                // const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(data));
-                //
-                //
-                // updatedBoxes.enter()
-                //     .append("rect")
-                //     .attr("width", xScale.bandwidth())
-                //     .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
-                //     .attr("x", (datum) => xScale(datum.key))
-                //     .attr("y", (datum) => yScale(datum.quartile[2]))
-                //     .attr("fill", 'lightgrey')
-                //     .attr("stroke", "#000")
-                //     .attr("stroke-width", 1)
-                //     .on('mouseover', d => tooltip.show(d))
-                //     .on('mouseout', () => tooltip.hide());
-                //
-                // updatedBoxes
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(750)
-                //     .attr("width", xScale.bandwidth())
-                //     .attr("height", (datum) => yScale(datum.quartile[0]) - yScale(datum.quartile[2]))
-                //     .attr("x", (datum) => xScale(datum.key))
-                //     .attr("y", (datum) => yScale(datum.quartile[2]));
-                //
-                // updatedBoxes.exit()
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(100)
-                //     .remove();
-                //
-                // updatedLines.enter()
-                //     .append("line")
-                //     .attr('class', 'whiskers')
-                //     .attr("x1", d => d.x1)
-                //     .attr("y1", d => d.y1)
-                //     .attr("x2", d => d.x2)
-                //     .attr("y2", d => d.y2)
-                //     .attr("stroke", "#000")
-                //     .attr("stroke-width", 1)
-                //     .attr("fill", "none");
-                //
-                // updatedLines
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(750)
-                //     .attr("x1", d => d.x1)
-                //     .attr("y1", d => d.y1)
-                //     .attr("x2", d => d.x2)
-                //     .attr("y2", d => d.y2);
-                //
-                // updatedLines.exit()
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(100)
-                //     .remove();
-                //
-                // // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
-                // svg.select('.x.axis.label').text(xAxisLabel);
-                // svg.select('.y.axis.label').text(yAxisLabel);
+
+                const updatedBars = barChartSvg.selectAll('rect').data(data);
+
+                updatedBars
+                    .enter().append("rect")
+                    .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
+                    .attr("y", d => yScale(d.value))
+                    .attr("width", innerGroupScale.bandwidth())
+                    .attr("height", d => height - yScale(d.value) - margin.bottom)
+                    .attr("fill", d => colorScale(d.groupKey))
+                    .on("mouseover", (d) => {
+                        d3.select(this)
+                            .transition()
+                            .duration(100)
+                            .attr('r', 10)
+                            .attr('stroke-width', 3);
+                        tooltip.show(d);
+
+                    })
+                    .on("mouseout", () => {
+                        d3.select(this)
+                            .transition()
+                            .duration(100)
+                            .attr('r', 5)
+                            .attr('stroke-width', 1);
+                        tooltip.hide();
+                    });
+
+                updatedBars
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(750)
+                    .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
+                    .attr("y", d => yScale(d.value))
+                    .attr("width", innerGroupScale.bandwidth())
+                    .attr("height", d => height - yScale(d.value) - margin.bottom)
+                    .attr("fill", d => colorScale(d.groupKey));
+
+                updatedBars.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+
+                // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
+                barChartSvg.select('.x.axis.label').text(xAxisLabel);
+                barChartSvg.select('.y.axis.label').text(yAxisLabel);
             };
 
             function getXDomainValues(data) {
-                return [...new Set(data.map(group => group.values.map(v => parseInt(v.key))).flat())].sort((a, b) => a - b);
+                return [...new Set(data.map(v => parseInt(v.key)))].sort((a, b) => a - b);
             }
 
             function getYDomainValues(data) {
-                return data.map(group => group.values.map(v => parseInt(v.value))).flat();
+                return data.map(v => parseInt(v.value));
             }
         })
     }
@@ -255,7 +241,7 @@ function groupedBarChart() {
 
     chart.data = function (value) {
         if (!arguments.length) return data;
-        data = value;
+        data = value.map(group => group.values).flat();
         if (typeof updateData === 'function') updateData();
         return chart;
     };
