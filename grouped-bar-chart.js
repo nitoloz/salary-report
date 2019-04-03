@@ -1,12 +1,12 @@
 groupedBarChartInitializer = (data) => {
     const colorScale = Utils.getSexColorScaleWithoutDomain();
 
-    const groupedData2017 = processLineChartData(data, CURRENT_SALARY, SEX);
-    const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
+    const currentSalaryData = processLineChartData(data, CURRENT_SALARY, SEX);
+    const previousSalaryData = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
-    groupedData2017.forEach(group => {
+    currentSalaryData.forEach(group => {
         const groupKey = group.key.split(',')[0];
-        const historicalData = groupedData2016.find(group => group.key.indexOf(groupKey) !== -1);
+        const historicalData = previousSalaryData.find(group => group.key.indexOf(groupKey) !== -1);
         group.values.forEach(groupItem => {
             const historicalGroupItem = historicalData.values.find(historicalGroupItem => historicalGroupItem.key === groupItem.key);
             groupItem.valueDifference = historicalGroupItem ? Math.round((groupItem.value - historicalGroupItem.value) * 10) / 10 : 0;
@@ -25,7 +25,7 @@ groupedBarChartInitializer = (data) => {
             Number of respondents: ${d.absoluteValue}<br>
             Yearly difference: ${d.valueDifference}%`;
         })
-        .data(groupedData2017);
+        .data(currentSalaryData);
     // .data([...groupedData2016,...groupedData2017]);
 
     d3.select("#grouped-bar-chart-area")
