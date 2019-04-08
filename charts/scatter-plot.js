@@ -34,12 +34,13 @@ function scatterPlot() {
         trellisingProperty = initialConfiguration.trellisingProperty,
         colorScale = initialConfiguration.colorScale,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
+    let updateData = null;
 
     function chart(selection) {
         selection.each(function () {
             data = data.filter(d => parseInt(d[yAxisProperty]) > 0 && parseInt(d[xAxisProperty]) > 0);
-            const yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
-            const xAxisValues = data.map(d => parseInt(d[xAxisProperty]));
+            let yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
+            let xAxisValues = data.map(d => parseInt(d[xAxisProperty]));
 
             const xScale = d3.scaleLinear()
                 .domain([
@@ -165,6 +166,83 @@ function scatterPlot() {
             svg.append("g")
                 .attr("transform", `translate(${width - 120}, 0)`)
                 .call(scatterPlotLegend);
+
+            updateData = function () {
+                data = data.filter(d => parseInt(d[yAxisProperty]) > 0 && parseInt(d[xAxisProperty]) > 0);
+                yAxisValues = data.map(d => parseInt(d[yAxisProperty]));
+                xAxisValues = data.map(d => parseInt(d[xAxisProperty]));
+
+                xScale.domain([
+                    d3.min([0, d3.min(xAxisValues)]),
+                    d3.max([0, d3.max(xAxisValues)])]);
+
+                xAxis.scale(xScale);
+
+                yScale.domain([
+                    d3.min([d3.min(yAxisValues)]),
+                    d3.max([d3.max(yAxisValues)])
+                ]);
+
+                yAxis.scale(yScale);
+
+                const t = d3.transition()
+                    .duration(750);
+
+                svg.select('.x')
+                    .transition(t)
+                    .call(xAxis);
+
+                svg.select('.y')
+                    .transition(t)
+                    .call(yAxis);
+
+                const updatedPoints = circlesG.selectAll('circle').data(data);
+
+                // updatedPoints
+                //     .enter().append("rect")
+                //     .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
+                //     .attr("y", d => yScale(d.value))
+                //     .attr("width", innerGroupScale.bandwidth())
+                //     .attr("height", d => height - yScale(d.value) - margin.bottom)
+                //     .attr("fill", d => colorScale(d.groupKey))
+                //     .on("mouseover", (d) => {
+                //         d3.select(this)
+                //             .transition()
+                //             .duration(100)
+                //             .attr('r', 10)
+                //             .attr('stroke-width', 3);
+                //         tooltip.show(d);
+                //
+                //     })
+                //     .on("mouseout", () => {
+                //         d3.select(this)
+                //             .transition()
+                //             .duration(100)
+                //             .attr('r', 5)
+                //             .attr('stroke-width', 1);
+                //         tooltip.hide();
+                //     });
+                //
+                // updatedBars
+                //     .transition()
+                //     .ease(d3.easeLinear)
+                //     .duration(750)
+                //     .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
+                //     .attr("y", d => yScale(d.value))
+                //     .attr("width", innerGroupScale.bandwidth())
+                //     .attr("height", d => height - yScale(d.value) - margin.bottom)
+                //     .attr("fill", d => colorScale(d.groupKey));
+
+                updatedPoints.exit()
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(100)
+                    .remove();
+
+                // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
+                svg.select('.x.axis.label').text(xAxisLabel);
+                svg.select('.y.axis.label').text(yAxisLabel);
+            };
         })
     }
 
@@ -215,6 +293,7 @@ function scatterPlot() {
     chart.data = function (value) {
         if (!arguments.length) return data;
         data = value;
+        if (typeof updateData === 'function') updateData();
         return chart;
     };
 
