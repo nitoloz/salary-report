@@ -188,50 +188,46 @@ function scatterPlot() {
                 const t = d3.transition()
                     .duration(750);
 
-                svg.select('.x')
-                    .transition(t)
+                gXAxis.transition(t)
                     .call(xAxis);
 
-                svg.select('.y')
-                    .transition(t)
+                gYAxis.transition(t)
                     .call(yAxis);
 
                 const updatedPoints = circlesG.selectAll('circle').data(data);
 
-                // updatedPoints
-                //     .enter().append("rect")
-                //     .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
-                //     .attr("y", d => yScale(d.value))
-                //     .attr("width", innerGroupScale.bandwidth())
-                //     .attr("height", d => height - yScale(d.value) - margin.bottom)
-                //     .attr("fill", d => colorScale(d.groupKey))
-                //     .on("mouseover", (d) => {
-                //         d3.select(this)
-                //             .transition()
-                //             .duration(100)
-                //             .attr('r', 10)
-                //             .attr('stroke-width', 3);
-                //         tooltip.show(d);
-                //
-                //     })
-                //     .on("mouseout", () => {
-                //         d3.select(this)
-                //             .transition()
-                //             .duration(100)
-                //             .attr('r', 5)
-                //             .attr('stroke-width', 1);
-                //         tooltip.hide();
-                //     });
-                //
-                // updatedBars
-                //     .transition()
-                //     .ease(d3.easeLinear)
-                //     .duration(750)
-                //     .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
-                //     .attr("y", d => yScale(d.value))
-                //     .attr("width", innerGroupScale.bandwidth())
-                //     .attr("height", d => height - yScale(d.value) - margin.bottom)
-                //     .attr("fill", d => colorScale(d.groupKey));
+                updatedPoints
+                    .append('circle')
+                    .attr('cx', d => xScale(parseInt(d[xAxisProperty])))
+                    .attr('cy', d => yScale(parseInt(d[yAxisProperty])))
+                    .attr('r', '5')
+                    .attr('stroke', 'grey')
+                    .attr('stroke-width', 1)
+                    .attr('fill', d => colorScale(d[trellisingProperty]))
+                    .on('mouseover', (d) => {
+                        d3.select(this)
+                            .transition()
+                            .duration(100)
+                            .attr('r', 10)
+                            .attr('stroke-width', 3);
+                        tooltip.show(d);
+                    })
+                    .on('mouseout', () => {
+                        d3.select(this)
+                            .transition()
+                            .duration(100)
+                            .attr('r', 5)
+                            .attr('stroke-width', 1);
+                        tooltip.hide();
+                    });
+
+                updatedPoints
+                    .transition()
+                    .ease(d3.easeLinear)
+                    .duration(750)
+                    .attr('cx', d => xScale(parseInt(d[xAxisProperty])))
+                    .attr('cy', d => yScale(parseInt(d[yAxisProperty])))
+                    .attr('fill', d => colorScale(d[trellisingProperty]));
 
                 updatedPoints.exit()
                     .transition()
