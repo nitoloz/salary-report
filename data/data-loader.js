@@ -2,6 +2,7 @@ let selectedYear = '2018';
 let loadedData = [];
 
 const scatterChart = new ScatterChart();
+const boxPlot = new BoxPlot();
 
 document.querySelector('select[id="yearSelect"]').onchange = function (event) {
     switch (event.target.value) {
@@ -42,7 +43,8 @@ function loadData() {
             groupedBarChartInitializer(data);
             pieChartInitializer(data);
             scatterChart.updateData(data);
-            boxPlotInitializer(data);
+            boxPlot.updateData(data);
+            // boxPlotInitializer(data);
         });
 }
 
@@ -50,7 +52,7 @@ function showFilteredCharts(filter, key) {
     document.getElementById("filter-content").textContent = `${key}: ${filter}`;
     document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
     const filteredData = loadedData.filter(entry => entry[key] === filter);
-    updateBoxPlot(filteredData);
+    // updateBoxPlot(filteredData);
 }
 
 

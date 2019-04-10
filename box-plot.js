@@ -1,93 +1,97 @@
-let selectedXAxisOption, selectedYAxisOption, salaryBoxPlot;
 const sortByMedian = (a, b) => parseInt(a.quartile[1]) - parseInt(b.quartile[1]);
+const xAxisOptions = [
+    {
+        selectLabel: 'Experience',
+        axisLabel: 'Total experience (Years)',
+        groupByOption: TOTAL_EXPERIENCE
+    },
+    {
+        selectLabel: 'City',
+        axisLabel: 'City',
+        groupByOption: CITY
+    },
+    {
+        selectLabel: 'Sex',
+        axisLabel: 'Sex',
+        groupByOption: SEX
+    },
+    {
+        selectLabel: 'Seniority',
+        axisLabel: 'Seniority Level',
+        groupByOption: SENIORITY_LEVEL
+    },
+    {
+        selectLabel: 'CompanyType',
+        axisLabel: 'Company Type',
+        groupByOption: COMPANY_TYPE
+    },
+    {
+        selectLabel: 'Language',
+        axisLabel: 'Language',
+        groupByOption: WORK_LANGUAGE
+    },
+    {
+        selectLabel: 'Size',
+        axisLabel: 'Company Size',
+        groupByOption: COMPANY_SIZE
+    }
+];
 
-boxPlotInitializer = (data) => {
-    const xAxisOptions = [
-        {
-            selectLabel: 'Experience',
-            axisLabel: 'Total experience (Years)',
-            groupByOption: TOTAL_EXPERIENCE
-        },
-        {
-            selectLabel: 'City',
-            axisLabel: 'City',
-            groupByOption: CITY
-        },
-        {
-            selectLabel: 'Sex',
-            axisLabel: 'Sex',
-            groupByOption: SEX
-        },
-        {
-            selectLabel: 'Seniority',
-            axisLabel: 'Seniority Level',
-            groupByOption: SENIORITY_LEVEL
-        },
-        {
-            selectLabel: 'CompanyType',
-            axisLabel: 'Company Type',
-            groupByOption: COMPANY_TYPE
-        },
-        {
-            selectLabel: 'Language',
-            axisLabel: 'Language',
-            groupByOption: WORK_LANGUAGE
-        },
-        {
-            selectLabel: 'Size',
-            axisLabel: 'Company Size',
-            groupByOption: COMPANY_SIZE
-        }
-    ];
+const yAxisOptions = [
+    {
+        selectLabel: 'Salary',
+        axisLabel: 'Salary (EUR)',
+        groupByOption: CURRENT_SALARY
+    },
+    {
+        selectLabel: 'Raise',
+        axisLabel: 'Salary Raise (EUR)',
+        groupByOption: SALARY_RAISE
+    }
+];
 
-    const yAxisOptions = [
-        {
-            selectLabel: 'Salary',
-            axisLabel: 'Salary (EUR)',
-            groupByOption: CURRENT_SALARY
-        },
-        {
-            selectLabel: 'Raise',
-            axisLabel: 'Salary Raise (EUR)',
-            groupByOption: SALARY_RAISE
-        }
-    ];
+class BoxPlot {
 
-    selectedXAxisOption = xAxisOptions[0];
-    selectedYAxisOption = yAxisOptions[0];
+    constructor() {
 
-    const boxPlotExperienceData = processBoxPlotData(data, TOTAL_EXPERIENCE, CURRENT_SALARY);
+        this.selectedXAxisOption = xAxisOptions[0];
+        this.selectedYAxisOption = yAxisOptions[0];
+        this.salaryBoxPlot = boxPlotChart()
+            .width(width)
+            .height(height);
+
+        d3.select("#box-plot-area")
+            .call(this.salaryBoxPlot);
+
+        document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = (event) => {
+            this.selectedXAxisOption = xAxisOptions.find(option => option.selectLabel === event.target.value);
+            this.redrawPlot();
+        };
+
+        document.querySelector('select[id="boxPlotYAxisSelect"]').onchange = (event) => {
+            this.selectedYAxisOption = yAxisOptions.find(option => option.selectLabel === event.target.value);
+            this.redrawPlot();
+        };
+    }
+
+    updateData(data) {
+        this.data = data;
+        this.redrawPlot();
+    }
 
 
-    salaryBoxPlot = boxPlot()
-        .width(width)
-        .height(height)
-        .data(boxPlotExperienceData);
+    redrawPlot() {
+        const boxPlotData = this.selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
+            ? processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption)
+            : this.selectedXAxisOption.groupByOption === COMPANY_SIZE
+                ? processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption,
+                    (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
+                : processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption, sortByMedian);
 
-    d3.select("#box-plot-area")
-        .call(salaryBoxPlot);
+        this.salaryBoxPlot
+            .xAxisLabel(this.selectedXAxisOption.axisLabel)
+            .yAxisLabel(this.selectedYAxisOption.axisLabel)
+            .data(boxPlotData);
+    }
 
-    document.querySelector('select[id="boxPlotXAxisSelect"]').onchange = function (event) {
-        selectedXAxisOption = xAxisOptions.find(option => option.selectLabel === event.target.value);
-        updateBoxPlot(data);
-    };
-
-    document.querySelector('select[id="boxPlotYAxisSelect"]').onchange = function (event) {
-        selectedYAxisOption = yAxisOptions.find(option => option.selectLabel === event.target.value);
-        updateBoxPlot(data);
-    };
-};
-
-function updateBoxPlot(data) {
-    const boxPlotData = selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
-        ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption)
-        : selectedXAxisOption.groupByOption === COMPANY_SIZE
-            ? processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption,
-                (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
-            : processBoxPlotData(data, selectedXAxisOption.groupByOption, selectedYAxisOption.groupByOption, sortByMedian);
-
-    salaryBoxPlot
-        .xAxisLabel(selectedXAxisOption.axisLabel)
-        .yAxisLabel(selectedYAxisOption.axisLabel)
-        .data(boxPlotData);
 }

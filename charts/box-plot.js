@@ -1,4 +1,4 @@
-function boxPlot() {
+function boxPlotChart() {
 
     let initialConfiguration = {
         width: 1000,
