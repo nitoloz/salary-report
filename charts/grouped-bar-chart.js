@@ -1,4 +1,4 @@
-function groupedBarChart() {
+function groupedBarChartD3() {
 
     let initialConfiguration = {
         width: 1000,

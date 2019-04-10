@@ -3,6 +3,7 @@ let loadedData = [];
 
 const scatterChart = new ScatterChart();
 const boxPlot = new BoxPlot();
+const groupedBarChart = new GroupedBarChart();
 
 document.querySelector('select[id="yearSelect"]').onchange = function (event) {
     switch (event.target.value) {
@@ -40,11 +41,11 @@ function loadData() {
                     : 0;
             });
             loadedData = data;
-            groupedBarChartInitializer(data);
+
+            groupedBarChart.updateData(data);
             pieChartInitializer(data);
             scatterChart.updateData(data);
             boxPlot.updateData(data);
-            // boxPlotInitializer(data);
         });
 }
 
