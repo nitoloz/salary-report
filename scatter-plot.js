@@ -1,15 +1,17 @@
-scatterChartInitializer = (data) => {
+class ScatterChart {
 
-    const colorScale = Utils.getSexColorScale();
+    constructor() {
+        this.salaryScatterChart = scatterPlot()
+            .width(width)
+            .height(height)
+            .colorScale(Utils.getSexColorScale());
 
-    const salaryScatterChart = scatterPlot()
-        .width(width)
-        .height(height)
-        .colorScale(colorScale)
-        .data(data);
+        d3.select("#scatter-chart-area")
+            .call(this.salaryScatterChart);
+    }
 
-    d3.select("#scatter-chart-area")
-        .call(salaryScatterChart);
-};
+    updateData(data) {
+        this.salaryScatterChart.data(data);
+    }
 
-
+}

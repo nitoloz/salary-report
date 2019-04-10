@@ -1,6 +1,8 @@
 let selectedYear = '2018';
 let loadedData = [];
 
+const scatterChart = new ScatterChart();
+
 document.querySelector('select[id="yearSelect"]').onchange = function (event) {
     switch (event.target.value) {
         case '2018':
@@ -39,7 +41,7 @@ function loadData() {
             loadedData = data;
             groupedBarChartInitializer(data);
             pieChartInitializer(data);
-            scatterChartInitializer(data);
+            scatterChart.updateData(data);
             boxPlotInitializer(data);
         });
 }

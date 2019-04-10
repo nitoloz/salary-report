@@ -109,7 +109,7 @@ function scatterPlot() {
                 let newYScale = d3.event.transform.rescaleY(yScale);
                 gXAxis.call(xAxis.scale(newXScale));
                 gYAxis.call(yAxis.scale(newYScale));
-                circles.data(data)
+                circlesG.selectAll('circle').data(data)
                     .attr('cx', d => newXScale(parseInt(d[xAxisProperty])))
                     .attr('cy', d => newYScale(parseInt(d[yAxisProperty])));
             }
@@ -132,7 +132,7 @@ function scatterPlot() {
             const circlesG = svg.append("g")
                 .attr("clip-path", "url(#clip)");
 
-            const circles = circlesG.selectAll('circle')
+            circlesG.selectAll('circle')
                 .data(data)
                 .enter()
                 .append('circle')
@@ -197,6 +197,7 @@ function scatterPlot() {
                 const updatedPoints = circlesG.selectAll('circle').data(data);
 
                 updatedPoints
+                    .enter()
                     .append('circle')
                     .attr('cx', d => xScale(parseInt(d[xAxisProperty])))
                     .attr('cy', d => yScale(parseInt(d[yAxisProperty])))
