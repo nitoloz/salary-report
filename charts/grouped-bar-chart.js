@@ -104,7 +104,7 @@ function groupedBarChartD3() {
                     tooltip.hide();
                 });
 
-            const barChartLegend = stackedLegend()
+            const barChartLegend = stackedLegendD3()
                 .colorScale(colorScale)
                 // .columns(2)
                 .data(colorScale.domain());

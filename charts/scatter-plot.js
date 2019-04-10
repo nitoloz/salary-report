@@ -1,4 +1,4 @@
-function scatterPlot() {
+function scatterPlotD3() {
 
     let initialConfiguration = {
         width: 1000,
@@ -159,7 +159,7 @@ function scatterPlot() {
                     tooltip.hide();
                 });
 
-            const scatterPlotLegend = stackedLegend()
+            const scatterPlotLegend = stackedLegendD3()
                 .colorScale(colorScale)
                 .data(colorScale.domain());
 

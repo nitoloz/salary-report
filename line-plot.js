@@ -4,7 +4,7 @@ linePlotInitializer = (data) => {
     const groupedData2017 = processLineChartData(data, CURRENT_SALARY, SEX);
     // const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
-    const salaryLineChart = lineChart()
+    const salaryLineChart = lineChartD3()
         .width(width)
         .height(height)
         .colorScale(colorScale)

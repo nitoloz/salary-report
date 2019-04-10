@@ -53,7 +53,7 @@ function showFilteredCharts(filter, key) {
     document.getElementById("filter-content").textContent = `${key}: ${filter}`;
     document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
     const filteredData = loadedData.filter(entry => entry[key] === filter);
-    // updateBoxPlot(filteredData);
+    boxPlot.updateData(filteredData);
 }
 
 

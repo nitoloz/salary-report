@@ -1,4 +1,4 @@
-function gradientLegend() {
+function gradientLegendD3() {
     let updateLegendData = null;
     let width = 150;
     let height = 50;

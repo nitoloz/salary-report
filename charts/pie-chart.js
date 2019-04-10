@@ -1,4 +1,4 @@
-function pieChart() {
+function pieChartD3() {
 
     const initialConfiguration = {
         width: 1000,

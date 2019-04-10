@@ -56,7 +56,7 @@ class BoxPlot {
 
         this.selectedXAxisOption = xAxisOptions[0];
         this.selectedYAxisOption = yAxisOptions[0];
-        this.salaryBoxPlot = boxPlotChart()
+        this.salaryBoxPlot = boxPlotD3()
             .width(width)
             .height(height);
 

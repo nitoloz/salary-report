@@ -1,7 +1,7 @@
 class ScatterChart {
 
     constructor() {
-        this.salaryScatterChart = scatterPlot()
+        this.salaryScatterChart = scatterPlotD3()
             .width(width)
             .height(height)
             .colorScale(Utils.getSexColorScale());

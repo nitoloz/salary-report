@@ -21,7 +21,7 @@ pieChartInitializer = (data) => {
                                 <tspan x="0" dy="1.2em">3rd quartile: ${quartiles[2]}</tspan>
                                 <tspan x="0" dy="1.2em">Median raise: ${medianRaise}</tspan>`;
 
-    const dynamicPieChart = pieChart()
+    const dynamicPieChart = pieChartD3()
         .width(width / 1.2)
         .height(height / 1.2)
         .placeHolderTooltip(placeHolderTooltip);

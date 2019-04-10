@@ -1,4 +1,4 @@
-function stackedLegend() {
+function stackedLegendD3() {
     let colorScale = d3.scaleOrdinal(d3.schemeSet3);
     let data = [];
     let updateLegendData = null;

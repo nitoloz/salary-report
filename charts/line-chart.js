@@ -1,4 +1,4 @@
-function lineChart() {
+function lineChartD3() {
 
     let initialConfiguration = {
         width: 1000,
@@ -114,7 +114,7 @@ function lineChart() {
                     });
             });
 
-            const lineChartLegend = stackedLegend()
+            const lineChartLegend = stackedLegendD3()
                 .colorScale(colorScale)
                 // .columns(2)
                 .data(colorScale.domain());
