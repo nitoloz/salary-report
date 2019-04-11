@@ -28,6 +28,10 @@ class Utils {
             .range(['#80b1d380', '#fb807280', "#80b1d3", "#fb8072"]);
     }
 
+    static getSelectedYear() {
+        return localStorage.getItem('selectedYear') ? localStorage.getItem('selectedYear') : '2018';
+    }
+
     static appendXAxisTitle(selection, x, y, text) {
         selection.append('text')
             .attr('class', 'label x axis')
