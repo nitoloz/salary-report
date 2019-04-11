@@ -75,6 +75,7 @@ class BoxPlot {
     }
 
     updateData(data) {
+        //TODO update selected labels according to new year option
         this.data = data;
         this.redrawPlot();
     }

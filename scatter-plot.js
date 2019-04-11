@@ -11,7 +11,11 @@ class ScatterChart {
     }
 
     updateData(data) {
-        this.salaryScatterChart.data(data);
+        this.salaryScatterChart
+            .xAxisProperty(TOTAL_EXPERIENCE)
+            .yAxisProperty(CURRENT_SALARY)
+            .trellisingProperty(SEX)
+            .data(data);
     }
 
 }

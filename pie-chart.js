@@ -90,7 +90,7 @@ class PieChart {
             d3.quantile(salariesValues, .5),
             d3.quantile(salariesValues, .75)
         ];
-        const placeHolderTooltip = `<tspan x="0">December ${selectedYear}</tspan>
+        const placeHolderTooltip = `<tspan x="0">December ${Utils.getSelectedYear()}</tspan>
                                 <tspan x="0" dy="1.2em">Total respondents: ${this.data.length}</tspan>
                                 <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
                                 <tspan x="0" dy="2em">1st quartile: ${quartiles[0]}</tspan>
