@@ -81,12 +81,26 @@ class BoxPlot {
 
 
     redrawPlot() {
-        const boxPlotData = this.selectedXAxisOption.groupByOption === TOTAL_EXPERIENCE
-            ? processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption)
-            : this.selectedXAxisOption.groupByOption === COMPANY_SIZE
-                ? processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption,
-                    (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key))
-                : processBoxPlotData(this.data, this.selectedXAxisOption.groupByOption, this.selectedYAxisOption.groupByOption, sortByMedian);
+        let boxPlotData;
+        switch (this.selectedXAxisOption.groupByOption) {
+            case TOTAL_EXPERIENCE:
+                boxPlotData = processBoxPlotData(this.data,
+                    this.selectedXAxisOption.groupByOption,
+                    this.selectedYAxisOption.groupByOption);
+                break;
+            case COMPANY_SIZE:
+                boxPlotData = processBoxPlotData(this.data,
+                    this.selectedXAxisOption.groupByOption,
+                    this.selectedYAxisOption.groupByOption,
+                    (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key));
+                break;
+            default:
+                boxPlotData = processBoxPlotData(this.data,
+                    this.selectedXAxisOption.groupByOption,
+                    this.selectedYAxisOption.groupByOption,
+                    sortByMedian);
+                break;
+        }
 
         this.salaryBoxPlot
             .xAxisLabel(this.selectedXAxisOption.axisLabel)
