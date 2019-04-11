@@ -12,7 +12,7 @@ function scatterPlotD3() {
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (d) => {
             return `Position: ${d[POSITION]}<br>
-            Salary ${selectedYear}: ${d[CURRENT_SALARY]}<br>
+            Salary ${Utils.getSelectedYear()}: ${d[CURRENT_SALARY]}<br>
             Salary Previous Year: ${d[PREVIOUS_SALARY]}<br>
             Age: ${d[AGE] || 'no data'} <br>
             Sex: ${d[SEX] || 'no data'} <br>
@@ -205,7 +205,7 @@ function scatterPlotD3() {
                     .attr('stroke', 'grey')
                     .attr('stroke-width', 1)
                     .attr('fill', d => colorScale(d[trellisingProperty]))
-                    .on('mouseover', (d) => {
+                    .on('mouseover', function (d) {
                         d3.select(this)
                             .transition()
                             .duration(100)
@@ -213,7 +213,7 @@ function scatterPlotD3() {
                             .attr('stroke-width', 3);
                         tooltip.show(d);
                     })
-                    .on('mouseout', () => {
+                    .on('mouseout', function () {
                         d3.select(this)
                             .transition()
                             .duration(100)
@@ -264,6 +264,24 @@ function scatterPlotD3() {
     chart.yAxisLabel = function (value) {
         if (!arguments.length) return yAxisLabel;
         yAxisLabel = value;
+        return chart;
+    };
+
+    chart.xAxisProperty = function (value) {
+        if (!arguments.length) return xAxisProperty;
+        xAxisProperty = value;
+        return chart;
+    };
+
+    chart.yAxisProperty = function (value) {
+        if (!arguments.length) return yAxisProperty;
+        yAxisProperty = value;
+        return chart;
+    };
+
+    chart.trellisingProperty = function (value) {
+        if (!arguments.length) return trellisingProperty;
+        trellisingProperty = value;
         return chart;
     };
 

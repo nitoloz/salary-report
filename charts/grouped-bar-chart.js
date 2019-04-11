@@ -86,7 +86,7 @@ function groupedBarChartD3() {
                 .attr("width", innerGroupScale.bandwidth())
                 .attr("height", d => height - yScale(d.value) - margin.bottom)
                 .attr("fill", d => colorScale(d.groupKey))
-                .on("mouseover", (d) => {
+                .on("mouseover", function (d) {
                     d3.select(this)
                         .transition()
                         .duration(100)
@@ -95,7 +95,7 @@ function groupedBarChartD3() {
                     tooltip.show(d);
 
                 })
-                .on("mouseout", () => {
+                .on("mouseout", function () {
                     d3.select(this)
                         .transition()
                         .duration(100)
