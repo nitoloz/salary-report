@@ -4,6 +4,7 @@ let loadedData = [];
 const scatterChart = new ScatterChart();
 const boxPlot = new BoxPlot();
 const groupedBarChart = new GroupedBarChart();
+const pieChart = new PieChart();
 
 document.querySelector('select[id="yearSelect"]').onchange = function (event) {
     switch (event.target.value) {
@@ -43,7 +44,7 @@ function loadData() {
             loadedData = data;
 
             groupedBarChart.updateData(data);
-            pieChartInitializer(data);
+            pieChart.updateData(data);
             scatterChart.updateData(data);
             boxPlot.updateData(data);
         });
