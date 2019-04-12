@@ -76,8 +76,14 @@ class PieChart {
 
     updateData(data) {
         this.data = data;
+        const placeHolderTooltip = this.getPlaceholderTooltip();
+        const chartData = processPieChartData(this.data, CITY);
+        this.pieChart
+            .placeHolderTooltip(placeHolderTooltip)
+            .data(chartData)
+    }
 
-        //TODO move to a getPlaceholderTooltip() function
+    getPlaceholderTooltip() {
         const salariesValues = this.data.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
         const meanSalary = Math.round(d3.mean(salariesValues) / 1000) * 1000;
 
@@ -90,17 +96,12 @@ class PieChart {
             d3.quantile(salariesValues, .5),
             d3.quantile(salariesValues, .75)
         ];
-        const placeHolderTooltip = `<tspan x="0">December ${Utils.getSelectedYear()}</tspan>
+        return `<tspan x="0">December ${Utils.getSelectedYear()}</tspan>
                                 <tspan x="0" dy="1.2em">Total respondents: ${this.data.length}</tspan>
                                 <tspan x="0" dy="1.2em">Mean salary: ${meanSalary}</tspan>
                                 <tspan x="0" dy="2em">1st quartile: ${quartiles[0]}</tspan>
                                 <tspan x="0" dy="1.2em">Median salary: ${quartiles[1]}</tspan>
                                 <tspan x="0" dy="1.2em">3rd quartile: ${quartiles[2]}</tspan>
                                 <tspan x="0" dy="1.2em">Median raise: ${medianRaise}</tspan>`;
-
-        const chartData = processPieChartData(this.data, CITY);
-        this.pieChart
-            .placeHolderTooltip(placeHolderTooltip)
-            .data(chartData)
     }
 }
