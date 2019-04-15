@@ -1,10 +1,12 @@
 class PieChart {
 
     constructor() {
+        this.groupByOption = 'CITY';
         this.pieChart = pieChartD3()
             .width(width / 1.2)
             .height(height / 1.2)
             .groupByOptionLabel('City')
+            .groupByOption(DataProperties[this.groupByOption])
             .colorScale(d3.scaleOrdinal(d3.schemeSet3));
 
         d3.select("#pie-chart-area")
@@ -17,56 +19,56 @@ class PieChart {
 
 
         document.querySelector('select[id="pieChartSelect"]').onchange = (event) => {
-            const dataGroupedByCity = processPieChartData(this.data, CITY);
-            const dataGroupedBySex = processPieChartData(this.data, SEX);
-            const dataGroupedBySeniority = processPieChartData(this.data, SENIORITY_LEVEL);
-            const dataGroupedByCompanyType = processPieChartData(this.data, COMPANY_TYPE);
-            const dataGroupedByLanguage = processPieChartData(this.data, WORK_LANGUAGE);
-            const dataGroupedByCompanySize = processPieChartData(this.data, COMPANY_SIZE, (a, b) => {
-                return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
-            });
             switch (event.target.value) {
                 case 'City':
+                    this.groupByOption = 'CITY';
                     this.pieChart
                         .groupByOptionLabel('City')
-                        .groupByOption(CITY)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(dataGroupedByCity);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
                     break;
                 case 'Sex':
+                    this.groupByOption = 'SEX';
                     this.pieChart
                         .groupByOptionLabel('Sex')
-                        .groupByOption(SEX)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(Utils.getSexColorScale())
-                        .data(dataGroupedBySex);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
                     break;
                 case 'Seniority':
+                    this.groupByOption = 'SENIORITY_LEVEL';
                     this.pieChart
                         .groupByOptionLabel('Seniority')
-                        .groupByOption(SENIORITY_LEVEL)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(dataGroupedBySeniority);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
                     break;
                 case 'CompanyType':
+                    this.groupByOption = 'COMPANY_TYPE';
                     this.pieChart
                         .groupByOptionLabel('Type')
-                        .groupByOption(COMPANY_TYPE)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(dataGroupedByCompanyType);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
                     break;
                 case 'Language':
+                    this.groupByOption = 'WORK_LANGUAGE';
                     this.pieChart
                         .groupByOptionLabel('Language')
-                        .groupByOption(WORK_LANGUAGE)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(dataGroupedByLanguage);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
                     break;
                 case 'Size':
+                    this.groupByOption = 'COMPANY_SIZE';
                     this.pieChart
                         .groupByOptionLabel('Size')
-                        .groupByOption(COMPANY_SIZE)
+                        .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(dataGroupedByCompanySize);
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], (a, b) => {
+                            return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
+                        }));
                     break;
                 default:
                     break;
@@ -76,19 +78,18 @@ class PieChart {
 
     updateData(data) {
         this.data = data;
-        const placeHolderTooltip = this.getPlaceholderTooltip();
-        const chartData = processPieChartData(this.data, CITY);
         this.pieChart
-            .placeHolderTooltip(placeHolderTooltip)
-            .data(chartData)
+            .groupByOption(DataProperties[this.groupByOption])
+            .placeHolderTooltip(this.getPlaceholderTooltip())
+            .data(processPieChartData(this.data, DataProperties[this.groupByOption]))
     }
 
     getPlaceholderTooltip() {
-        const salariesValues = this.data.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
+        const salariesValues = this.data.map(response => response[DataProperties.CURRENT_SALARY]).sort((a, b) => a - b);
         const meanSalary = Math.round(d3.mean(salariesValues) / 1000) * 1000;
 
-        const raisesValues = this.data.filter(response => response[CURRENT_SALARY] >= 0 && response[PREVIOUS_SALARY] >= 0)
-            .map(response => response[CURRENT_SALARY] - response[PREVIOUS_SALARY]).sort((a, b) => a - b);
+        const raisesValues = this.data.filter(response => response[DataProperties.CURRENT_SALARY] >= 0 && response[DataProperties.PREVIOUS_SALARY] >= 0)
+            .map(response => response[DataProperties.CURRENT_SALARY] - response[DataProperties.PREVIOUS_SALARY]).sort((a, b) => a - b);
         const medianRaise = Math.round(d3.median(raisesValues) / 100) * 100;
 
         const quartiles = [

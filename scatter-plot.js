@@ -12,9 +12,9 @@ class ScatterChart {
 
     updateData(data) {
         this.salaryScatterChart
-            .xAxisProperty(TOTAL_EXPERIENCE)
-            .yAxisProperty(CURRENT_SALARY)
-            .trellisingProperty(SEX)
+            .xAxisProperty(DataProperties.TOTAL_EXPERIENCE)
+            .yAxisProperty(DataProperties.CURRENT_SALARY)
+            .trellisingProperty(DataProperties.SEX)
             .data(data);
     }
 

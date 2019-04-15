@@ -1,7 +1,7 @@
 linePlotInitializer = (data) => {
     const colorScale = Utils.getSexColorScaleWithoutDomain();
 
-    const groupedData2017 = processLineChartData(data, CURRENT_SALARY, SEX);
+    const groupedData2017 = processLineChartData(data, DataProperties.CURRENT_SALARY, DataProperties.SEX);
     // const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
     const salaryLineChart = lineChartD3()

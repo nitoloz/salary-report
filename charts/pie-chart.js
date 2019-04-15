@@ -5,7 +5,7 @@ function pieChartD3() {
         height: 600,
         data: [],
         groupByOptionLabel: 'City',
-        groupByOption: CITY,
+        groupByOption: DataProperties.CITY,
         valueLabel: 'Respondents',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (data) => {
@@ -201,6 +201,10 @@ function pieChartD3() {
                     previousLabelY = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
+
+                if (placeHolderTooltip) {
+                    showTooltip(placeHolderTooltip, 'white');
+                }
             };
 
             function enterArcTween(d) {
@@ -317,10 +321,12 @@ function pieChartD3() {
     chart.data = function (value) {
         if (!arguments.length) return data;
         data = value;
+
         //TODO fix domain reinitialization after 1st data replacement
         if (chart.colorScale().domain().length === 0) {
             chart.colorScale().domain(data.map(d => d.key));
         }
+
         if (typeof updateData === 'function') updateData();
         return chart;
     };

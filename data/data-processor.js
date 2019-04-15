@@ -17,8 +17,8 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
     return d3.nest()
         .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
         .rollup(d => {
-            const values = d.map(response => response[CURRENT_SALARY]).sort((a, b) => a - b);
-            const raises = d.map(response => response[CURRENT_SALARY] - response[PREVIOUS_SALARY]).sort((a, b) => a - b);
+            const values = d.map(response => response[DataProperties.CURRENT_SALARY]).sort((a, b) => a - b);
+            const raises = d.map(response => response[DataProperties.CURRENT_SALARY] - response[DataProperties.PREVIOUS_SALARY]).sort((a, b) => a - b);
             return {
                 value: d.length,
                 extra: {
@@ -42,9 +42,9 @@ function processLineChartData(data, xOption, trellisingOption) {
 
     return d3.nest()
         .key((d) => {
-            const suffix = xOption === CURRENT_SALARY
+            const suffix = xOption === DataProperties.CURRENT_SALARY
                 ? ', 2017'
-                : xOption === PREVIOUS_SALARY
+                : xOption === DataProperties.PREVIOUS_SALARY
                     ? ', 2016'
                     : '';
             // return d[trellisingOption] + suffix;
@@ -92,7 +92,7 @@ function processBoxPlotData(data, xOption, yOption, customSortingFunction, minim
 
     return d3.nest()
         .key((d) => {
-            return xOption === TOTAL_EXPERIENCE ? Math.round(d[xOption])
+            return xOption === DataProperties.TOTAL_EXPERIENCE ? Math.round(d[xOption])
                 : internalMap[d[xOption]] / data.length > minimalLevel
                     ? d[xOption]
                     : OTHERS_GROUP;
@@ -115,8 +115,8 @@ function processBoxPlotData(data, xOption, yOption, customSortingFunction, minim
                 key: boxObject.key,
                 quartile: boxQuartiles(boxValues),
                 whiskers: boxWhiskers(boxValues),
-                maleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Male').length / boxObject.values.length * 100),
-                femaleCount: Math.round(boxObject.values.filter(value => value[SEX] === 'Female').length / boxObject.values.length * 100),
+                maleCount: Math.round(boxObject.values.filter(value => value[DataProperties.SEX] === 'Male').length / boxObject.values.length * 100),
+                femaleCount: Math.round(boxObject.values.filter(value => value[DataProperties.SEX] === 'Female').length / boxObject.values.length * 100),
                 rawValues: boxObject.values
             };
         }).sort(customSortingFunction ? customSortingFunction : (a, b) => parseInt(a.key) - parseInt(b.key));

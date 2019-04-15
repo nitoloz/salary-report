@@ -3,37 +3,37 @@ const xAxisOptions = [
     {
         selectLabel: 'Experience',
         axisLabel: 'Total experience (Years)',
-        groupByOption: TOTAL_EXPERIENCE
+        groupByOption: 'TOTAL_EXPERIENCE'
     },
     {
         selectLabel: 'City',
         axisLabel: 'City',
-        groupByOption: CITY
+        groupByOption: 'CITY'
     },
     {
         selectLabel: 'Sex',
         axisLabel: 'Sex',
-        groupByOption: SEX
+        groupByOption: 'SEX'
     },
     {
         selectLabel: 'Seniority',
         axisLabel: 'Seniority Level',
-        groupByOption: SENIORITY_LEVEL
+        groupByOption: 'SENIORITY_LEVEL'
     },
     {
         selectLabel: 'CompanyType',
         axisLabel: 'Company Type',
-        groupByOption: COMPANY_TYPE
+        groupByOption: 'COMPANY_TYPE'
     },
     {
         selectLabel: 'Language',
         axisLabel: 'Language',
-        groupByOption: WORK_LANGUAGE
+        groupByOption: 'WORK_LANGUAGE'
     },
     {
         selectLabel: 'Size',
         axisLabel: 'Company Size',
-        groupByOption: COMPANY_SIZE
+        groupByOption: 'COMPANY_SIZE'
     }
 ];
 
@@ -41,12 +41,12 @@ const yAxisOptions = [
     {
         selectLabel: 'Salary',
         axisLabel: 'Salary (EUR)',
-        groupByOption: CURRENT_SALARY
+        groupByOption: 'CURRENT_SALARY'
     },
     {
         selectLabel: 'Raise',
         axisLabel: 'Salary Raise (EUR)',
-        groupByOption: SALARY_RAISE
+        groupByOption: 'SALARY_RAISE'
     }
 ];
 
@@ -83,22 +83,22 @@ class BoxPlot {
 
     redrawPlot() {
         let boxPlotData;
-        switch (this.selectedXAxisOption.groupByOption) {
-            case TOTAL_EXPERIENCE:
+        switch (DataProperties[this.selectedXAxisOption.groupByOption]) {
+            case DataProperties.TOTAL_EXPERIENCE:
                 boxPlotData = processBoxPlotData(this.data,
-                    this.selectedXAxisOption.groupByOption,
-                    this.selectedYAxisOption.groupByOption);
+                    DataProperties[this.selectedXAxisOption.groupByOption],
+                    DataProperties[this.selectedYAxisOption.groupByOption]);
                 break;
-            case COMPANY_SIZE:
+            case DataProperties.COMPANY_SIZE:
                 boxPlotData = processBoxPlotData(this.data,
-                    this.selectedXAxisOption.groupByOption,
-                    this.selectedYAxisOption.groupByOption,
+                    DataProperties[this.selectedXAxisOption.groupByOption],
+                    DataProperties[this.selectedYAxisOption.groupByOption],
                     (a, b) => companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key));
                 break;
             default:
                 boxPlotData = processBoxPlotData(this.data,
-                    this.selectedXAxisOption.groupByOption,
-                    this.selectedYAxisOption.groupByOption,
+                    DataProperties[this.selectedXAxisOption.groupByOption],
+                    DataProperties[this.selectedYAxisOption.groupByOption],
                     sortByMedian);
                 break;
         }

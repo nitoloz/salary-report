@@ -40,10 +40,10 @@ class DataLoader {
         d3.csv(`data/salaries-responses-${this.selectedYear}.csv`)
             .then((data) => {
                 data.forEach(d => {
-                    d[SEX] = d[SEX] === 'M' ? 'Male' : 'Female';
-                    d[COMPANY_SIZE] = d[COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[COMPANY_SIZE];
-                    d[SALARY_RAISE] = d[CURRENT_SALARY] >= 0 && d[PREVIOUS_SALARY] >= 0
-                        ? d[CURRENT_SALARY] - d[PREVIOUS_SALARY]
+                    d[DataProperties.SEX] = d[DataProperties.SEX] === 'M' ? 'Male' : 'Female';
+                    d[DataProperties.COMPANY_SIZE] = d[DataProperties.COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[DataProperties.COMPANY_SIZE];
+                    d[DataProperties.SALARY_RAISE] = d[DataProperties.CURRENT_SALARY] >= 0 && d[DataProperties.PREVIOUS_SALARY] >= 0
+                        ? d[DataProperties.CURRENT_SALARY] - d[DataProperties.PREVIOUS_SALARY]
                         : 0;
                 });
                 this.loadedData = data;

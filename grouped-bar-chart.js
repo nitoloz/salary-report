@@ -19,8 +19,8 @@ class GroupedBarChart {
     }
 
     updateData(data) {
-        const currentSalaryData = processLineChartData(data, CURRENT_SALARY, SEX);
-        const previousSalaryData = processLineChartData(data, PREVIOUS_SALARY, SEX);
+        const currentSalaryData = processLineChartData(data, DataProperties.CURRENT_SALARY, DataProperties.SEX);
+        const previousSalaryData = processLineChartData(data, DataProperties.PREVIOUS_SALARY, DataProperties.SEX);
 
         currentSalaryData.forEach(group => {
             const groupKey = group.key.split(',')[0];
@@ -30,6 +30,8 @@ class GroupedBarChart {
                 groupItem.valueDifference = historicalGroupItem ? Math.round((groupItem.value - historicalGroupItem.value) * 10) / 10 : 0;
             })
         });
-        this.groupedBarChart.data(currentSalaryData)
+        this.groupedBarChart
+            .colorScale(Utils.getSexColorScaleWithoutDomain())
+            .data(currentSalaryData)
     }
 }

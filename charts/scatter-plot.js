@@ -4,23 +4,23 @@ function scatterPlotD3() {
         width: 1000,
         height: 600,
         data: [],
-        xAxisProperty: TOTAL_EXPERIENCE,
-        yAxisProperty: CURRENT_SALARY,
-        trellisingProperty: SEX,
+        xAxisProperty: DataProperties.TOTAL_EXPERIENCE,
+        yAxisProperty: DataProperties.CURRENT_SALARY,
+        trellisingProperty: DataProperties.SEX,
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         tooltipFormatter: (d) => {
-            return `Position: ${d[POSITION]}<br>
-            Salary ${Utils.getSelectedYear()}: ${d[CURRENT_SALARY]}<br>
-            Salary Previous Year: ${d[PREVIOUS_SALARY]}<br>
-            Age: ${d[AGE] || 'no data'} <br>
-            Sex: ${d[SEX] || 'no data'} <br>
-            City: ${d[CITY] || 'no data'} <br>
-            Total Experience: ${d[TOTAL_EXPERIENCE]}<br>
-            First EU Salary: ${d[FIRST_EUROPE_SALARY]}<br> 
-            Work Language: ${d[WORK_LANGUAGE]}<br> 
-            Company Size: ${d[COMPANY_SIZE]}`;
+            return `Position: ${d[DataProperties.POSITION]}<br>
+            Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
+            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY]}<br>
+            Age: ${d[DataProperties.AGE] || 'no data'} <br>
+            Sex: ${d[DataProperties.SEX] || 'no data'} <br>
+            City: ${d[DataProperties.CITY] || 'no data'} <br>
+            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
+            First EU Salary: ${d[DataProperties.FIRST_EUROPE_SALARY]}<br> 
+            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
+            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
         }
     };
 
