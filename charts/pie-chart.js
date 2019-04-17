@@ -235,9 +235,9 @@ function pieChartD3() {
                             showTooltip(placeHolderTooltip, 'white')
                         }
                     })
-                    .on("click", (d) => {
-                        showFilteredCharts(d.data.key, groupByOption)
-                    });
+                    // .on("click", (d) => {
+                    //     showFilteredCharts(d.data.key, groupByOption)
+                    // });
             }
 
             function showTooltip(tooltipContent, color) {

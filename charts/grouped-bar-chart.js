@@ -87,20 +87,10 @@ function groupedBarChartD3() {
                 .attr("height", d => height - yScale(d.value) - margin.bottom)
                 .attr("fill", d => colorScale(d.groupKey))
                 .on("mouseover", function (d) {
-                    d3.select(this)
-                        .transition()
-                        .duration(100)
-                        .attr('r', 10)
-                        .attr('stroke-width', 3);
                     tooltip.show(d);
 
                 })
                 .on("mouseout", function () {
-                    d3.select(this)
-                        .transition()
-                        .duration(100)
-                        .attr('r', 5)
-                        .attr('stroke-width', 1);
                     tooltip.hide();
                 });
 
@@ -146,21 +136,11 @@ function groupedBarChartD3() {
                     .attr("width", innerGroupScale.bandwidth())
                     .attr("height", d => height - yScale(d.value) - margin.bottom)
                     .attr("fill", d => colorScale(d.groupKey))
-                    .on("mouseover", (d) => {
-                        d3.select(this)
-                            .transition()
-                            .duration(100)
-                            .attr('r', 10)
-                            .attr('stroke-width', 3);
+                    .on("mouseover", function (d) {
                         tooltip.show(d);
 
                     })
-                    .on("mouseout", () => {
-                        d3.select(this)
-                            .transition()
-                            .duration(100)
-                            .attr('r', 5)
-                            .attr('stroke-width', 1);
+                    .on("mouseout", function () {
                         tooltip.hide();
                     });
 
