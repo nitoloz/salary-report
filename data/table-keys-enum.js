@@ -43,11 +43,11 @@ class DataProperties {
     static get AGE() { return this._AGE; }
     static set AGE(v) { this._AGE = v; }
 
-    static get SEX() { return this._TIMESTAMP; }
-    static set SEX(v) { this._TIMESTAMP = v; }
+    static get SEX() { return this._SEX; }
+    static set SEX(v) { this._SEX = v; }
 
-    static get POSITION() { return this._TIMESTAMP; }
-    static set POSITION(v) { this._TIMESTAMP = v; }
+    static get POSITION() { return this._POSITION; }
+    static set POSITION(v) { this._POSITION = v; }
 
     static get TOTAL_EXPERIENCE() { return this._TOTAL_EXPERIENCE; }
     static set TOTAL_EXPERIENCE(v) { this._TOTAL_EXPERIENCE = v; }
@@ -77,7 +77,7 @@ class DataProperties {
     static set SENIORITY_LEVEL(v) { this._SENIORITY_LEVEL = v; }
 
     static get SALARY_RAISE() { return this._SALARY_RAISE; }
-    static set SALARY_RAISE(v) { this._SALARY_RAISEY = v; }
+    static set SALARY_RAISE(v) { this._SALARY_RAISE = v; }
 }
 
 updateColumnNames(COLUMN_NAMES_2018);
