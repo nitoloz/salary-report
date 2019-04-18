@@ -8,6 +8,7 @@ class DataLoader {
         this.boxPlot = new BoxPlot();
         this.groupedBarChart = new GroupedBarChart();
         this.pieChart = new PieChart();
+        this.filters = new Filters();
         this.listenToYearSelector();
     }
 
@@ -48,6 +49,7 @@ class DataLoader {
                 });
                 this.loadedData = data;
 
+                this.filters.updateData(data.slice());
                 this.groupedBarChart.updateData(data.slice());
                 this.pieChart.updateData(data.slice());
                 this.scatterChart.updateData(data.slice());
