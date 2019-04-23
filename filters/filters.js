@@ -5,22 +5,26 @@ class Filters {
             sex: {
                 areaId: 'sex-filters',
                 label: 'Sex',
-                values: []
+                values: [],
+                type: FILTER_TYPES.CHECKBOX
             },
             city: {
                 areaId: 'city-filters',
                 label: 'City',
-                values: []
+                values: [],
+                type: FILTER_TYPES.CHECKBOX
             },
             companyType: {
                 areaId: 'company-type-filters',
                 label: 'Company type',
-                values: []
+                values: [],
+                type: FILTER_TYPES.CHECKBOX
             },
             seniorityLevel: {
                 areaId: 'seniority-level-filters',
                 label: 'Seniority level',
-                values: []
+                values: [],
+                type: FILTER_TYPES.CHECKBOX
             }
         };
     }
@@ -32,19 +36,26 @@ class Filters {
     }
 
     calculateFilterValues() {
-        this.filters.city.values = [...new Set(this.data.map(d => d[DataProperties.CITY]).sort())];
-        this.filters.sex.values = [...new Set(this.data.map(d => d[DataProperties.SEX]).sort())];
-        this.filters.companyType.values = [...new Set(this.data.map(d => d[DataProperties.COMPANY_TYPE]).sort())];
-        this.filters.seniorityLevel.values = [...new Set(this.data.map(d => d[DataProperties.SENIORITY_LEVEL]).sort())];
+        this.filters.city.values = this.getFilterValues(DataProperties.CITY);
+        this.filters.sex.values = this.getFilterValues(DataProperties.SEX);
+        this.filters.companyType.values = this.getFilterValues(DataProperties.COMPANY_TYPE);
+        this.filters.seniorityLevel.values = this.getFilterValues(DataProperties.SENIORITY_LEVEL);
     }
 
     appendFiltersToPage() {
         Object.keys(this.filters).forEach(key => {
-            const filterArea = document.getElementById(this.filters[key].areaId);
-            filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
-            this.filters[key].values.forEach((value, index) => {
-                this.appendCheckbox(filterArea, value, this.filters[key].areaId, index)
-            });
+            switch (this.filters[key].type) {
+                case FILTER_TYPES.CHECKBOX:
+                    const filterArea = document.getElementById(this.filters[key].areaId);
+                    filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
+                    this.filters[key].values.forEach((value, index) => {
+                        this.appendCheckbox(filterArea, value, this.filters[key].areaId, index)
+                    });
+                    break;
+                default:
+                    break;
+            }
+
         });
     }
 
@@ -61,5 +72,8 @@ class Filters {
         filterArea.appendChild(text);
         filterArea.appendChild(br);
     }
-    ;
+
+    getFilterValues(filterProperty) {
+        return [...new Set(this.data.map(d => d[filterProperty]).filter(value => !!value).sort())];
+    }
 }
