@@ -6,24 +6,28 @@ class Filters {
                 areaId: 'sex-filters',
                 label: 'Sex',
                 values: [],
+                selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
             },
             city: {
                 areaId: 'city-filters',
                 label: 'City',
                 values: [],
+                selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
             },
             companyType: {
                 areaId: 'company-type-filters',
                 label: 'Company type',
                 values: [],
+                selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
             },
             seniorityLevel: {
                 areaId: 'seniority-level-filters',
                 label: 'Seniority level',
                 values: [],
+                selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
             }
         };
@@ -49,7 +53,7 @@ class Filters {
                     const filterArea = document.getElementById(this.filters[key].areaId);
                     filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
                     this.filters[key].values.forEach((value, index) => {
-                        this.appendCheckbox(filterArea, value, this.filters[key].areaId, index)
+                        this.appendCheckbox(filterArea, value, key, index)
                     });
                     break;
                 default:
@@ -59,18 +63,28 @@ class Filters {
         });
     }
 
-    appendCheckbox(filterArea, value, areaKey, index) {
+    appendCheckbox(filterArea, value, filterKey, index) {
         let input = document.createElement("input");
         input.value = (value + '</br>');
         input.checked = true;
         input.type = "checkbox";
-        input.id = areaKey + index;
+        input.id = filterKey + index;
+        input.addEventListener('change', function () {
+            if (this.checked) {
+                console.log(`${filterKey} ${value} TRUE`);
+            } else {
+                console.log(`${filterKey} ${value} FALSE`);
+            }
+        });
+
         let text = document.createElement("span");
         text.innerHTML = value;
         let br = document.createElement("br");
+
         filterArea.appendChild(input);
         filterArea.appendChild(text);
         filterArea.appendChild(br);
+
     }
 
     getFilterValues(filterProperty) {

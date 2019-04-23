@@ -18,7 +18,8 @@ function processPieChartData(data, groupByOption, customSortingFunction, minimal
         .key(d => internalMap[d[groupByOption]] / data.length > minimalLevel ? d[groupByOption] : OTHERS_GROUP)
         .rollup(d => {
             const values = d.map(response => response[DataProperties.CURRENT_SALARY]).sort((a, b) => a - b);
-            const raises = d.map(response => response[DataProperties.CURRENT_SALARY] - response[DataProperties.PREVIOUS_SALARY]).sort((a, b) => a - b);
+            const raises = d.map(response => response[DataProperties.CURRENT_SALARY] - response[DataProperties.PREVIOUS_SALARY])
+                .sort((a, b) => a - b);
             return {
                 value: d.length,
                 extra: {
@@ -42,11 +43,11 @@ function processLineChartData(data, xOption, trellisingOption) {
 
     return d3.nest()
         .key((d) => {
-            const suffix = xOption === DataProperties.CURRENT_SALARY
-                ? ', 2017'
-                : xOption === DataProperties.PREVIOUS_SALARY
-                    ? ', 2016'
-                    : '';
+            // const suffix = xOption === DataProperties.CURRENT_SALARY
+            //     ? ', 2017'
+            //     : xOption === DataProperties.PREVIOUS_SALARY
+            //         ? ', 2016'
+            //         : '';
             // return d[trellisingOption] + suffix;
             return d[trellisingOption];
         })
