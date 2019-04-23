@@ -39,24 +39,26 @@ class Filters {
     }
 
     appendFiltersToPage() {
-        const sexFiltersArea = document.getElementById(this.filters.sex.areaId);
-        sexFiltersArea.innerHTML = '<hr><h5 class="text-center">Sex</h5>';
-        this.filters.sex.values.forEach((sex, index) => {
-            this.appendCheckbox(sexFiltersArea, sex, index)
+        Object.keys(this.filters).forEach(key => {
+            const filterArea = document.getElementById(this.filters[key].areaId);
+            filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
+            this.filters[key].values.forEach((value, index) => {
+                this.appendCheckbox(filterArea, value, this.filters[key].areaId, index)
+            });
         });
     }
 
-    appendCheckbox(filterArea, value, index) {
+    appendCheckbox(filterArea, value, areaKey, index) {
         let input = document.createElement("input");
         input.value = (value + '</br>');
         input.checked = true;
         input.type = "checkbox";
-        input.id = "color" + index;
+        input.id = areaKey + index;
         let text = document.createElement("span");
-        text.innerHTML = value + ": ";
+        text.innerHTML = value;
         let br = document.createElement("br");
-        filterArea.appendChild(text);
         filterArea.appendChild(input);
+        filterArea.appendChild(text);
         filterArea.appendChild(br);
     }
     ;
