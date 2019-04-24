@@ -5,6 +5,7 @@ class Filters {
             sex: {
                 areaId: 'sex-filters',
                 label: 'Sex',
+                dataKey: 'SEX',
                 values: [],
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
@@ -12,6 +13,7 @@ class Filters {
             city: {
                 areaId: 'city-filters',
                 label: 'City',
+                dataKey: 'CITY',
                 values: [],
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
@@ -19,6 +21,7 @@ class Filters {
             companyType: {
                 areaId: 'company-type-filters',
                 label: 'Company type',
+                dataKey: 'COMPANY_TYPE',
                 values: [],
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
@@ -26,9 +29,30 @@ class Filters {
             seniorityLevel: {
                 areaId: 'seniority-level-filters',
                 label: 'Seniority level',
+                dataKey: 'SENIORITY_LEVEL',
                 values: [],
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
+            }
+        };
+        this.dataLoader = new DataLoader();
+        this.dataLoader.getSelectedYear();
+        this.dataLoader.loadData()
+            .then(data => this.updateData(data));
+        this.listenToYearSelector();
+    }
+
+    listenToYearSelector() {
+        document.querySelector('select[id="yearSelect"]').onchange = (event) => {
+            switch (event.target.value) {
+                case '2018':
+                case '2017':
+                    localStorage.setItem('selectedYear', event.target.value);
+                    this.dataLoader.getSelectedYear();
+                    this.dataLoader.loadData().then(data => this.updateData(data));
+                    break;
+                default:
+                    break;
             }
         };
     }
@@ -40,10 +64,10 @@ class Filters {
     }
 
     calculateFilterValues() {
-        this.filters.city.values = this.getFilterValues(DataProperties.CITY);
-        this.filters.sex.values = this.getFilterValues(DataProperties.SEX);
-        this.filters.companyType.values = this.getFilterValues(DataProperties.COMPANY_TYPE);
-        this.filters.seniorityLevel.values = this.getFilterValues(DataProperties.SENIORITY_LEVEL);
+        Object.keys(this.filters).forEach(key => {
+            this.filters[key].values = this.getAvailableFilterValues(DataProperties[this.filters[key].dataKey]);
+            this.filters[key].selectedValues = this.filters[key].values.slice();
+        });
     }
 
     appendFiltersToPage() {
@@ -59,7 +83,6 @@ class Filters {
                 default:
                     break;
             }
-
         });
     }
 
@@ -69,12 +92,18 @@ class Filters {
         input.checked = true;
         input.type = "checkbox";
         input.id = filterKey + index;
+        const that = this;
         input.addEventListener('change', function () {
             if (this.checked) {
-                console.log(`${filterKey} ${value} TRUE`);
+                that.filters[filterKey].selectedValues.push(value);
             } else {
-                console.log(`${filterKey} ${value} FALSE`);
+                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value);    // <-- Not supported in <IE9
+                if (selectedItemIndex !== -1) {
+                    that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
+                }
             }
+            console.log(JSON.stringify(that.getAppliedFilters()));
+            //TODO update charts with filtered data
         });
 
         let text = document.createElement("span");
@@ -84,10 +113,30 @@ class Filters {
         filterArea.appendChild(input);
         filterArea.appendChild(text);
         filterArea.appendChild(br);
-
     }
 
-    getFilterValues(filterProperty) {
+    getAppliedFilters() {
+        const appliedFilters = [];
+        Object.keys(this.filters).forEach(key => {
+            switch (this.filters[key].type) {
+                case FILTER_TYPES.CHECKBOX:
+                    if (this.filters[key].values.length !== this.filters[key].selectedValues.length) {
+                        appliedFilters.push({
+                            dataKey: this.filters[key].dataKey,
+                            values: this.filters[key].selectedValues
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        });
+        return appliedFilters;
+    }
+
+    getAvailableFilterValues(filterProperty) {
         return [...new Set(this.data.map(d => d[filterProperty]).filter(value => !!value).sort())];
     }
 }
+
+const filters = new Filters();
