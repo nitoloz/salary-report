@@ -8,24 +8,8 @@ class DataLoader {
         this.boxPlot = new BoxPlot();
         this.groupedBarChart = new GroupedBarChart();
         this.pieChart = new PieChart();
-        this.filters = new Filters();
-        this.listenToYearSelector();
     }
 
-    listenToYearSelector() {
-        document.querySelector('select[id="yearSelect"]').onchange = (event) => {
-            switch (event.target.value) {
-                case '2018':
-                case '2017':
-                    localStorage.setItem('selectedYear', event.target.value);
-                    this.getSelectedYear();
-                    this.loadData();
-                    break;
-                default:
-                    break;
-            }
-        };
-    }
 
     getSelectedYear() {
         this.selectedYear = Utils.getSelectedYear();
@@ -38,22 +22,11 @@ class DataLoader {
     }
 
     loadData() {
-        d3.csv(`data/salaries-responses-${this.selectedYear}.csv`)
+        return d3.csv(`data/salaries-responses-${this.selectedYear}.csv`)
             .then((data) => {
-                data.forEach(d => {
-                    d[DataProperties.SEX] = d[DataProperties.SEX] === 'M' ? 'Male' : 'Female';
-                    d[DataProperties.COMPANY_SIZE] = d[DataProperties.COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[DataProperties.COMPANY_SIZE];
-                    d[DataProperties.SALARY_RAISE] = d[DataProperties.CURRENT_SALARY] >= 0 && d[DataProperties.PREVIOUS_SALARY] >= 0
-                        ? d[DataProperties.CURRENT_SALARY] - d[DataProperties.PREVIOUS_SALARY]
-                        : 0;
-                });
-                this.loadedData = data;
-
-                this.filters.updateData(data.slice());
-                this.groupedBarChart.updateData(data.slice());
-                this.pieChart.updateData(data.slice());
-                this.scatterChart.updateData(data.slice());
-                this.boxPlot.updateData(data.slice());
+                this.loadedData = this.processChartsData(data);
+                this.updateChartsData(this.loadedData);
+                return this.loadedData;
             });
     }
 
@@ -63,10 +36,26 @@ class DataLoader {
         const filteredData = this.loadedData.filter(entry => entry[key] === filter);
         this.boxPlot.updateData(filteredData);
     }
+
+    updateChartsData(data) {
+        // this.filters.updateData(data.slice());
+        this.groupedBarChart.updateData(data.slice());
+        this.pieChart.updateData(data.slice());
+        this.scatterChart.updateData(data.slice());
+        this.boxPlot.updateData(data.slice());
+    }
+
+    processChartsData(data) {
+        data.forEach(d => {
+            d[DataProperties.SEX] = d[DataProperties.SEX] === 'M' ? 'Male' : 'Female';
+            d[DataProperties.COMPANY_SIZE] = d[DataProperties.COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[DataProperties.COMPANY_SIZE];
+            d[DataProperties.SALARY_RAISE] = d[DataProperties.CURRENT_SALARY] >= 0 && d[DataProperties.PREVIOUS_SALARY] >= 0
+                ? d[DataProperties.CURRENT_SALARY] - d[DataProperties.PREVIOUS_SALARY]
+                : 0;
+        });
+        return data;
+    }
 }
 
-const dataLoader = new DataLoader();
-dataLoader.getSelectedYear();
-dataLoader.loadData();
 
 
