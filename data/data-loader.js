@@ -30,6 +30,11 @@ class DataLoader {
             });
     }
 
+    filterData(selectedFilters) {
+        const filteredData = this.filterChartData(this.loadedData, selectedFilters);
+        this.updateChartsData(filteredData);
+    }
+
     showFilteredCharts(filter, key) {
         document.getElementById("filter-content").textContent = `${key}: ${filter}`;
         document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
@@ -38,11 +43,23 @@ class DataLoader {
     }
 
     updateChartsData(data) {
-        // this.filters.updateData(data.slice());
         this.groupedBarChart.updateData(data.slice());
         this.pieChart.updateData(data.slice());
         this.scatterChart.updateData(data.slice());
         this.boxPlot.updateData(data.slice());
+    }
+
+    filterChartData(data, selectedFilters) {
+        selectedFilters.forEach(filter => {
+            switch (filter.type) {
+                case FILTER_TYPES.CHECKBOX:
+                    data = data.filter(d => filter.values.indexOf(d[DataProperties[filter.dataKey]]) !== -1);
+                    break;
+                default:
+                    break;
+            }
+        });
+        return data;
     }
 
     processChartsData(data) {
