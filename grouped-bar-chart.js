@@ -4,7 +4,7 @@ class GroupedBarChart {
         this.groupedBarChart = groupedBarChartD3()
             .width(width)
             .height(height)
-            .colorScale(Utils.getSexColorScaleWithoutDomain())
+            .colorScale(Utils.getSexColorScale())
             .xAxisLabel('Average salary (EUR)')
             .yAxisLabel('Share of respondents (%)')
             .tooltipFormatter((d) => {
@@ -31,7 +31,7 @@ class GroupedBarChart {
             })
         });
         this.groupedBarChart
-            .colorScale(Utils.getSexColorScaleWithoutDomain())
+            .colorScale(Utils.getSexColorScale())
             .data(currentSalaryData)
     }
 }

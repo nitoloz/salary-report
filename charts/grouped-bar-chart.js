@@ -80,7 +80,9 @@ function groupedBarChartD3() {
                 .attr('class', 'rect-group')
                 .selectAll("rect")
                 .data(data)
-                .enter().append("rect")
+                .enter()
+                .append("rect")
+                .attr('class', 'bar')
                 .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
                 .attr("y", d => yScale(d.value))
                 .attr("width", innerGroupScale.bandwidth())
@@ -127,10 +129,11 @@ function groupedBarChartD3() {
                     .transition(t)
                     .call(yAxis);
 
-                const updatedBars = barChartSvg.selectAll('rect').data(data);
+                const updatedBars = barChartSvg.selectAll('.bar').data(data);
 
                 updatedBars
                     .enter().append("rect")
+                    .attr('class', 'bar')
                     .attr("x", d => innerGroupScale(d.groupKey) + groupsScale(d.key))
                     .attr("y", d => yScale(d.value))
                     .attr("width", innerGroupScale.bandwidth())
