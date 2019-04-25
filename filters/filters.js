@@ -37,8 +37,7 @@ class Filters {
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();
-        this.dataLoader.loadData()
-            .then(data => this.updateData(data));
+        this.dataLoader.loadData().then(data => this.updateData(data));
         this.listenToYearSelector();
     }
 
@@ -97,13 +96,13 @@ class Filters {
             if (this.checked) {
                 that.filters[filterKey].selectedValues.push(value);
             } else {
-                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value);    // <-- Not supported in <IE9
+                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value);
                 if (selectedItemIndex !== -1) {
                     that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
                 }
             }
             console.log(JSON.stringify(that.getAppliedFilters()));
-            //TODO update charts with filtered data
+            that.dataLoader.filterData(that.getAppliedFilters());
         });
 
         let text = document.createElement("span");
@@ -122,6 +121,7 @@ class Filters {
                 case FILTER_TYPES.CHECKBOX:
                     if (this.filters[key].values.length !== this.filters[key].selectedValues.length) {
                         appliedFilters.push({
+                            type: FILTER_TYPES.CHECKBOX,
                             dataKey: this.filters[key].dataKey,
                             values: this.filters[key].selectedValues
                         });
