@@ -75,6 +75,17 @@ class Filters {
                 case FILTER_TYPES.CHECKBOX:
                     const filterArea = document.getElementById(this.filters[key].areaId);
                     filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
+
+                    let selectAllButton = document.createElement("button");
+                    selectAllButton.innerHTML = "Select all";
+                    selectAllButton.id = key+ '_select_all';
+
+                    let deselectAllButton = document.createElement("button");
+                    deselectAllButton.innerHTML = "Deselect all";
+                    deselectAllButton.id = key+ '_deselect_all';
+
+                    filterArea.appendChild(selectAllButton);
+                    filterArea.appendChild(deselectAllButton);
                     this.filters[key].values.forEach((value, index) => {
                         this.appendCheckbox(filterArea, value, key, index)
                     });
@@ -109,9 +120,9 @@ class Filters {
         text.innerHTML = value;
         let br = document.createElement("br");
 
+        filterArea.appendChild(br);
         filterArea.appendChild(input);
         filterArea.appendChild(text);
-        filterArea.appendChild(br);
     }
 
     getAppliedFilters() {
