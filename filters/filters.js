@@ -76,18 +76,28 @@ class Filters {
                     const filterArea = document.getElementById(this.filters[key].areaId);
                     filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
 
+                    const that = this;
                     let selectAllButton = document.createElement("button");
                     selectAllButton.innerHTML = "Select all";
-                    selectAllButton.id = key+ '_select_all';
-                    selectAllButton.onclick = function(event){
-                        console.log('Select all clicked!');
+                    selectAllButton.id = key + '_select_all';
+                    selectAllButton.onclick = function (event) {
+                        that.filters[key].selectedValues = that.filters[key].values;
+                        const checkBoxes = filterArea.getElementsByTagName('input');
+                        for (let checkBox of checkBoxes) {
+                            checkBox.checked = true
+                        }
                     };
 
                     let deselectAllButton = document.createElement("button");
                     deselectAllButton.innerHTML = "Deselect all";
-                    deselectAllButton.id = key+ '_deselect_all';
-                    deselectAllButton.onclick = function(event){
-                        console.log('Deselect all clicked!');
+                    deselectAllButton.id = key + '_deselect_all';
+                    deselectAllButton.onclick = function (event) {
+                        that.filters[key].selectedValues = [];
+                        const checkBoxes = filterArea.getElementsByTagName('input');
+                        for (let checkBox of checkBoxes) {
+                            checkBox.checked = false
+
+                        }
                     };
 
                     filterArea.appendChild(selectAllButton);
