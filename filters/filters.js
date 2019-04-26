@@ -79,10 +79,16 @@ class Filters {
                     let selectAllButton = document.createElement("button");
                     selectAllButton.innerHTML = "Select all";
                     selectAllButton.id = key+ '_select_all';
+                    selectAllButton.onclick = function(event){
+                        console.log('Select all clicked!');
+                    };
 
                     let deselectAllButton = document.createElement("button");
                     deselectAllButton.innerHTML = "Deselect all";
                     deselectAllButton.id = key+ '_deselect_all';
+                    deselectAllButton.onclick = function(event){
+                        console.log('Deselect all clicked!');
+                    };
 
                     filterArea.appendChild(selectAllButton);
                     filterArea.appendChild(deselectAllButton);
