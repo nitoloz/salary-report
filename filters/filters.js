@@ -86,6 +86,7 @@ class Filters {
                         for (let checkBox of checkBoxes) {
                             checkBox.checked = true
                         }
+                        that.dataLoader.filterData(that.getAppliedFilters());
                     };
 
                     let deselectAllButton = document.createElement("button");
@@ -96,8 +97,8 @@ class Filters {
                         const checkBoxes = filterArea.getElementsByTagName('input');
                         for (let checkBox of checkBoxes) {
                             checkBox.checked = false
-
                         }
+                        that.dataLoader.filterData(that.getAppliedFilters());
                     };
 
                     filterArea.appendChild(selectAllButton);
@@ -128,7 +129,6 @@ class Filters {
                     that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
                 }
             }
-            console.log(JSON.stringify(that.getAppliedFilters()));
             that.dataLoader.filterData(that.getAppliedFilters());
         });
 
