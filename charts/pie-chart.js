@@ -202,6 +202,7 @@ function pieChartD3() {
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
 
+                d3.selectAll('.tooltipCircle').remove();
                 if (placeHolderTooltip) {
                     showTooltip(placeHolderTooltip, 'white');
                 }
