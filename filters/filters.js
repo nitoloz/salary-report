@@ -65,7 +65,7 @@ class Filters {
     calculateFilterValues() {
         Object.keys(this.filters).forEach(key => {
             this.filters[key].values = this.getAvailableFilterValues(DataProperties[this.filters[key].dataKey]);
-            this.filters[key].selectedValues = this.filters[key].values.slice();
+            this.filters[key].selectedValues = this.filters[key].values.map(value => value.value).slice();
         });
     }
 
@@ -81,7 +81,7 @@ class Filters {
                     selectAllButton.innerHTML = "Select all";
                     selectAllButton.id = key + '_select_all';
                     selectAllButton.onclick = function (event) {
-                        that.filters[key].selectedValues = that.filters[key].values;
+                        that.filters[key].selectedValues = that.filters[key].values.map(value => value.value).slice();
                         const checkBoxes = filterArea.getElementsByTagName('input');
                         for (let checkBox of checkBoxes) {
                             checkBox.checked = true
@@ -122,9 +122,9 @@ class Filters {
         const that = this;
         input.addEventListener('change', function () {
             if (this.checked) {
-                that.filters[filterKey].selectedValues.push(value);
+                that.filters[filterKey].selectedValues.push(value.value);
             } else {
-                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value);
+                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value.value);
                 if (selectedItemIndex !== -1) {
                     that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
                 }
@@ -133,7 +133,7 @@ class Filters {
         });
 
         let text = document.createElement("span");
-        text.innerHTML = value;
+        text.innerHTML = `${value.value} (${value.count})`;
         let br = document.createElement("br");
 
         filterArea.appendChild(br);
@@ -162,7 +162,14 @@ class Filters {
     }
 
     getAvailableFilterValues(filterProperty) {
-        return [...new Set(this.data.map(d => d[filterProperty]).filter(value => !!value).sort())];
+        const values = this.data.map(d => d[filterProperty]).filter(value => !!value);
+        const internalMap = new Map();
+        values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
+        let valuesWithCounts = Object.keys(internalMap).map((key) => {
+            return {value: key, count: internalMap[key]};
+        }).sort((a, b) => b.count - a.count);
+
+        return valuesWithCounts;
     }
 }
 
