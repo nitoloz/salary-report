@@ -21,6 +21,11 @@
     fill: rgba(0, 123, 255, .5);
 }
 
+.main-container {
+    width: calc(100% - 300px);
+    float: left;
+}
+
 @keyframes octocat-wave {
     0%, 100% {
         transform: rotate(0)
