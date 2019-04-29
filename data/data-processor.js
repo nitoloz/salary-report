@@ -68,8 +68,13 @@ function processLineChartData(data, xOption, trellisingOption) {
         })
         .map(group => {
             let integral = 0;
-            for (let i = 0; i < group.values.length - 1; i++) {
-                integral += (group.values[i].value + group.values[i + 1].value) / 2;
+            if (group.values.length > 1) {
+                for (let i = 1; i < group.values.length; i++) {
+                    integral += (group.values[i - 1].value + group.values[i].value) / 2;
+                }
+                integral += (group.values[0].value + group.values[group.values.length - 1].value) / 2
+            } else {
+                integral = group.values.length > 0 ? group.values[0].value : 1;
             }
             const coefficient = 100 / integral;
             return {
