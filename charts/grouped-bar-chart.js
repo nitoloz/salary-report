@@ -173,7 +173,7 @@ function groupedBarChartD3() {
             }
 
             function getYDomainValues(data) {
-                return data.map(v => parseInt(v.value));
+                return [...data.map(v => parseInt(v.value)), 0];
             }
         })
     }
