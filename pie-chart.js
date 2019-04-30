@@ -2,6 +2,7 @@ class PieChart {
 
     constructor() {
         this.groupByOption = 'CITY';
+        this.sortingFunction = null;
         this.pieChart = pieChartD3()
             .width(width / 1.2)
             .height(height / 1.2)
@@ -22,6 +23,7 @@ class PieChart {
             switch (event.target.value) {
                 case 'City':
                     this.groupByOption = 'CITY';
+                    this.sortingFunction = null;
                     this.pieChart
                         .groupByOptionLabel('City')
                         .groupByOption(DataProperties[this.groupByOption])
@@ -30,6 +32,7 @@ class PieChart {
                     break;
                 case 'Sex':
                     this.groupByOption = 'SEX';
+                    this.sortingFunction = null;
                     this.pieChart
                         .groupByOptionLabel('Sex')
                         .groupByOption(DataProperties[this.groupByOption])
@@ -38,6 +41,7 @@ class PieChart {
                     break;
                 case 'Seniority':
                     this.groupByOption = 'SENIORITY_LEVEL';
+                    this.sortingFunction = null;
                     this.pieChart
                         .groupByOptionLabel('Seniority')
                         .groupByOption(DataProperties[this.groupByOption])
@@ -46,6 +50,7 @@ class PieChart {
                     break;
                 case 'CompanyType':
                     this.groupByOption = 'COMPANY_TYPE';
+                    this.sortingFunction = null;
                     this.pieChart
                         .groupByOptionLabel('Type')
                         .groupByOption(DataProperties[this.groupByOption])
@@ -54,6 +59,7 @@ class PieChart {
                     break;
                 case 'Language':
                     this.groupByOption = 'WORK_LANGUAGE';
+                    this.sortingFunction = null;
                     this.pieChart
                         .groupByOptionLabel('Language')
                         .groupByOption(DataProperties[this.groupByOption])
@@ -62,13 +68,14 @@ class PieChart {
                     break;
                 case 'Size':
                     this.groupByOption = 'COMPANY_SIZE';
+                    this.sortingFunction = (a, b) => {
+                        return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
+                    };
                     this.pieChart
                         .groupByOptionLabel('Size')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], (a, b) => {
-                            return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
-                        }));
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
                     break;
                 default:
                     break;
@@ -81,7 +88,7 @@ class PieChart {
         this.pieChart
             .groupByOption(DataProperties[this.groupByOption])
             .placeHolderTooltip(this.getPlaceholderTooltip())
-            .data(processPieChartData(this.data, DataProperties[this.groupByOption]))
+            .data(processPieChartData(this.data, DataProperties[this.groupByOption],this.sortingFunction))
     }
 
     getPlaceholderTooltip() {
