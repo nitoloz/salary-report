@@ -96,6 +96,7 @@ class Filters {
                     let selectAllButton = document.createElement("button");
                     selectAllButton.innerHTML = "Select all";
                     selectAllButton.id = key + '_select_all';
+                    selectAllButton.className = 'btn btn-outline-secondary btn-sm';
                     selectAllButton.onclick = function (event) {
                         that.filters[key].selectedValues = that.filters[key].values.map(value => value.value).slice();
                         const checkBoxes = filterArea.getElementsByTagName('input');
@@ -108,6 +109,7 @@ class Filters {
                     let deselectAllButton = document.createElement("button");
                     deselectAllButton.innerHTML = "Deselect all";
                     deselectAllButton.id = key + '_deselect_all';
+                    deselectAllButton.className = 'btn btn-outline-secondary btn-sm';
                     deselectAllButton.onclick = function (event) {
                         that.filters[key].selectedValues = [];
                         const checkBoxes = filterArea.getElementsByTagName('input');
@@ -117,8 +119,12 @@ class Filters {
                         that.dataLoader.filterData(that.getAppliedFilters());
                     };
 
-                    filterArea.appendChild(selectAllButton);
-                    filterArea.appendChild(deselectAllButton);
+                    let buttonGroup = document.createElement("div");
+                    buttonGroup.role = 'group';
+                    buttonGroup.className = 'btn-group btn-group-justified';
+                    buttonGroup.appendChild(selectAllButton);
+                    buttonGroup.appendChild(deselectAllButton);
+                    filterArea.appendChild(buttonGroup);
                     this.filters[key].values.forEach((value, index) => {
                         this.appendCheckbox(filterArea, value, key, index)
                     });
@@ -152,9 +158,9 @@ class Filters {
         text.innerHTML = `${value.value} (${value.count})`;
         let br = document.createElement("br");
 
-        filterArea.appendChild(br);
         filterArea.appendChild(input);
         filterArea.appendChild(text);
+        filterArea.appendChild(br);
     }
 
     getAppliedFilters() {

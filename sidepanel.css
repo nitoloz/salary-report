@@ -43,3 +43,11 @@
 .openbtn:hover {
     background-color: #444;
 }
+
+.btn-group-justified {
+    display: flex;
+}
+
+.btn-group-justified .btn {
+    flex-grow: 1;
+}
