@@ -33,6 +33,14 @@ class Filters {
                 values: [],
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
+            },
+            language: {
+                areaId: 'language-filters',
+                label: 'Language',
+                dataKey: 'WORK_LANGUAGE',
+                values: [],
+                selectedValues: [],
+                type: FILTER_TYPES.CHECKBOX
             }
         };
         this.dataLoader = new DataLoader();
