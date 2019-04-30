@@ -1,12 +1,12 @@
 .sidepanel {
     height: 100%;
-    width: 300px;
+    width: 320px;
     position: fixed;
     z-index: 1;
     right: 0;
-    background-color: lightgrey;
+    background-color: #e3f2fd;
     overflow-x: hidden;
-    padding-top: 75px;
+    padding: 65px 10px 0 10px;
     transition: 0.5s;
 }
 
