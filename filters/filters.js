@@ -26,6 +26,14 @@ class Filters {
                 selectedValues: [],
                 type: FILTER_TYPES.CHECKBOX
             },
+            companySize: {
+                areaId: 'company-size-filters',
+                label: 'Company size',
+                dataKey: 'COMPANY_SIZE',
+                values: [],
+                selectedValues: [],
+                type: FILTER_TYPES.CHECKBOX
+            },
             seniorityLevel: {
                 areaId: 'seniority-level-filters',
                 label: 'Seniority level',
