@@ -35,13 +35,6 @@ class DataLoader {
         this.updateChartsData(filteredData);
     }
 
-    showFilteredCharts(filter, key) {
-        document.getElementById("filter-content").textContent = `${key}: ${filter}`;
-        document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
-        const filteredData = this.loadedData.filter(entry => entry[key] === filter);
-        this.boxPlot.updateData(filteredData);
-    }
-
     updateChartsData(data) {
         this.groupedBarChart.updateData(data.slice());
         this.pieChart.updateData(data.slice());

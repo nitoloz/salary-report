@@ -103,7 +103,7 @@ class Filters {
                         for (let checkBox of checkBoxes) {
                             checkBox.checked = true
                         }
-                        that.dataLoader.filterData(that.getAppliedFilters());
+                        that.applyFilters();
                     };
 
                     let deselectAllButton = document.createElement("button");
@@ -116,7 +116,7 @@ class Filters {
                         for (let checkBox of checkBoxes) {
                             checkBox.checked = false
                         }
-                        that.dataLoader.filterData(that.getAppliedFilters());
+                        that.applyFilters();
                     };
 
                     let buttonGroup = document.createElement("div");
@@ -151,7 +151,7 @@ class Filters {
                     that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
                 }
             }
-            that.dataLoader.filterData(that.getAppliedFilters());
+            that.applyFilters();
         });
 
         let text = document.createElement("span");
@@ -171,6 +171,7 @@ class Filters {
                     if (this.filters[key].values.length !== this.filters[key].selectedValues.length) {
                         appliedFilters.push({
                             type: FILTER_TYPES.CHECKBOX,
+                            label: this.filters[key].label,
                             dataKey: this.filters[key].dataKey,
                             values: this.filters[key].selectedValues
                         });
@@ -192,6 +193,25 @@ class Filters {
         }).sort((a, b) => b.count - a.count);
 
         return valuesWithCounts;
+    }
+
+
+    showSelectedFiltersWidget(appliedFilters) {
+        document.getElementById("filter-content").textContent = ``;
+        if (appliedFilters.length > 0) {
+            appliedFilters.forEach(filter => {
+                document.getElementById("filter-content").textContent += `${filter.label}: ${filter.values.join(',')}; `;
+            });
+            document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
+        } else {
+            document.getElementById("filter").className = document.getElementById("filter").className.replace(/\bvisible\b/g, "invisible");
+        }
+    }
+
+    applyFilters() {
+        const appliedFilters = this.getAppliedFilters();
+        this.dataLoader.filterData(appliedFilters);
+        this.showSelectedFiltersWidget(appliedFilters);
     }
 }
 
