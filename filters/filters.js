@@ -188,19 +188,21 @@ class Filters {
         const values = this.data.map(d => d[filterProperty]).filter(value => !!value);
         const internalMap = new Map();
         values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
-        let valuesWithCounts = Object.keys(internalMap).map((key) => {
+        return Object.keys(internalMap).map((key) => {
             return {value: key, count: internalMap[key]};
         }).sort((a, b) => b.count - a.count);
-
-        return valuesWithCounts;
     }
 
 
     showSelectedFiltersWidget(appliedFilters) {
-        document.getElementById("filter-content").textContent = ``;
+        document.getElementById("filter-content").innerHTML = ``;
         if (appliedFilters.length > 0) {
             appliedFilters.forEach(filter => {
-                document.getElementById("filter-content").textContent += `${filter.label}: ${filter.values.join(',')}; `;
+                //TODO grey values
+                let filterText = document.createElement("span");
+                filterText.className = 'filter-widget';
+                filterText.innerHTML = `${filter.label} (${filter.values.length > 4 ? filter.values.length + ' selected' : filter.values.join(',')})`;
+                document.getElementById("filter-content").appendChild(filterText);
             });
             document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
         } else {

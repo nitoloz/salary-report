@@ -51,3 +51,10 @@
 .btn-group-justified .btn {
     flex-grow: 1;
 }
+
+.filter-widget {
+    border: 1px black solid;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 0 5px;
+}
