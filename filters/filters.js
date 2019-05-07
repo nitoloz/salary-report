@@ -90,7 +90,13 @@ class Filters {
             switch (this.filters[key].type) {
                 case FILTER_TYPES.CHECKBOX:
                     const filterArea = document.getElementById(this.filters[key].areaId);
-                    filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}</h5>`;
+                    filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}
+                                                <button type="button" data-toggle="collapse"  
+                                                    aria-expanded="true" aria-controls=${this.filters[key].areaId + '-filters-group'} 
+                                                    class="btn btn-default btn-sm" data-target=${'#' + this.filters[key].areaId + '-filters-group'}>
+                                                      <span class="glyphicon">&#x2212;</span>
+                                                </button>
+                                                </h5>`;
 
                     const that = this;
                     let selectAllButton = document.createElement("button");
@@ -125,9 +131,13 @@ class Filters {
                     buttonGroup.appendChild(selectAllButton);
                     buttonGroup.appendChild(deselectAllButton);
                     filterArea.appendChild(buttonGroup);
+                    let filterGroup = document.createElement("div");
+                    filterGroup.className = 'collapse show';
+                    filterGroup.id = this.filters[key].areaId + '-filters-group';
                     this.filters[key].values.forEach((value, index) => {
-                        this.appendCheckbox(filterArea, value, key, index)
+                        this.appendCheckbox(filterGroup, value, key, index)
                     });
+                    filterArea.appendChild(filterGroup);
                     break;
                 default:
                     break;
