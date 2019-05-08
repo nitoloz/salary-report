@@ -93,8 +93,8 @@ class Filters {
                     filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}
                                                 <button type="button" data-toggle="collapse"  
                                                     aria-expanded="true" aria-controls=${this.filters[key].areaId + '-filters-group'} 
-                                                    class="btn btn-default btn-sm" data-target=${'#' + this.filters[key].areaId + '-filters-group'}>
-                                                      <span class="glyphicon">&#x2212;</span>
+                                                    class="btn btn-link btn-sm" data-target=${'#' + this.filters[key].areaId + '-filters-group'}>
+                                                      <i class="fas fa-minus-square"></i>
                                                 </button>
                                                 </h5>`;
 
