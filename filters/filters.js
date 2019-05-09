@@ -92,14 +92,25 @@ class Filters {
                     const filterArea = document.getElementById(this.filters[key].areaId);
                     filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}
                                                 <button type="button" data-toggle="collapse"  
+                                                    id=${this.filters[key].areaId + '-filters-group-toggle'}
                                                     aria-expanded="true" aria-controls=${this.filters[key].areaId + '-filters-group'} 
                                                     class="btn btn-link btn-sm" data-target=${'#' + this.filters[key].areaId + '-filters-group'}>
-                                                      <i class="fas fa-minus-square"></i>
+                                                      <i class="fas fa-minus-square" id=${this.filters[key].areaId + '-filters-group-icon'}></i>
                                                 </button>
                                                 </h5>`;
 
                     const that = this;
-                    let selectAllButton = document.createElement("button");
+                    const expandCollapseButton = document.getElementById(this.filters[key].areaId + '-filters-group-toggle');
+                    expandCollapseButton.onclick = function (event) {
+                        const icon = document.getElementById(that.filters[key].areaId + '-filters-group-icon');
+                        if (icon.className === 'fas fa-minus-square') {
+                            icon.className = 'fas fa-plus-square';
+                        } else {
+                            icon.className = 'fas fa-minus-square';
+                        }
+                    };
+
+                    const selectAllButton = document.createElement("button");
                     selectAllButton.innerHTML = "Select all";
                     selectAllButton.id = key + '_select_all';
                     selectAllButton.className = 'btn btn-outline-secondary btn-sm';
@@ -112,7 +123,7 @@ class Filters {
                         that.applyFilters();
                     };
 
-                    let deselectAllButton = document.createElement("button");
+                    const deselectAllButton = document.createElement("button");
                     deselectAllButton.innerHTML = "Deselect all";
                     deselectAllButton.id = key + '_deselect_all';
                     deselectAllButton.className = 'btn btn-outline-secondary btn-sm';
@@ -125,15 +136,15 @@ class Filters {
                         that.applyFilters();
                     };
 
-                    let buttonGroup = document.createElement("div");
+                    const buttonGroup = document.createElement("div");
                     buttonGroup.role = 'group';
                     buttonGroup.className = 'btn-group btn-group-justified';
                     buttonGroup.appendChild(selectAllButton);
                     buttonGroup.appendChild(deselectAllButton);
-                    filterArea.appendChild(buttonGroup);
-                    let filterGroup = document.createElement("div");
+                    const filterGroup = document.createElement("div");
                     filterGroup.className = 'collapse show';
                     filterGroup.id = this.filters[key].areaId + '-filters-group';
+                    filterGroup.appendChild(buttonGroup);
                     this.filters[key].values.forEach((value, index) => {
                         this.appendCheckbox(filterGroup, value, key, index)
                     });
