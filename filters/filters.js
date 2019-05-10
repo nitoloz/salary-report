@@ -2,54 +2,12 @@ class Filters {
 
     constructor() {
         this.filters = {
-            sex: {
-                areaId: 'sex-filters',
-                label: 'Sex',
-                dataKey: 'SEX',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            },
-            city: {
-                areaId: 'city-filters',
-                label: 'City',
-                dataKey: 'CITY',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            },
-            companyType: {
-                areaId: 'company-type-filters',
-                label: 'Company type',
-                dataKey: 'COMPANY_TYPE',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            },
-            companySize: {
-                areaId: 'company-size-filters',
-                label: 'Company size',
-                dataKey: 'COMPANY_SIZE',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            },
-            seniorityLevel: {
-                areaId: 'seniority-level-filters',
-                label: 'Seniority level',
-                dataKey: 'SENIORITY_LEVEL',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            },
-            language: {
-                areaId: 'language-filters',
-                label: 'Language',
-                dataKey: 'WORK_LANGUAGE',
-                values: [],
-                selectedValues: [],
-                type: FILTER_TYPES.CHECKBOX
-            }
+            sex: new CheckboxFilter('sex-filters','Sex','SEX'),
+            city: new CheckboxFilter('city-filters','City','CITY'),
+            companyType:new CheckboxFilter('company-type-filters','Company type','COMPANY_TYPE'),
+            companySize: new CheckboxFilter('company-size-filters','Company size','COMPANY_SIZE'),
+            seniorityLevel: new CheckboxFilter('seniority-level-filters','Seniority level','SENIORITY_LEVEL'),
+            language: new CheckboxFilter('language-filters','Language','WORK_LANGUAGE')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();
@@ -89,99 +47,12 @@ class Filters {
         Object.keys(this.filters).forEach(key => {
             switch (this.filters[key].type) {
                 case FILTER_TYPES.CHECKBOX:
-                    const filterArea = document.getElementById(this.filters[key].areaId);
-                    filterArea.innerHTML = `<hr><h5 class="text-center">${this.filters[key].label}
-                                                <button type="button" data-toggle="collapse"  
-                                                    id=${this.filters[key].areaId + '-filters-group-toggle'}
-                                                    aria-expanded="true" aria-controls=${this.filters[key].areaId + '-filters-group'} 
-                                                    class="btn btn-link btn-sm" data-target=${'#' + this.filters[key].areaId + '-filters-group'}>
-                                                      <i class="fas fa-minus-square" id=${this.filters[key].areaId + '-filters-group-icon'}></i>
-                                                </button>
-                                                </h5>`;
-
-                    const that = this;
-                    const expandCollapseButton = document.getElementById(this.filters[key].areaId + '-filters-group-toggle');
-                    expandCollapseButton.onclick = function (event) {
-                        const icon = document.getElementById(that.filters[key].areaId + '-filters-group-icon');
-                        if (icon.className === 'fas fa-minus-square') {
-                            icon.className = 'fas fa-plus-square';
-                        } else {
-                            icon.className = 'fas fa-minus-square';
-                        }
-                    };
-
-                    const selectAllButton = document.createElement("button");
-                    selectAllButton.innerHTML = "Select all";
-                    selectAllButton.id = key + '_select_all';
-                    selectAllButton.className = 'btn btn-outline-secondary btn-sm';
-                    selectAllButton.onclick = function (event) {
-                        that.filters[key].selectedValues = that.filters[key].values.map(value => value.value).slice();
-                        const checkBoxes = filterArea.getElementsByTagName('input');
-                        for (let checkBox of checkBoxes) {
-                            checkBox.checked = true
-                        }
-                        that.applyFilters();
-                    };
-
-                    const deselectAllButton = document.createElement("button");
-                    deselectAllButton.innerHTML = "Deselect all";
-                    deselectAllButton.id = key + '_deselect_all';
-                    deselectAllButton.className = 'btn btn-outline-secondary btn-sm';
-                    deselectAllButton.onclick = function (event) {
-                        that.filters[key].selectedValues = [];
-                        const checkBoxes = filterArea.getElementsByTagName('input');
-                        for (let checkBox of checkBoxes) {
-                            checkBox.checked = false
-                        }
-                        that.applyFilters();
-                    };
-
-                    const buttonGroup = document.createElement("div");
-                    buttonGroup.role = 'group';
-                    buttonGroup.className = 'btn-group btn-group-justified';
-                    buttonGroup.appendChild(selectAllButton);
-                    buttonGroup.appendChild(deselectAllButton);
-                    const filterGroup = document.createElement("div");
-                    filterGroup.className = 'collapse show';
-                    filterGroup.id = this.filters[key].areaId + '-filters-group';
-                    filterGroup.appendChild(buttonGroup);
-                    this.filters[key].values.forEach((value, index) => {
-                        this.appendCheckbox(filterGroup, value, key, index)
-                    });
-                    filterArea.appendChild(filterGroup);
+                    this.filters[key].appendFilter();
                     break;
                 default:
                     break;
             }
         });
-    }
-
-    appendCheckbox(filterArea, value, filterKey, index) {
-        let input = document.createElement("input");
-        input.value = (value + '</br>');
-        input.checked = true;
-        input.type = "checkbox";
-        input.id = filterKey + index;
-        const that = this;
-        input.addEventListener('change', function () {
-            if (this.checked) {
-                that.filters[filterKey].selectedValues.push(value.value);
-            } else {
-                let selectedItemIndex = that.filters[filterKey].selectedValues.indexOf(value.value);
-                if (selectedItemIndex !== -1) {
-                    that.filters[filterKey].selectedValues.splice(selectedItemIndex, 1);
-                }
-            }
-            that.applyFilters();
-        });
-
-        let text = document.createElement("span");
-        text.innerHTML = `${value.value} (${value.count})`;
-        let br = document.createElement("br");
-
-        filterArea.appendChild(input);
-        filterArea.appendChild(text);
-        filterArea.appendChild(br);
     }
 
     getAppliedFilters() {
