@@ -4,6 +4,8 @@ class CheckboxFilter extends BaseFilter {
         this.values = [];
         this.selectedValues = [];
         this.type = FILTER_TYPES.CHECKBOX;
+        this.event = document.createEvent('Event');
+        this.event.initEvent('update', true, true);
     }
 
     appendFilter(){
@@ -31,7 +33,7 @@ class CheckboxFilter extends BaseFilter {
             for (let checkBox of checkBoxes) {
                 checkBox.checked = true
             }
-            that.applyFilters();
+            document.dispatchEvent(that.event);
         };
 
         const deselectAllButton = document.createElement("button");
@@ -44,7 +46,7 @@ class CheckboxFilter extends BaseFilter {
             for (let checkBox of checkBoxes) {
                 checkBox.checked = false
             }
-            that.applyFilters();
+            document.dispatchEvent(that.event);
         };
 
         const buttonGroup = document.createElement("div");
@@ -79,7 +81,9 @@ class CheckboxFilter extends BaseFilter {
                     that.selectedValues.splice(selectedItemIndex, 1);
                 }
             }
-            that.applyFilters();
+            document.dispatchEvent(that.event);
+
+            // that.applyFilters();
         });
 
         let text = document.createElement("span");

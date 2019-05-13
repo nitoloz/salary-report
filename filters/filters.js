@@ -2,17 +2,20 @@ class Filters {
 
     constructor() {
         this.filters = {
-            sex: new CheckboxFilter('sex-filters','Sex','SEX'),
-            city: new CheckboxFilter('city-filters','City','CITY'),
-            companyType:new CheckboxFilter('company-type-filters','Company type','COMPANY_TYPE'),
-            companySize: new CheckboxFilter('company-size-filters','Company size','COMPANY_SIZE'),
-            seniorityLevel: new CheckboxFilter('seniority-level-filters','Seniority level','SENIORITY_LEVEL'),
-            language: new CheckboxFilter('language-filters','Language','WORK_LANGUAGE')
+            sex: new CheckboxFilter('sex-filters', 'Sex', 'SEX'),
+            city: new CheckboxFilter('city-filters', 'City', 'CITY'),
+            companyType: new CheckboxFilter('company-type-filters', 'Company type', 'COMPANY_TYPE'),
+            companySize: new CheckboxFilter('company-size-filters', 'Company size', 'COMPANY_SIZE'),
+            seniorityLevel: new CheckboxFilter('seniority-level-filters', 'Seniority level', 'SENIORITY_LEVEL'),
+            language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();
         this.dataLoader.loadData().then(data => this.updateData(data));
         this.listenToYearSelector();
+        document.addEventListener('update', (e) => {
+            this.applyFilters();
+        }, false);
     }
 
     listenToYearSelector() {
