@@ -3,6 +3,8 @@ class BaseFilter {
         this.areaId = areaId;
         this.label= label;
         this.dataKey= dataKey;
+        this.event = document.createEvent('Event');
+        this.event.initEvent('update', true, true);
     }
 
     addFilterPlaceholder(){

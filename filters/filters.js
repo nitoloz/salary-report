@@ -48,13 +48,7 @@ class Filters {
 
     appendFiltersToPage() {
         Object.keys(this.filters).forEach(key => {
-            switch (this.filters[key].type) {
-                case FILTER_TYPES.CHECKBOX:
-                    this.filters[key].appendFilter();
-                    break;
-                default:
-                    break;
-            }
+            this.filters[key].appendFilter();
         });
     }
 

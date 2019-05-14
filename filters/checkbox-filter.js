@@ -4,8 +4,7 @@ class CheckboxFilter extends BaseFilter {
         this.values = [];
         this.selectedValues = [];
         this.type = FILTER_TYPES.CHECKBOX;
-        this.event = document.createEvent('Event');
-        this.event.initEvent('update', true, true);
+
     }
 
     appendFilter(){
