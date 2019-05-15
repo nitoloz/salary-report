@@ -81,8 +81,6 @@ class CheckboxFilter extends BaseFilter {
                 }
             }
             document.dispatchEvent(that.event);
-
-            // that.applyFilters();
         });
 
         let text = document.createElement("span");
@@ -93,4 +91,27 @@ class CheckboxFilter extends BaseFilter {
         filterArea.appendChild(text);
         filterArea.appendChild(br);
     }
+
+    isFilterSelected(){
+        return this.values.length !== this.selectedValues.length;
+    }
+
+    getAppliedValues(){
+        return {
+            type: FILTER_TYPES.CHECKBOX,
+                label: this.label,
+            dataKey: this.dataKey,
+            values: this.selectedValues
+        }
+    }
+
+    initializeFilterValues(values){
+        const internalMap = new Map();
+        values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
+        this.values = Object.keys(internalMap).map((key) => {
+            return {value: key, count: internalMap[key]};
+        }).sort((a, b) => b.count - a.count);
+        this.selectedValues = this.values.map(value => value.value).slice();
+    }
+
 }

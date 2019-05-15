@@ -13,9 +13,7 @@ class Filters {
         this.dataLoader.getSelectedYear();
         this.dataLoader.loadData().then(data => this.updateData(data));
         this.listenToYearSelector();
-        document.addEventListener('update', (e) => {
-            this.applyFilters();
-        }, false);
+        this.listenToFilterChangeEvent();
     }
 
     listenToYearSelector() {
@@ -33,55 +31,26 @@ class Filters {
         };
     }
 
+    listenToFilterChangeEvent(){
+        document.addEventListener('update', (e) => {
+            this.applyFilters();
+        }, false);
+    }
+
     updateData(data) {
         this.data = data;
-        this.calculateFilterValues();
-        this.appendFiltersToPage();
-    }
-
-    calculateFilterValues() {
         Object.keys(this.filters).forEach(key => {
-            this.filters[key].values = this.getAvailableFilterValues(DataProperties[this.filters[key].dataKey]);
-            this.filters[key].selectedValues = this.filters[key].values.map(value => value.value).slice();
+            const values = this.data.map(d => d[this.filters[key].dataKey]).filter(value => !!value);
+            this.filters[key].initializeFilterValues(values);
         });
-    }
-
-    appendFiltersToPage() {
-        Object.keys(this.filters).forEach(key => {
-            this.filters[key].appendFilter();
-        });
+        Object.keys(this.filters).forEach(key => this.filters[key].appendFilter());
     }
 
     getAppliedFilters() {
-        const appliedFilters = [];
-        Object.keys(this.filters).forEach(key => {
-            switch (this.filters[key].type) {
-                case FILTER_TYPES.CHECKBOX:
-                    if (this.filters[key].values.length !== this.filters[key].selectedValues.length) {
-                        appliedFilters.push({
-                            type: FILTER_TYPES.CHECKBOX,
-                            label: this.filters[key].label,
-                            dataKey: this.filters[key].dataKey,
-                            values: this.filters[key].selectedValues
-                        });
-                    }
-                    break;
-                default:
-                    break;
-            }
-        });
-        return appliedFilters;
+        return Object.keys(this.filters)
+            .filter(key => this.filters[key].isFilterSelected())
+            .map(key => this.filters[key].getAppliedValues());
     }
-
-    getAvailableFilterValues(filterProperty) {
-        const values = this.data.map(d => d[filterProperty]).filter(value => !!value);
-        const internalMap = new Map();
-        values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
-        return Object.keys(internalMap).map((key) => {
-            return {value: key, count: internalMap[key]};
-        }).sort((a, b) => b.count - a.count);
-    }
-
 
     showSelectedFiltersWidget(appliedFilters) {
         document.getElementById("filter-content").innerHTML = ``;
