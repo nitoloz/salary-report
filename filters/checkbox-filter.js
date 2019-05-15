@@ -7,7 +7,7 @@ class CheckboxFilter extends BaseFilter {
 
     }
 
-    appendFilter(){
+    appendFilter() {
         this.addFilterPlaceholder();
         const filterArea = document.getElementById(this.areaId);
 
@@ -92,20 +92,20 @@ class CheckboxFilter extends BaseFilter {
         filterArea.appendChild(br);
     }
 
-    isFilterSelected(){
+    isFilterSelected() {
         return this.values.length !== this.selectedValues.length;
     }
 
-    getAppliedValues(){
+    getAppliedValues() {
         return {
             type: FILTER_TYPES.CHECKBOX,
-                label: this.label,
+            label: this.label,
             dataKey: this.dataKey,
             values: this.selectedValues
         }
     }
 
-    initializeFilterValues(values){
+    initializeFilterValues(values) {
         const internalMap = new Map();
         values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
         this.values = Object.keys(internalMap).map((key) => {

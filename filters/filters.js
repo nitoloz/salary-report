@@ -40,7 +40,7 @@ class Filters {
     updateData(data) {
         this.data = data;
         Object.keys(this.filters).forEach(key => {
-            const values = this.data.map(d => d[this.filters[key].dataKey]).filter(value => !!value);
+            const values = this.data.map(d => d[DataProperties[this.filters[key].dataKey]]).filter(value => !!value);
             this.filters[key].initializeFilterValues(values);
         });
         Object.keys(this.filters).forEach(key => this.filters[key].appendFilter());
