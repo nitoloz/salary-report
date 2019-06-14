@@ -40,11 +40,11 @@ class RangeFilter extends BaseFilter {
         deselectAllButton.id = that.areaId + '_deselect_all';
         deselectAllButton.className = 'btn btn-outline-secondary btn-sm';
         deselectAllButton.onclick = function (event) {
-            that.selectedValues = [];
-            const checkBoxes = filterArea.getElementsByTagName('input');
-            for (let checkBox of checkBoxes) {
-                checkBox.checked = false
-            }
+            // that.selectedValues = [];
+            // const checkBoxes = filterArea.getElementsByTagName('input');
+            // for (let checkBox of checkBoxes) {
+            //     checkBox.checked = false
+            // }
             document.dispatchEvent(that.event);
         };
 
@@ -53,13 +53,14 @@ class RangeFilter extends BaseFilter {
         buttonGroup.className = 'btn-group btn-group-justified';
         buttonGroup.appendChild(selectAllButton);
         buttonGroup.appendChild(deselectAllButton);
+
         const filterGroup = document.createElement("div");
         filterGroup.className = 'collapse show';
         filterGroup.id = this.areaId + '-filters-group';
         filterGroup.appendChild(buttonGroup);
-        this.values.forEach((value, index) => {
-            this.appendCheckbox(filterGroup, value, index)
-        });
+        // this.values.forEach((value, index) => {
+        //     this.appendCheckbox(filterGroup, value, index)
+        // });
         filterArea.appendChild(filterGroup);
     }
 
@@ -93,12 +94,12 @@ class RangeFilter extends BaseFilter {
     }
 
     isFilterSelected() {
-        return this.values.length !== this.selectedValues.length;
+        return this.values.from !== this.selectedValues.from || this.values.to !== this.selectedValues.to;
     }
 
     getAppliedValues() {
         return {
-            type: FILTER_TYPES.CHECKBOX,
+            type: FILTER_TYPES.NUMBER_RANGE,
             label: this.label,
             dataKey: this.dataKey,
             values: this.selectedValues
