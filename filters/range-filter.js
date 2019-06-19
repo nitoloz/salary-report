@@ -27,7 +27,7 @@ class RangeFilter extends BaseFilter {
         resetButton.id = that.areaId + '_reset';
         resetButton.className = 'btn btn-outline-secondary btn-sm';
         resetButton.onclick = function (event) {
-            this.selectedValues = {from: this.values.from, to: this.values.to};
+            that.selectedValues = {from: that.values.from, to: that.values.to};
             document.dispatchEvent(that.event);
         };
 
@@ -46,7 +46,24 @@ class RangeFilter extends BaseFilter {
 
 
     appendSlider(filterArea, values) {
-        // let input = document.createElement("input");
+        let sliderDiv = document.createElement("div");
+        sliderDiv.id = this.areaId + '-slider';
+        const that = this;
+        noUiSlider.create(sliderDiv, {
+            start: [this.values.from, this.values.to],
+            connect: true,
+            behaviour: 'drag',
+            step: 1,
+            range: {
+                'min': this.values.from,
+                'max': this.values.to
+            }
+        });
+        filterArea.appendChild(sliderDiv);
+        sliderDiv.noUiSlider.on('slide', function (values) {
+            console.log(values);
+        });
+
         // input.value = (value + '</br>');
         // input.checked = true;
         // input.type = "checkbox";

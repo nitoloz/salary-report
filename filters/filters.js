@@ -7,8 +7,8 @@ class Filters {
             companyType: new CheckboxFilter('company-type-filters', 'Company type', 'COMPANY_TYPE'),
             companySize: new CheckboxFilter('company-size-filters', 'Company size', 'COMPANY_SIZE'),
             seniorityLevel: new CheckboxFilter('seniority-level-filters', 'Seniority level', 'SENIORITY_LEVEL'),
-            language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE'),
-            age: new RangeFilter('age-filters', 'Age', 'AGE')
+            language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE')
+            // age: new RangeFilter('age-filters', 'Age', 'AGE')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();
