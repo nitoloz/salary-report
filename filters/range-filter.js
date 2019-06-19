@@ -27,11 +27,7 @@ class RangeFilter extends BaseFilter {
         resetButton.id = that.areaId + '_reset';
         resetButton.className = 'btn btn-outline-secondary btn-sm';
         resetButton.onclick = function (event) {
-            // that.selectedValues = that.values.map(value => value.value).slice();
-            // const checkBoxes = filterArea.getElementsByTagName('input');
-            // for (let checkBox of checkBoxes) {
-            //     checkBox.checked = true
-            // }
+            this.selectedValues = {from: this.values.from, to: this.values.to};
             document.dispatchEvent(that.event);
         };
 
@@ -91,12 +87,8 @@ class RangeFilter extends BaseFilter {
     }
 
     initializeFilterValues(values) {
-        const internalMap = new Map();
-        values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);
-        this.values = Object.keys(internalMap).map((key) => {
-            return {value: key, count: internalMap[key]};
-        }).sort((a, b) => b.count - a.count);
-        this.selectedValues = this.values.map(value => value.value).slice();
+        this.values = {from: parseInt(d3.min(values)), to: parseInt(d3.max(values))};
+        this.selectedValues = {from: this.values.from, to: this.values.to};
     }
 
 }
