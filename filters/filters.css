@@ -58,3 +58,23 @@
     margin: 0 5px;
     padding: 0 5px;
 }
+
+.noUi-connect{
+    background: #80B1D3;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 20px;
+    height: 20px;
+    left: -17px;
+    top: -2px;
+}
+
+.noUi-handle::after,
+.noUi-handle::before{
+    content:none;
+}
+
+.noUi-handle {
+    background: grey;
+}
