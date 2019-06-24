@@ -60,34 +60,15 @@ class RangeFilter extends BaseFilter {
             }
         });
         filterArea.appendChild(sliderDiv);
+        let timeout;
         sliderDiv.noUiSlider.on('slide', function (values) {
-            console.log(values);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(() => {
+                console.log(values);
+            }, 500)
         });
-
-        // input.value = (value + '</br>');
-        // input.checked = true;
-        // input.type = "checkbox";
-        // input.id = this.areaId + index;
-        // const that = this;
-        // input.addEventListener('change', function () {
-        //     if (this.checked) {
-        //         that.selectedValues.push(value.value);
-        //     } else {
-        //         let selectedItemIndex = that.selectedValues.indexOf(value.value);
-        //         if (selectedItemIndex !== -1) {
-        //             that.selectedValues.splice(selectedItemIndex, 1);
-        //         }
-        //     }
-        //     document.dispatchEvent(that.event);
-        // });
-        //
-        // let text = document.createElement("span");
-        // text.innerHTML = `${value.value} (${value.count})`;
-        // let br = document.createElement("br");
-        //
-        // filterArea.appendChild(input);
-        // filterArea.appendChild(text);
-        // filterArea.appendChild(br);
     }
 
     isFilterSelected() {
