@@ -66,7 +66,7 @@ class RangeFilter extends BaseFilter {
                 clearTimeout(timeout);
             }
             timeout = setTimeout(() => {
-                console.log(values);
+                document.dispatchEvent(that.event);
             }, 500)
         });
     }
