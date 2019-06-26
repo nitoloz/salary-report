@@ -48,6 +48,9 @@ class DataLoader {
                 case FILTER_TYPES.CHECKBOX:
                     data = data.filter(d => filter.values.indexOf(d[DataProperties[filter.dataKey]]) !== -1);
                     break;
+                case FILTER_TYPES.NUMBER_RANGE:
+                    data = data.filter(d => d[DataProperties[filter.dataKey]] >= filter.from && d[DataProperties[filter.dataKey]] <= filter.to);
+                    break;
                 default:
                     break;
             }
