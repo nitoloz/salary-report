@@ -105,6 +105,10 @@ class CheckboxFilter extends BaseFilter {
         }
     }
 
+    getSelectedValuesWidgetText(){
+        return `${this.label} (${this.values.length > 4 ? this.values.length + ' selected' : this.values.join(',')})`;
+    }
+
     initializeFilterValues(values) {
         const internalMap = new Map();
         values.forEach(d => internalMap[d] ? internalMap[d]++ : internalMap[d] = 1);

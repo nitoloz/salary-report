@@ -60,7 +60,7 @@ class Filters {
                 //TODO grey values
                 let filterText = document.createElement("span");
                 filterText.className = 'filter-widget';
-                filterText.innerHTML = `${filter.label} (${filter.values.length > 4 ? filter.values.length + ' selected' : filter.values.join(',')})`;
+                filterText.innerHTML = filter.getSelectedValuesWidgetText();
                 document.getElementById("filter-content").appendChild(filterText);
             });
             document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
