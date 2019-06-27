@@ -101,12 +101,13 @@ class CheckboxFilter extends BaseFilter {
             type: FILTER_TYPES.CHECKBOX,
             label: this.label,
             dataKey: this.dataKey,
-            values: this.selectedValues
+            values: this.selectedValues,
+            widgetText: this.getSelectedValuesWidgetText()
         }
     }
 
-    getSelectedValuesWidgetText(){
-        return `${this.label} (${this.values.length > 4 ? this.values.length + ' selected' : this.values.join(',')})`;
+    getSelectedValuesWidgetText() {
+        return `${this.label} (${this.selectedValues.length > 4 ? this.selectedValues.length + ' selected' : this.selectedValues.join(',')})`;
     }
 
     initializeFilterValues(values) {

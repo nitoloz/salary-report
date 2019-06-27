@@ -83,8 +83,13 @@ class RangeFilter extends BaseFilter {
             type: FILTER_TYPES.NUMBER_RANGE,
             label: this.label,
             dataKey: this.dataKey,
-            values: this.selectedValues
+            values: this.selectedValues,
+            widgetText: this.getSelectedValuesWidgetText()
         }
+    }
+
+    getSelectedValuesWidgetText() {
+        return `${this.label} (${this.selectedValues.from} - ${this.selectedValues.to})`;
     }
 
     initializeFilterValues(values) {
