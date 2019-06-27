@@ -49,7 +49,7 @@ class DataLoader {
                     data = data.filter(d => filter.values.indexOf(d[DataProperties[filter.dataKey]]) !== -1);
                     break;
                 case FILTER_TYPES.NUMBER_RANGE:
-                    data = data.filter(d => d[DataProperties[filter.dataKey]] >= filter.from && d[DataProperties[filter.dataKey]] <= filter.to);
+                    data = data.filter(d => parseFloat(d[DataProperties[filter.dataKey]]) >= filter.values.from && parseFloat(d[DataProperties[filter.dataKey]]) <= filter.values.to);
                     break;
                 default:
                     break;

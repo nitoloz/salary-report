@@ -28,6 +28,7 @@ class RangeFilter extends BaseFilter {
         resetButton.className = 'btn btn-outline-secondary btn-sm';
         resetButton.onclick = function (event) {
             that.selectedValues = {from: that.values.from, to: that.values.to};
+            document.getElementById(that.areaId + '-slider').noUiSlider.reset();
             document.dispatchEvent(that.event);
         };
 
@@ -66,6 +67,8 @@ class RangeFilter extends BaseFilter {
                 clearTimeout(timeout);
             }
             timeout = setTimeout(() => {
+                that.selectedValues.from = parseInt(values[0]);
+                that.selectedValues.to = parseInt(values[1]);
                 document.dispatchEvent(that.event);
             }, 500)
         });
