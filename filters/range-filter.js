@@ -37,11 +37,23 @@ class RangeFilter extends BaseFilter {
         buttonGroup.className = 'btn-group btn-group-justified';
         buttonGroup.appendChild(resetButton);
 
+        const textValues = document.createElement("div");
+        textValues.className = 'slider-values-text';
+        const fromValue = document.createElement("span");
+        fromValue.id = `${that.areaId}-from`;
+        fromValue.innerText = that.values.from;
+        const toValue = document.createElement("span");
+        toValue.id = `${that.areaId}-to`;
+        toValue.innerText = that.values.to;
+        textValues.appendChild(fromValue);
+        textValues.appendChild(toValue);
+
         const filterGroup = document.createElement("div");
         filterGroup.className = 'collapse show';
         filterGroup.id = this.areaId + '-filters-group';
         filterGroup.appendChild(buttonGroup);
         this.appendSlider(filterGroup, this.values);
+        filterGroup.appendChild(textValues);
         filterArea.appendChild(filterGroup);
     }
 
@@ -66,9 +78,13 @@ class RangeFilter extends BaseFilter {
             if (timeout) {
                 clearTimeout(timeout);
             }
+            const from = parseInt(values[0]);
+            const to = parseInt(values[1]);
+            document.getElementById(`${that.areaId}-from`).innerText = from;
+            document.getElementById(`${that.areaId}-to`).innerText = to;
             timeout = setTimeout(() => {
-                that.selectedValues.from = parseInt(values[0]);
-                that.selectedValues.to = parseInt(values[1]);
+                that.selectedValues.from = from;
+                that.selectedValues.to = to;
                 document.dispatchEvent(that.event);
             }, 500)
         });
@@ -93,7 +109,8 @@ class RangeFilter extends BaseFilter {
     }
 
     initializeFilterValues(values) {
-        this.values = {from: parseInt(d3.min(values)), to: parseInt(d3.max(values))};
+        const convertedValues = values.map(value => parseInt(value));
+        this.values = {from: d3.min(convertedValues), to: d3.max(convertedValues)};
         this.selectedValues = {from: this.values.from, to: this.values.to};
     }
 

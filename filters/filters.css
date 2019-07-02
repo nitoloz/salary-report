@@ -78,3 +78,8 @@
 .noUi-handle {
     background: grey;
 }
+
+.slider-values-text{
+    display: flex;
+    justify-content: space-between;
+}
