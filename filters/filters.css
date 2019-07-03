@@ -66,7 +66,7 @@
 .noUi-horizontal .noUi-handle {
     width: 20px;
     height: 20px;
-    left: -17px;
+    right: -10px !important;
     top: -2px;
 }
 
