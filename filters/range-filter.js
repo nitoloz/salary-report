@@ -1,10 +1,10 @@
 class RangeFilter extends BaseFilter {
-    constructor(areaId, label, dataKey) {
+    constructor(areaId, label, dataKey, step = 1) {
         super(areaId, label, dataKey);
         this.values = {from: null, to: null};
         this.selectedValues = {from: null, to: null};
         this.type = FILTER_TYPES.NUMBER_RANGE;
-
+        this.step = step;
     }
 
     appendFilter() {
@@ -66,7 +66,7 @@ class RangeFilter extends BaseFilter {
             start: [this.values.from, this.values.to],
             connect: true,
             behaviour: 'drag',
-            step: 1,
+            step: that.step,
             range: {
                 'min': this.values.from,
                 'max': this.values.to

@@ -9,7 +9,8 @@ class Filters {
             seniorityLevel: new CheckboxFilter('seniority-level-filters', 'Seniority level', 'SENIORITY_LEVEL'),
             language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE'),
             age: new RangeFilter('age-filters', 'Age', 'AGE'),
-            experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE')
+            experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE'),
+            salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000)
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();
