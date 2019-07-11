@@ -24,6 +24,7 @@
 .main-container {
     width: calc(100% - 300px);
     float: left;
+    margin-top: 65px;
 }
 
 @keyframes octocat-wave {
