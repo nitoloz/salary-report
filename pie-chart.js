@@ -4,8 +4,8 @@ class PieChart {
         this.groupByOption = 'CITY';
         this.sortingFunction = null;
         this.pieChart = pieChartD3()
-            .width(width / 1.2)
-            .height(height / 1.2)
+            .width(Utils.getChartContainerDimensions().width)
+            .height(Utils.getChartContainerDimensions().height)
             .groupByOptionLabel('City')
             .groupByOption(DataProperties[this.groupByOption])
             .colorScale(d3.scaleOrdinal(d3.schemeSet3));

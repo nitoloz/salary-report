@@ -2,8 +2,8 @@ class GroupedBarChart {
 
     constructor() {
         this.groupedBarChart = groupedBarChartD3()
-            .width(width)
-            .height(height)
+            .width(Utils.getChartContainerDimensions().width)
+            .height(Utils.getChartContainerDimensions().height)
             .colorScale(Utils.getSexColorScale())
             .xAxisLabel('Average salary (EUR)')
             .yAxisLabel('Share of respondents (%)')

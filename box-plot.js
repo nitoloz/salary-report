@@ -57,8 +57,8 @@ class BoxPlot {
         this.selectedXAxisOption = xAxisOptions[0];
         this.selectedYAxisOption = yAxisOptions[0];
         this.salaryBoxPlot = boxPlotD3()
-            .width(width)
-            .height(height);
+            .width(Utils.getChartContainerDimensions().width)
+            .height(Utils.getChartContainerDimensions().height);
 
         d3.select("#box-plot-area")
             .call(this.salaryBoxPlot);

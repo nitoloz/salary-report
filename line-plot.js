@@ -5,8 +5,8 @@ linePlotInitializer = (data) => {
     // const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
     const salaryLineChart = lineChartD3()
-        .width(width)
-        .height(height)
+        .width(Utils.getChartContainerDimensions().width)
+        .height(Utils.getChartContainerDimensions().height)
         .colorScale(colorScale)
         .xAxisLabel('Average salary (EUR)')
         .yAxisLabel('Share of respondents (%)')
