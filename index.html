@@ -32,7 +32,6 @@
 <body>
 
 <div id="mySidepanel" class="sidepanel">
-    <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
     <h3 class="text-center">Filters</h3>
     <div id="sex-filters"></div>
     <div id="seniority-level-filters"></div>
@@ -77,7 +76,6 @@
 </nav>
 
 <div class="container-fluid main-container">
-    <!--<button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>-->
     <div class="row mt-2">
         <div class="col-8 offset-2">
             <form class="form-group float-center">
@@ -100,10 +98,6 @@
     <hr/>
     <div class="row mt-2">
         <div id="grouped-bar-chart-area" class="mx-auto"></div>
-
-        <!--<div class="col-8 offset-2">-->
-
-        <!--</div>-->
     </div>
     <hr/>
     <div class="row mt-2">
@@ -158,11 +152,11 @@
 <script src="charts/grouped-bar-chart.js"></script>
 
 <script src="data/data-processor.js"></script>
-<script src="scatter-plot.js"></script>
-<script src="line-plot.js"></script>
-<script src="grouped-bar-chart.js"></script>
-<script src="pie-chart.js"></script>
-<script src="box-plot.js"></script>
+<script src="chart-components/scatter-plot.js"></script>
+<script src="chart-components/line-plot.js"></script>
+<script src="chart-components/grouped-bar-chart.js"></script>
+<script src="chart-components/pie-chart.js"></script>
+<script src="chart-components/box-plot.js"></script>
 <script src="data/data-loader.js"></script>
 <script src="filters/base-filter.js"></script>
 <script src="filters/checkbox-filter.js"></script>
