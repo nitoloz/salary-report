@@ -59,7 +59,7 @@
     padding: 0 5px;
 }
 
-.noUi-connect{
+.noUi-connect {
     background: #3FB8AF;
 }
 
@@ -71,15 +71,20 @@
 }
 
 .noUi-handle::after,
-.noUi-handle::before{
-    content:none;
+.noUi-handle::before {
+    content: none;
 }
 
 .noUi-handle {
     background: grey;
+    box-shadow: none;
 }
 
-.slider-values-text{
+.noUi-handle:hover {
+    cursor: pointer;
+}
+
+.slider-values-text {
     display: flex;
     justify-content: space-between;
 }
