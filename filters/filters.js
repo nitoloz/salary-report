@@ -31,6 +31,7 @@ class Filters {
                 default:
                     break;
             }
+            this.showSelectedFiltersWidget([]);
         };
     }
 
@@ -65,9 +66,9 @@ class Filters {
                 filterText.innerHTML = filter.widgetText;
                 document.getElementById("filter-content").appendChild(filterText);
             });
-            document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
+            document.getElementById("filter-widget").className = document.getElementById("filter-widget").className.replace(/\binvisible\b/g, "visible");
         } else {
-            document.getElementById("filter").className = document.getElementById("filter").className.replace(/\bvisible\b/g, "invisible");
+            document.getElementById("filter-widget").className = document.getElementById("filter-widget").className.replace(/\bvisible\b/g, "invisible");
         }
     }
 
