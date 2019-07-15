@@ -93,7 +93,7 @@ class CheckboxFilter extends BaseFilter {
     }
 
     isFilterSelected() {
-        return this.values.length !== this.selectedValues.length;
+        return this.values.length !== this.selectedValues.length && this.selectedValues.length !== 0;
     }
 
     getAppliedValues() {
