@@ -105,7 +105,7 @@ class RangeFilter extends BaseFilter {
     }
 
     getSelectedValuesWidgetText() {
-        return `${this.label} (${this.selectedValues.from} - ${this.selectedValues.to})`;
+        return `${this.label} <span class="value">(${this.selectedValues.from} - ${this.selectedValues.to})</span>`;
     }
 
     initializeFilterValues(values) {

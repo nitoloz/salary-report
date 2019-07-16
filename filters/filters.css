@@ -59,6 +59,10 @@
     padding: 0 5px;
 }
 
+.filter-widget .value {
+    color: grey;
+}
+
 .noUi-connect {
     background: #3FB8AF;
 }

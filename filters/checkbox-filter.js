@@ -107,7 +107,7 @@ class CheckboxFilter extends BaseFilter {
     }
 
     getSelectedValuesWidgetText() {
-        return `${this.label} (${this.selectedValues.length > 4 ? this.selectedValues.length + ' selected' : this.selectedValues.join(',')})`;
+        return `${this.label} <span class="value">(${this.selectedValues.length > 4 ? this.selectedValues.length + ' selected' : this.selectedValues.join(',')})</span>`;
     }
 
     initializeFilterValues(values) {
