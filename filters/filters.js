@@ -60,10 +60,10 @@ class Filters {
         document.getElementById("filter-content").innerHTML = ``;
         if (appliedFilters.length > 0) {
             appliedFilters.forEach(filter => {
-                //TODO grey values
                 let filterText = document.createElement("span");
                 filterText.className = 'filter-widget';
                 filterText.innerHTML = filter.widgetText;
+                //TODO add "Clear filter" button
                 document.getElementById("filter-content").appendChild(filterText);
             });
             document.getElementById("filter-widget").className = document.getElementById("filter-widget").className.replace(/\binvisible\b/g, "visible");
