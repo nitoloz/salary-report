@@ -28,20 +28,21 @@ function pieChartD3() {
         valueLabel = initialConfiguration.valueLabel,
         colorScale = initialConfiguration.colorScale,
         placeHolderTooltip = initialConfiguration.placeHolderTooltip,
+        topMargin = 110,
         tooltipFormatter = initialConfiguration.tooltipFormatter;
     let updateData = null;
-    let previousLabelY;
+    let previousLabelYCoordinate, labelsOverlapped;
 
     function chart(selection) {
         selection.each(function () {
             const svg = selection
                 .append('svg')
-                .attr('height', height)
+                .attr('height', height + topMargin)
                 .attr('width', width);
 
             const pieChartSvg = svg
                 .append("g")
-                .attr("transform", `translate(${width / 2}, ${height / 2})`);
+                .attr("transform", `translate(${width / 2}, ${height / 2 + topMargin})`);
 
             const radius = Math.min(width, height) / 2;
 
@@ -87,8 +88,8 @@ function pieChartD3() {
                 .attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
-                    previousLabelY = pos[1];
+                    pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
+                    previousLabelYCoordinate = pos[1];
                     return 'translate(' + pos + ')';
                 })
                 .style('text-anchor', function (d) {
@@ -106,8 +107,8 @@ function pieChartD3() {
                 .attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
-                    previousLabelY = pos[1];
+                    pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
+                    previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
 
@@ -184,21 +185,30 @@ function pieChartD3() {
                     .duration(100)
                     .remove();
 
-                previousLabelY = null;
+                previousLabelYCoordinate = null;
+                labelsOverlapped = false;
                 pieChartSvg.selectAll('.label').attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
-                    previousLabelY = pos[1];
+                    if (labelsOverlapped || Math.abs(previousLabelYCoordinate - pos[1]) < 20) {
+                        pos[1] = previousLabelYCoordinate - 20;
+                        labelsOverlapped = true;
+                    }
+                    previousLabelYCoordinate = pos[1];
                     return 'translate(' + pos + ')';
                 });
 
-                previousLabelY = null;
+                previousLabelYCoordinate = null;
+                labelsOverlapped = false;
                 pieChartSvg.selectAll('polyline').attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelY && (Math.abs(previousLabelY - pos[1]) < 20) ? previousLabelY - 20 : pos[1];
-                    previousLabelY = pos[1];
+                    if (labelsOverlapped || Math.abs(previousLabelYCoordinate - pos[1]) < 20) {
+                        pos[1] = previousLabelYCoordinate - 20;
+                        labelsOverlapped = true;
+                    }
+                    // pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
+                    previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
 
@@ -236,9 +246,9 @@ function pieChartD3() {
                             showTooltip(placeHolderTooltip, 'white')
                         }
                     })
-                    // .on("click", (d) => {
-                    //     showFilteredCharts(d.data.key, groupByOption)
-                    // });
+                // .on("click", (d) => {
+                //     showFilteredCharts(d.data.key, groupByOption)
+                // });
             }
 
             function showTooltip(tooltipContent, color) {
