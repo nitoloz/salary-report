@@ -35,7 +35,7 @@ class Filters {
         };
     }
 
-    listenToFilterChangeEvent(){
+    listenToFilterChangeEvent() {
         document.addEventListener('update', (e) => {
             this.applyFilters();
         }, false);
@@ -64,6 +64,14 @@ class Filters {
                 filterText.className = 'filter-widget';
                 filterText.innerHTML = filter.widgetText;
                 //TODO add "Clear filter" button
+                // let removeFilterButton = document.createElement("i");
+                // removeFilterButton.className = 'fas fa-times remove-filter';
+                // removeFilterButton.onclick = function (event) {
+                //     console.log('remove clicked' + filter);
+                // };
+                //
+                // filterText.appendChild(removeFilterButton);
+
                 document.getElementById("filter-content").appendChild(filterText);
             });
             document.getElementById("filter-widget").className = document.getElementById("filter-widget").className.replace(/\binvisible\b/g, "visible");
