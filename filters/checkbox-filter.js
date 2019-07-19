@@ -1,6 +1,6 @@
 class CheckboxFilter extends BaseFilter {
-    constructor(areaId, label, dataKey) {
-        super(areaId, label, dataKey);
+    constructor(areaId, label, dataKey, filtersMapKey) {
+        super(areaId, label, dataKey, filtersMapKey);
         this.values = [];
         this.selectedValues = [];
         this.type = FILTER_TYPES.CHECKBOX;
@@ -102,6 +102,7 @@ class CheckboxFilter extends BaseFilter {
             label: this.label,
             dataKey: this.dataKey,
             values: this.selectedValues,
+            filtersMapKey: this.filtersMapKey,
             widgetText: this.getSelectedValuesWidgetText()
         }
     }

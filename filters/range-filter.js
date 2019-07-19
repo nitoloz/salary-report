@@ -1,6 +1,6 @@
 class RangeFilter extends BaseFilter {
-    constructor(areaId, label, dataKey, step = 1) {
-        super(areaId, label, dataKey);
+    constructor(areaId, label, dataKey, step = 1, filtersMapKey) {
+        super(areaId, label, dataKey, filtersMapKey);
         this.values = {from: null, to: null};
         this.selectedValues = {from: null, to: null};
         this.type = FILTER_TYPES.NUMBER_RANGE;
@@ -100,6 +100,7 @@ class RangeFilter extends BaseFilter {
             label: this.label,
             dataKey: this.dataKey,
             values: this.selectedValues,
+            filtersMapKey: this.filtersMapKey,
             widgetText: this.getSelectedValuesWidgetText()
         }
     }

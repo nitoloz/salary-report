@@ -2,15 +2,15 @@ class Filters {
 
     constructor() {
         this.filters = {
-            sex: new CheckboxFilter('sex-filters', 'Sex', 'SEX'),
-            city: new CheckboxFilter('city-filters', 'City', 'CITY'),
-            companyType: new CheckboxFilter('company-type-filters', 'Company type', 'COMPANY_TYPE'),
-            companySize: new CheckboxFilter('company-size-filters', 'Company size', 'COMPANY_SIZE'),
-            seniorityLevel: new CheckboxFilter('seniority-level-filters', 'Seniority level', 'SENIORITY_LEVEL'),
-            language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE'),
-            age: new RangeFilter('age-filters', 'Age', 'AGE'),
-            experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE'),
-            salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000)
+            sex: new CheckboxFilter('sex-filters', 'Sex', 'SEX', 'sex'),
+            city: new CheckboxFilter('city-filters', 'City', 'CITY', 'city'),
+            companyType: new CheckboxFilter('company-type-filters', 'Company type', 'COMPANY_TYPE', 'companyType'),
+            companySize: new CheckboxFilter('company-size-filters', 'Company size', 'COMPANY_SIZE', 'companySize'),
+            seniorityLevel: new CheckboxFilter('seniority-level-filters', 'Seniority level', 'SENIORITY_LEVEL', 'seniorityLevel'),
+            language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE', 'language'),
+            age: new RangeFilter('age-filters', 'Age', 'AGE', 1, 'age'),
+            experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE', 1, 'experience'),
+            salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear();

@@ -1,13 +1,14 @@
 class BaseFilter {
-    constructor(areaId,label,dataKey) {
+    constructor(areaId, label, dataKey, filtersMapKey) {
         this.areaId = areaId;
-        this.label= label;
-        this.dataKey= dataKey;
+        this.label = label;
+        this.dataKey = dataKey;
+        this.filtersMapKey = filtersMapKey;
         this.event = document.createEvent('Event');
         this.event.initEvent('update', true, true);
     }
 
-    addFilterPlaceholder(){
+    addFilterPlaceholder() {
         const filterArea = document.getElementById(this.areaId);
         filterArea.innerHTML = `<hr><h5 class="text-center">${this.label}
                                                 <button type="button" data-toggle="collapse"  
