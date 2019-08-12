@@ -77,6 +77,9 @@
 
 <div class="container-fluid main-container">
     <div class="row mt-2">
+        <div id="word-cloud-area" class="mx-auto"></div>
+    </div>
+    <div class="row mt-2">
         <div class="col-8 offset-2">
             <form class="form-group float-center">
                 <div class="form-group row">
@@ -140,6 +143,8 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"
         crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
 <script src="data/table-keys-enum.js"></script>
 <script src="filters/filter-types-enum.js"></script>
 <script src="charts/utils.js"></script>
@@ -150,6 +155,7 @@
 <script src="charts/scatter-plot.js"></script>
 <script src="charts/box-plot.js"></script>
 <script src="charts/grouped-bar-chart.js"></script>
+<script src="charts/word-cloud-chart.js"></script>
 
 <script src="data/data-processor.js"></script>
 <script src="components/scatter-plot.js"></script>
@@ -157,6 +163,7 @@
 <script src="components/grouped-bar-chart.js"></script>
 <script src="components/pie-chart.js"></script>
 <script src="components/box-plot.js"></script>
+<script src="components/word-cloud-plot.js"></script>
 <script src="data/data-loader.js"></script>
 <script src="filters/base-filter.js"></script>
 <script src="filters/checkbox-filter.js"></script>
