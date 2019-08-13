@@ -2,7 +2,7 @@ class WordCloudPlot {
 
     constructor() {
         this.wordCloudChart = wordCloudChartD3()
-            .width(Utils.getChartContainerDimensions().width)
+            .width(Utils.getFullWidthChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height);
 
         d3.select("#word-cloud-area")
@@ -11,7 +11,7 @@ class WordCloudPlot {
 
     updateData(data) {
         this.wordCloudChart
-            .data(data);
+            .data(processWordCloudPlotData(data, DataProperties.POSITION));
     }
 
 }
