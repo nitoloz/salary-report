@@ -5,7 +5,7 @@ class DataLoader {
         this.loadedData = [];
 
         this.scatterChart = new ScatterChart();
-        // this.wordCloudPlot = new WordCloudPlot();
+        this.wordCloudPlot = new WordCloudPlot();
         this.boxPlot = new BoxPlot();
         this.groupedBarChart = new GroupedBarChart();
         this.pieChart = new PieChart();
@@ -41,7 +41,7 @@ class DataLoader {
         this.pieChart.updateData(data.slice());
         this.scatterChart.updateData(data.slice());
         this.boxPlot.updateData(data.slice());
-        // this.wordCloudPlot.updateData(data.slice());
+        this.wordCloudPlot.updateData(data.slice());
     }
 
     filterChartData(data, selectedFilters) {
