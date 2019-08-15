@@ -145,9 +145,9 @@ function boxWhiskers(d) {
 
 
 function processWordCloudPlotData(data, labelOption) {
-    data = data.filter(d => d[labelOption] !== '');
+    const wordsArray = data.filter(d => d[labelOption] !== '').map(d => d[labelOption].split(' ')).flat();
     const internalMap = new Map();
-    data.forEach(d => internalMap[d[labelOption]] ? internalMap[d[labelOption]]++ : internalMap[d[labelOption]] = 1);
+    wordsArray.forEach(word => internalMap[word] ? internalMap[word]++ : internalMap[word] = 1);
     return Object.keys(internalMap).map(key => {
         return {word: key, size: internalMap[key]}
     }).sort((a, b) => a.size - b.size);
