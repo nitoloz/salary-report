@@ -1,8 +1,8 @@
 function wordCloudChartD3() {
 
     let initialConfiguration = {
-        // width: 1000,
-        // height: 600,
+        width: 1000,
+        height: 600,
         data: [],
         colorScale: d3.scaleOrdinal(d3.schemeSet3)
     };

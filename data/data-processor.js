@@ -145,11 +145,17 @@ function boxWhiskers(d) {
 
 
 function processWordCloudPlotData(data, labelOption) {
-    const wordsArray = data.filter(d => d[labelOption] !== '').map(d => d[labelOption].split(' ')).flat();
+    const wordsArray = data.filter(d => d[labelOption] !== '')
+        .map(d => d[labelOption].split(' '))
+        .flat()
+        .map(d => capitalizeFirstLetter(d));
     const internalMap = new Map();
     wordsArray.forEach(word => internalMap[word] ? internalMap[word]++ : internalMap[word] = 1);
     return Object.keys(internalMap).map(key => {
         return {word: key, size: internalMap[key]}
-    }).sort((a, b) => a.size - b.size);
+    }).sort((a, b) => b.size - a.size);
+}
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

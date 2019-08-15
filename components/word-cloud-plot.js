@@ -5,13 +5,13 @@ class WordCloudPlot {
             .width(Utils.getFullWidthChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height);
 
-        // d3.select("#word-cloud-area")
-        //     .call(this.wordCloudChart);
+        d3.select("#word-cloud-area")
+            .call(this.wordCloudChart);
     }
 
     updateData(data) {
-        // this.wordCloudChart
-        //     .data(processWordCloudPlotData(data, DataProperties.POSITION));
+        this.wordCloudChart
+            .data(processWordCloudPlotData(data, DataProperties.POSITION));
     }
 
 }
