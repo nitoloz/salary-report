@@ -13,48 +13,40 @@ function wordCloudChartD3() {
     let updateData = null;
 
     function chart(selection) {
+
+
         selection.each(function () {
-            // var myWords = [
-            //     {word: "Running", size: "10"},
-            //     {word: "Surfing", size: 20},
-            //     {word: "Climbing", size: "50"},
-            //     {word: "Kiting", size: "30"},
-            //     {word: "Sailing", size: "20"},
-            //     {word: "Snowboarding", size: "60"}
-            // ];
             const svg = selection
                 .append('svg')
                 .attr('height', height)
-                .attr('width', width);
+                .attr('width', width)
+                .append("g")
+                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+            const layout = d3.layout.cloud()
+                .size([width, height])
+                .padding(5)        //space between words
+                .rotate(function () {
+                    return ~~(Math.random() * 2) * 90;
+                })
+                .fontSize(function (d) {
+                    return d.size;
+                });   // font size of words
 
             updateData = function () {
 
 // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
 // Wordcloud features that are different from one word to the other must be here
-                var layout = d3.layout.cloud()
-                    .size([width, height])
-                    .words(data.map(function (d) {
-                        return {text: d.word, size: d.size};
-                    }))
-                    .padding(5)        //space between words
-                    .rotate(function () {
-                        return ~~(Math.random() * 2) * 90;
-                    })
-                    .fontSize(function (d) {
-                        return d.size;
-                    })      // font size of words
-                    .on("end", draw);
-                layout.start();
+
+                layout.words(data.map(function (d) {
+                    return {text: d.word, size: d.size};
+                })).on("end", draw).start();
 
 // This function takes the output of 'layout' above and draw the words
 // Wordcloud features that are THE SAME from one word to the other can be here
                 function draw(words) {
-                    svg
-                        .append("g")
-                        .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-                        .selectAll("text")
-                        .data(words)
+                    const updatedWords = svg.selectAll("text").data(words);
+                    updatedWords
                         .enter().append("text")
                         .style("font-size", function (d) {
                             return `${d.size}px`;
@@ -68,6 +60,29 @@ function wordCloudChartD3() {
                         .text(function (d) {
                             return d.text;
                         });
+
+                    updatedWords
+                        .transition()
+                        .ease(d3.easeLinear)
+                        .duration(750)
+                        .style("font-size", function (d) {
+                            return `${d.size}px`;
+                        })
+                        .style("fill", "#69b3a2")
+                        .attr("text-anchor", "middle")
+                        .style("font-family", "Impact")
+                        .attr("transform", function (d) {
+                            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                        })
+                        .text(function (d) {
+                            return d.text;
+                        });
+
+                    updatedWords.exit()
+                        .transition()
+                        .ease(d3.easeLinear)
+                        .duration(100)
+                        .remove();
                 }
             };
         })
