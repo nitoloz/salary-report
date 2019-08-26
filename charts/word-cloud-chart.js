@@ -48,7 +48,6 @@ function wordCloudChartD3() {
                         })
                         .style("fill", "#69b3a2")
                         .attr("text-anchor", "middle")
-                        .style("font-family", "Impact")
                         .attr("transform", function (d) {
                             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                         })
