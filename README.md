@@ -22,6 +22,7 @@ Data for this report was collected from European IT community in December 2017 a
   * responses coloured by sex;
   * zooming and dragging of coordinate plane;
   * tooltip contains full response information.
+* Word Cloud
 
 
  
