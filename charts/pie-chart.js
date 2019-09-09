@@ -206,6 +206,7 @@ function pieChartD3() {
                 if (placeHolderTooltip) {
                     showTooltip(placeHolderTooltip, 'white');
                 }
+                // Utils.downloadSvg(svg);
             };
 
             function enterArcTween(d) {
