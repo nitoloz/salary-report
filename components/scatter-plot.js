@@ -2,8 +2,8 @@ class ScatterChart {
 
     constructor() {
         this.salaryScatterChart = scatterPlotD3()
-            .width(width)
-            .height(height)
+            .width(Utils.getChartContainerDimensions().width)
+            .height(Utils.getChartContainerDimensions().height)
             .colorScale(Utils.getSexColorScale());
 
         d3.select("#scatter-chart-area")

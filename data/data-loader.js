@@ -5,6 +5,7 @@ class DataLoader {
         this.loadedData = [];
 
         this.scatterChart = new ScatterChart();
+        this.wordCloudPlot = new WordCloudPlot();
         this.boxPlot = new BoxPlot();
         this.groupedBarChart = new GroupedBarChart();
         this.pieChart = new PieChart();
@@ -35,18 +36,12 @@ class DataLoader {
         this.updateChartsData(filteredData);
     }
 
-    showFilteredCharts(filter, key) {
-        document.getElementById("filter-content").textContent = `${key}: ${filter}`;
-        document.getElementById("filter").className = document.getElementById("filter").className.replace(/\binvisible\b/g, "visible");
-        const filteredData = this.loadedData.filter(entry => entry[key] === filter);
-        this.boxPlot.updateData(filteredData);
-    }
-
     updateChartsData(data) {
         this.groupedBarChart.updateData(data.slice());
         this.pieChart.updateData(data.slice());
         this.scatterChart.updateData(data.slice());
         this.boxPlot.updateData(data.slice());
+        this.wordCloudPlot.updateData(data.slice());
     }
 
     filterChartData(data, selectedFilters) {
@@ -54,6 +49,9 @@ class DataLoader {
             switch (filter.type) {
                 case FILTER_TYPES.CHECKBOX:
                     data = data.filter(d => filter.values.indexOf(d[DataProperties[filter.dataKey]]) !== -1);
+                    break;
+                case FILTER_TYPES.NUMBER_RANGE:
+                    data = data.filter(d => parseFloat(d[DataProperties[filter.dataKey]]) >= filter.values.from && parseFloat(d[DataProperties[filter.dataKey]]) <= filter.values.to);
                     break;
                 default:
                     break;

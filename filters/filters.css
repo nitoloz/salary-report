@@ -1,0 +1,102 @@
+.sidepanel {
+    height: 100%;
+    width: 320px;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    background-color: #e3f2fd;
+    overflow-x: hidden;
+    padding: 65px 10px 0 10px;
+    transition: 0.5s;
+}
+
+.sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidepanel a:hover {
+    color: #f1f1f1;
+}
+
+.sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+.btn-group-justified {
+    display: flex;
+}
+
+.btn-group-justified .btn {
+    flex-grow: 1;
+}
+
+.filter-widget {
+    border: 1px black solid;
+    border-radius: 5px;
+    margin: 0 5px;
+    padding: 0 5px;
+}
+
+.filter-widget .value {
+    color: grey;
+}
+
+.noUi-connect {
+    background: #3FB8AF;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 20px;
+    height: 20px;
+    right: -10px !important;
+    top: -2px;
+}
+
+.noUi-handle::after,
+.noUi-handle::before {
+    content: none;
+}
+
+.noUi-handle {
+    background: grey;
+    box-shadow: none;
+}
+
+.noUi-handle:hover {
+    cursor: pointer;
+}
+
+.slider-values-text {
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove-filter{
+    font-size: 14px;
+    position: relative;
+    top: -8px;
+    right: -2px;
+    cursor: pointer;
+}

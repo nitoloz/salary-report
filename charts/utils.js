@@ -1,17 +1,34 @@
 const margin = {top: 50, right: 50, bottom: 50, left: 100};
 const height = 600;
 const width = 1000;
+const fullWidth = 1300;
 const companySizesOrder = ['10 or less', '10-50', '50-100', '100-1000', '1000+'];
 
 Object.defineProperty(Array.prototype, 'flat', {
-    value: function(depth = 1) {
+    value: function (depth = 1) {
         return this.reduce(function (flat, toFlatten) {
-            return flat.concat((Array.isArray(toFlatten) && (depth-1)) ? toFlatten.flat(depth-1) : toFlatten);
+            return flat.concat((Array.isArray(toFlatten) && (depth - 1)) ? toFlatten.flat(depth - 1) : toFlatten);
         }, []);
     }
 });
 
 class Utils {
+
+    static getChartContainerDimensions() {
+        const rectangle = document.getElementsByClassName('container-fluid')[0].getBoundingClientRect();
+        const chartWidth = Math.min(width, rectangle.width);
+        const chartHeight = (chartWidth / width) * height;
+        return {width: chartWidth, height: chartHeight};
+    }
+
+
+    static getFullWidthChartContainerDimensions() {
+        const rectangle = document.getElementsByClassName('container-fluid')[0].getBoundingClientRect();
+        const chartWidth = Math.min(fullWidth, rectangle.width);
+        const chartHeight = (chartWidth / fullWidth) * height;
+        return {width: chartWidth, height: chartHeight};
+    }
+
     static getSexColorScale() {
         return d3.scaleOrdinal()
             .domain(["Male", "Female"])

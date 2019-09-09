@@ -2,8 +2,8 @@ class GroupedBarChart {
 
     constructor() {
         this.groupedBarChart = groupedBarChartD3()
-            .width(width)
-            .height(height)
+            .width(Utils.getChartContainerDimensions().width)
+            .height(Utils.getChartContainerDimensions().height)
             .colorScale(Utils.getSexColorScale())
             .xAxisLabel('Average salary (EUR)')
             .yAxisLabel('Share of respondents (%)')
@@ -25,10 +25,12 @@ class GroupedBarChart {
         currentSalaryData.forEach(group => {
             const groupKey = group.key.split(',')[0];
             const historicalData = previousSalaryData.find(group => group.key.indexOf(groupKey) !== -1);
-            group.values.forEach(groupItem => {
-                const historicalGroupItem = historicalData.values.find(historicalGroupItem => historicalGroupItem.key === groupItem.key);
-                groupItem.valueDifference = historicalGroupItem ? Math.round((groupItem.value - historicalGroupItem.value) * 10) / 10 : 0;
-            })
+            if (historicalData) {
+                group.values.forEach(groupItem => {
+                    const historicalGroupItem = historicalData.values.find(historicalGroupItem => historicalGroupItem.key === groupItem.key);
+                    groupItem.valueDifference = historicalGroupItem ? Math.round((groupItem.value - historicalGroupItem.value) * 10) / 10 : 0;
+                })
+            }
         });
         this.groupedBarChart
             .colorScale(Utils.getSexColorScale())
