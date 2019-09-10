@@ -85,13 +85,13 @@ class Utils {
             .text(text);
     }
 
-    static downloadSvg(svg) {
+    static downloadSvg(svg, name) {
         const svgData = svg.node().outerHTML;
         const svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
         const svgUrl = URL.createObjectURL(svgBlob);
         const downloadLink = document.createElement("a");
         downloadLink.href = svgUrl;
-        downloadLink.download = "newesttree.svg";
+        downloadLink.download = `${name}.svg`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
