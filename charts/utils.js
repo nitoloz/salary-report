@@ -3,6 +3,9 @@ const height = 600;
 const width = 1000;
 const fullWidth = 1300;
 const companySizesOrder = ['10 or less', '10-50', '50-100', '100-1000', '1000+'];
+const saveButtons = [
+    {label: "Save as SVG", x: 30, y: 30},
+    {label: "Save as PNG", x: 100, y: 30}];
 
 Object.defineProperty(Array.prototype, 'flat', {
     value: function (depth = 1) {
@@ -85,9 +88,21 @@ class Utils {
             .text(text);
     }
 
+    static appendSaveButtons(selection) {
+        // var button = d3.button()
+        //     .on('press', function(d, i) { console.log("Pressed", d, i, this.parentNode)})
+        //     .on('release', function(d, i) { console.log("Released", d, i, this.parentNode)});
+        // selection.selectAll('.button')
+        //     .data(data)
+        //     .enter()
+        //     .append('g')
+        //     .attr('class', 'button')
+        //     .call(button);
+    }
+
     static downloadSvg(svg, name) {
         const svgData = svg.node().outerHTML;
-        const svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});
+        const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
         const svgUrl = URL.createObjectURL(svgBlob);
         const downloadLink = document.createElement("a");
         downloadLink.href = svgUrl;

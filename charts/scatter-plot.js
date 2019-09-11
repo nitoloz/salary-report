@@ -92,6 +92,7 @@ function scatterPlotD3() {
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
+            Utils.appendSaveButtons(svg);
 
             //Zoom setup
             const zoom = d3.zoom()
@@ -239,6 +240,7 @@ function scatterPlotD3() {
                 // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
                 svg.select('.x.axis.label').text(xAxisLabel);
                 svg.select('.y.axis.label').text(yAxisLabel);
+                // Utils.downloadSvg(selection, 'scatter');
             };
         })
     }
@@ -294,8 +296,7 @@ function scatterPlotD3() {
     chart.tooltipFormatter = function (value) {
         if (!arguments.length) {
             return tooltipFormatter
-        }
-        else {
+        } else {
             if (value == null) {
                 tooltipFormatter = initialConfiguration.tooltipFormatter;
             } else {
