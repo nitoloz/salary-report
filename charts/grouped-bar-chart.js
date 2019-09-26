@@ -53,6 +53,7 @@ function groupedBarChartD3() {
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
+            Utils.applyAxisStyle(gXAxis);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat(d => `${d}%`)
@@ -64,6 +65,7 @@ function groupedBarChartD3() {
                 .attr("class", "y axis")
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
+            Utils.applyAxisStyle(gYAxis);
 
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -25, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
@@ -121,13 +123,14 @@ function groupedBarChartD3() {
                 const t = d3.transition()
                     .duration(750);
 
-                barChartSvg.select('.x')
-                    .transition(t)
+                gXAxis.transition(t)
                     .call(xAxis);
 
-                barChartSvg.select('.y')
-                    .transition(t)
+                gYAxis.transition(t)
                     .call(yAxis);
+
+                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gYAxis);
 
                 const updatedBars = barChartSvg.selectAll('.bar').data(data);
 
@@ -211,8 +214,7 @@ function groupedBarChartD3() {
     chart.tooltipFormatter = function (value) {
         if (!arguments.length) {
             return tooltipFormatter
-        }
-        else {
+        } else {
             if (value == null) {
                 tooltipFormatter = initialConfiguration.tooltipFormatter;
             } else {

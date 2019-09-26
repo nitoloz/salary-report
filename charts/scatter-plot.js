@@ -78,6 +78,7 @@ function scatterPlotD3() {
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
 
+            Utils.applyAxisStyle(gXAxis);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat((d) => `EUR ${d / 1000}K`)
@@ -88,6 +89,8 @@ function scatterPlotD3() {
                 .attr("class", "y axis")
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
+
+            Utils.applyAxisStyle(gYAxis);
 
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
@@ -110,6 +113,10 @@ function scatterPlotD3() {
                 let newYScale = d3.event.transform.rescaleY(yScale);
                 gXAxis.call(xAxis.scale(newXScale));
                 gYAxis.call(yAxis.scale(newYScale));
+
+                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gYAxis);
+
                 circlesG.selectAll('circle').data(data)
                     .attr('cx', d => newXScale(parseInt(d[xAxisProperty])))
                     .attr('cy', d => newYScale(parseInt(d[yAxisProperty])));
@@ -195,6 +202,9 @@ function scatterPlotD3() {
                 gYAxis.transition(t)
                     .call(yAxis);
 
+                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gYAxis);
+
                 const updatedPoints = circlesG.selectAll('circle').data(data);
 
                 updatedPoints
@@ -240,7 +250,7 @@ function scatterPlotD3() {
                 // svg.select('.title').text(`${yAxisLabel} vs ${xAxisLabel}`);
                 svg.select('.x.axis.label').text(xAxisLabel);
                 svg.select('.y.axis.label').text(yAxisLabel);
-                // Utils.downloadSvg(selection, 'scatter');
+                // Utils.saveSvg(selection, 'scatter');
             };
         })
     }

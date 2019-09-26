@@ -77,6 +77,17 @@ class Utils {
             .text(text);
     }
 
+    static applyAxisStyle(gAxis){
+        gAxis.selectAll('line')
+            .style('fill', 'none')
+            .style('stroke', 'rgba(0, 0, 0, 0.1)')
+            .style('shape-rendering', 'crispEdges');
+        gAxis.select('path')
+            .style('fill', 'none')
+            .style('stroke', 'rgba(0, 0, 0, 0.1)')
+            .style('shape-rendering', 'crispEdges');
+    }
+
     static appendTitle(selection, x, y, text) {
         selection.append("text")
             .attr('class', 'title')
@@ -107,6 +118,20 @@ class Utils {
         const downloadLink = document.createElement("a");
         downloadLink.href = svgUrl;
         downloadLink.download = `${name}.svg`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+
+    static saveSvg(svg, name) {
+        // svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        const svgData = svg.node().outerHTML;
+        const preface = '<?xml version="1.0" standalone="no"?>\r\n';
+        const svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+        const svgUrl = URL.createObjectURL(svgBlob);
+        const downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = name;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);

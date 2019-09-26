@@ -95,6 +95,7 @@ function boxPlotD3() {
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${(height - margin.bottom)})`)
                 .call(xAxis);
+            Utils.applyAxisStyle(gXAxis);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat(d => `EUR ${d / 1000}K`)
@@ -105,9 +106,11 @@ function boxPlotD3() {
                 .attr("class", "y axis")
                 .attr("transform", `translate(${margin.left},0)`)
                 .call(yAxis);
+            Utils.applyAxisStyle(gYAxis);
 
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
+
             // Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 
 
@@ -189,13 +192,14 @@ function boxPlotD3() {
                 const t = d3.transition()
                     .duration(750);
 
-                svg.select('.x')
-                    .transition(t)
+                gXAxis.transition(t)
                     .call(xAxis);
 
-                svg.select('.y')
-                    .transition(t)
+                gYAxis.transition(t)
                     .call(yAxis);
+
+                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gYAxis);
 
                 updatedBoxes.enter()
                     .append("rect")
