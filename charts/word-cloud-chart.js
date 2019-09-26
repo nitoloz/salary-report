@@ -33,10 +33,17 @@ function wordCloudChartD3() {
                     return d.size;
                 });
 
+            const sizeScale = d3.scaleLinear()
+                .domain([0, 30])
+                .range([20, 80]);
+
             updateData = function () {
 
+                sizeScale.domain([d3.min(data, d => d.size), d3.max(data, d => d.size)]);
+                console.log(sizeScale.domain());
+
                 layout.words(data.map(function (d) {
-                    return {text: d.word, size: d.size};
+                    return {text: d.word, size: sizeScale(d.size)};
                 })).on("end", draw).start();
 
                 function draw(words) {
