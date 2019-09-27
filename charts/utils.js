@@ -77,7 +77,7 @@ class Utils {
             .text(text);
     }
 
-    static applyAxisStyle(gAxis){
+    static applyAxisStyle(gAxis) {
         gAxis.selectAll('line')
             .style('fill', 'none')
             .style('stroke', 'rgba(0, 0, 0, 0.1)')
@@ -99,50 +99,27 @@ class Utils {
             .text(text);
     }
 
-    static appendSaveButtons(selection) {
-        // var button = d3.button()
-        //     .on('press', function(d, i) { console.log("Pressed", d, i, this.parentNode)})
-        //     .on('release', function(d, i) { console.log("Released", d, i, this.parentNode)});
-        // selection.selectAll('.button')
-        //     .data(data)
-        //     .enter()
-        //     .append('g')
-        //     .attr('class', 'button')
-        //     .call(button);
+    static appendSaveButtons(buttonDiv, chartSVG, name) {
+        const saveSVGButton = document.createElement("button");
+        saveSVGButton.innerHTML = "Export to SVG";
+        saveSVGButton.id = 'export_to_svg';
+        saveSVGButton.className = 'btn btn-outline-secondary btn-sm float-left';
+        saveSVGButton.onclick = function (event) {
+            Utils.downloadSvg(chartSVG, name);
+        };
+        buttonDiv.node().appendChild(saveSVGButton);
     }
 
     static downloadSvg(svg, name) {
         const svgData = svg.node().outerHTML;
-        const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
-        const svgUrl = URL.createObjectURL(svgBlob);
-        const downloadLink = document.createElement("a");
-        downloadLink.href = svgUrl;
-        downloadLink.download = `${name}.svg`;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    }
-
-    static saveSvg(svg, name) {
-        // svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        const svgData = svg.node().outerHTML;
         const preface = '<?xml version="1.0" standalone="no"?>\r\n';
-        const svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+        const svgBlob = new Blob([preface, svgData], {type: "image/svg+xml;charset=utf-8"});
         const svgUrl = URL.createObjectURL(svgBlob);
         const downloadLink = document.createElement("a");
         downloadLink.href = svgUrl;
-        downloadLink.download = name;
+        downloadLink.download = name + '.svg';
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
     }
-}
-
-function openNav() {
-    // document.getElementById("mySidepanel").style.width = "300px";
-}
-
-/* Set the width of the sidebar to 0 (hide it) */
-function closeNav() {
-    // document.getElementById("mySidepanel").style.width = "50px";
 }
