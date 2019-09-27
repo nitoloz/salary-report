@@ -10,6 +10,7 @@ function scatterPlotD3() {
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
+        id: '',
         tooltipFormatter: (d) => {
             return `Position: ${d[DataProperties.POSITION]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
@@ -33,7 +34,8 @@ function scatterPlotD3() {
         yAxisProperty = initialConfiguration.yAxisProperty,
         trellisingProperty = initialConfiguration.trellisingProperty,
         colorScale = initialConfiguration.colorScale,
-        tooltipFormatter = initialConfiguration.tooltipFormatter;
+        tooltipFormatter = initialConfiguration.tooltipFormatter,
+        id = initialConfiguration.id;
     let updateData = null;
 
     function chart(selection) {
@@ -95,7 +97,7 @@ function scatterPlotD3() {
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
-            Utils.appendSaveButtons(svg);
+            // Utils.appendSaveButtons(d3.select(id), svg, 'scatter_plot');
 
             //Zoom setup
             const zoom = d3.zoom()
@@ -254,6 +256,12 @@ function scatterPlotD3() {
             };
         })
     }
+
+    chart.id = function (value) {
+        if (!arguments.length) return id;
+        id = value;
+        return chart;
+    };
 
     chart.width = function (value) {
         if (!arguments.length) return width;

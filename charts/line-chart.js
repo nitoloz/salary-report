@@ -7,6 +7,7 @@ function lineChartD3() {
         xAxisLabel: 'Average salary (EUR)',
         yAxisLabel: 'Number of respondents',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
+        id: '',
         tooltipFormatter: (data) => {
             return `${xAxisLabel}: ${data.key}<br>
             ${yAxisLabel}: ${data.value}`;
@@ -19,7 +20,8 @@ function lineChartD3() {
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
         colorScale = initialConfiguration.colorScale,
-        tooltipFormatter = initialConfiguration.tooltipFormatter;
+        tooltipFormatter = initialConfiguration.tooltipFormatter,
+        id = initialConfiguration.id;
 
     function chart(selection) {
         selection.each(function () {
@@ -124,6 +126,12 @@ function lineChartD3() {
                 .call(lineChartLegend);
         })
     }
+
+    chart.id = function (value) {
+        if (!arguments.length) return id;
+        id = value;
+        return chart;
+    };
 
     chart.width = function (value) {
         if (!arguments.length) return width;

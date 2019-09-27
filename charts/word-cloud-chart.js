@@ -4,12 +4,14 @@ function wordCloudChartD3() {
         width: 1000,
         height: 600,
         data: [],
-        colorScale: d3.scaleOrdinal(d3.schemeSet3)
+        colorScale: d3.scaleOrdinal(d3.schemeSet3),
+        id: ''
     };
 
     let width = initialConfiguration.width,
         height = initialConfiguration.height,
-        data = initialConfiguration.data;
+        data = initialConfiguration.data,
+        id = initialConfiguration.id;
     let updateData = null;
 
     function chart(selection) {
@@ -87,6 +89,12 @@ function wordCloudChartD3() {
             };
         })
     }
+
+    chart.id = function (value) {
+        if (!arguments.length) return id;
+        id = value;
+        return chart;
+    };
 
     chart.width = function (value) {
         if (!arguments.length) return width;

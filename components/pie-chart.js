@@ -6,6 +6,7 @@ class PieChart {
         this.pieChart = pieChartD3()
             .width(Utils.getChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height)
+            .id('#pie-chart-area')
             .groupByOptionLabel('City')
             .groupByOption(DataProperties[this.groupByOption])
             .colorScale(d3.scaleOrdinal(d3.schemeSet3));

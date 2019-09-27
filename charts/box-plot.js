@@ -6,6 +6,7 @@ function boxPlotD3() {
         data: [],
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
+        id: '',
         tooltipFormatter: (d) => {
             return `${xAxisLabel}: ${d.key}<br>
             Number of respondents: ${d.rawValues.length}<br>
@@ -23,7 +24,8 @@ function boxPlotD3() {
         data = initialConfiguration.data,
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
-        tooltipFormatter = initialConfiguration.tooltipFormatter;
+        tooltipFormatter = initialConfiguration.tooltipFormatter,
+        id = initialConfiguration.id;
     let updateData = null;
 
 
@@ -261,6 +263,12 @@ function boxPlotD3() {
 
         })
     }
+
+    chart.id = function (value) {
+        if (!arguments.length) return id;
+        id = value;
+        return chart;
+    };
 
     chart.width = function (value) {
         if (!arguments.length) return width;

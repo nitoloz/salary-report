@@ -4,6 +4,7 @@ class GroupedBarChart {
         this.groupedBarChart = groupedBarChartD3()
             .width(Utils.getChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height)
+            .id('#grouped-bar-chart-area')
             .colorScale(Utils.getSexColorScale())
             .xAxisLabel('Average salary (EUR)')
             .yAxisLabel('Share of respondents (%)')

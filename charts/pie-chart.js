@@ -8,6 +8,7 @@ function pieChartD3() {
         groupByOption: DataProperties.CITY,
         valueLabel: 'Respondents',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
+        id: '',
         tooltipFormatter: (data) => {
             return `<tspan x="0">${groupByOptionLabel}: ${data.data.key}</tspan>
                     <tspan x="0" dy="1.2em">${valueLabel}: ${data.data.value.value} (${data.data.value.extra.percentageValue}%)</tspan>
@@ -29,7 +30,9 @@ function pieChartD3() {
         colorScale = initialConfiguration.colorScale,
         placeHolderTooltip = initialConfiguration.placeHolderTooltip,
         topMargin = 110,
-        tooltipFormatter = initialConfiguration.tooltipFormatter;
+        tooltipFormatter = initialConfiguration.tooltipFormatter,
+        id = initialConfiguration.id;
+
     let updateData = null;
     let previousLabelYCoordinate, labelsOverlapped;
 
@@ -273,6 +276,12 @@ function pieChartD3() {
 
         })
     }
+
+    chart.id = function (value) {
+        if (!arguments.length) return id;
+        id = value;
+        return chart;
+    };
 
     chart.width = function (value) {
         if (!arguments.length) return width;

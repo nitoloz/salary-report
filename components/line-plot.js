@@ -5,6 +5,7 @@ linePlotInitializer = (data) => {
     // const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
     const salaryLineChart = lineChartD3()
+        .id('#line-chart-area')
         .width(Utils.getChartContainerDimensions().width)
         .height(Utils.getChartContainerDimensions().height)
         .colorScale(colorScale)
