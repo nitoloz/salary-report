@@ -97,7 +97,7 @@ function scatterPlotD3() {
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
-            // Utils.appendSaveButtons(d3.select(id), svg, 'scatter_plot');
+            Utils.appendSaveButtons(d3.select(id), selection, 'scatter_plot');
 
             //Zoom setup
             const zoom = d3.zoom()

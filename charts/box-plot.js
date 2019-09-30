@@ -112,6 +112,7 @@ function boxPlotD3() {
 
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -12, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
+            Utils.appendSaveButtons(d3.select(id), selection, 'box_plot');
 
             // Utils.appendTitle(svg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
 

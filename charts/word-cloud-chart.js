@@ -39,6 +39,8 @@ function wordCloudChartD3() {
                 .domain([0, 30])
                 .range([20, 80]);
 
+            Utils.appendSaveButtons(d3.select(id), selection, 'word_cloud');
+
             updateData = function () {
 
                 sizeScale.domain([d3.min(data, d => d.size), d3.max(data, d => d.size)]);

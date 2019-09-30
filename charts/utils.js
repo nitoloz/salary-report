@@ -101,7 +101,7 @@ class Utils {
 
     static appendSaveButtons(buttonDiv, chartSVG, name) {
         const saveSVGButton = document.createElement("button");
-        saveSVGButton.innerHTML = "Export to SVG";
+        saveSVGButton.innerHTML = "Save as SVG";
         saveSVGButton.id = 'export_to_svg';
         saveSVGButton.className = 'btn btn-outline-secondary btn-sm float-left';
         saveSVGButton.onclick = function (event) {
@@ -110,7 +110,9 @@ class Utils {
         buttonDiv.node().appendChild(saveSVGButton);
     }
 
-    static downloadSvg(svg, name) {
+    static downloadSvg(selection, name) {
+        const svg = d3.select(selection.node().children[0]);
+        svg.attr('xmlns', 'http://www.w3.org/2000/svg');
         const svgData = svg.node().outerHTML;
         const preface = '<?xml version="1.0" standalone="no"?>\r\n';
         const svgBlob = new Blob([preface, svgData], {type: "image/svg+xml;charset=utf-8"});

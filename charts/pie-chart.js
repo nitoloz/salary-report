@@ -114,6 +114,7 @@ function pieChartD3() {
                     previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
+            Utils.appendSaveButtons(d3.select(id), selection, 'pie_chart');
 
             updateData = function () {
                 const updatedData = pie(data);
