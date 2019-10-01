@@ -99,7 +99,8 @@ class Utils {
             .text(text);
     }
 
-    static appendSaveButtons(buttonDiv, chartSVG, name) {
+    static appendSaveButtons(chartDiv, chartSVG, name) {
+        const buttonsDiv = document.createElement("div");
         const saveSVGButton = document.createElement("button");
         saveSVGButton.innerHTML = "Save as SVG";
         saveSVGButton.id = 'export_to_svg';
@@ -115,8 +116,9 @@ class Utils {
             exportToPng(`#${d3.select(chartSVG.node().children[0]).attr('id')}`, 'name');
         };
 
-        // buttonDiv.node().appendChild(saveSVGButton);
-        // buttonDiv.node().appendChild(savePNGButton);
+        buttonsDiv.appendChild(saveSVGButton);
+        buttonsDiv.appendChild(savePNGButton);
+        chartDiv.node().insertBefore(buttonsDiv, chartDiv.node().childNodes[0])
     }
 
     static downloadSvg(selection, name) {
