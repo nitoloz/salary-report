@@ -113,7 +113,7 @@ class Utils {
         savePNGButton.id = 'export_to_png';
         savePNGButton.className = 'btn btn-outline-secondary btn-sm float-left ml-2';
         savePNGButton.onclick = function (event) {
-            exportToPng(`#${d3.select(chartSVG.node().children[0]).attr('id')}`, 'name');
+            exportToPng(`#${d3.select(chartSVG.node().children[1]).attr('id')}`, 'name');
         };
 
         buttonsDiv.appendChild(saveSVGButton);
