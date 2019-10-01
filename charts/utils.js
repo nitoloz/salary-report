@@ -107,7 +107,16 @@ class Utils {
         saveSVGButton.onclick = function (event) {
             Utils.downloadSvg(chartSVG, name);
         };
-        buttonDiv.node().appendChild(saveSVGButton);
+        const savePNGButton = document.createElement("button");
+        savePNGButton.innerHTML = "Save as PNG";
+        savePNGButton.id = 'export_to_png';
+        savePNGButton.className = 'btn btn-outline-secondary btn-sm float-left ml-2';
+        savePNGButton.onclick = function (event) {
+            exportToPng(`#${d3.select(chartSVG.node().children[0]).attr('id')}`, 'name');
+        };
+
+        // buttonDiv.node().appendChild(saveSVGButton);
+        // buttonDiv.node().appendChild(savePNGButton);
     }
 
     static downloadSvg(selection, name) {
