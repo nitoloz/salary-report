@@ -22,6 +22,7 @@ function wordCloudChartD3() {
                 .append('svg')
                 .attr('height', height)
                 .attr('width', width)
+                .attr("id", `${id}_svg`)
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
@@ -39,7 +40,7 @@ function wordCloudChartD3() {
                 .domain([0, 30])
                 .range([20, 80]);
 
-            Utils.appendSaveButtons(d3.select(id), selection, 'word_cloud');
+            Utils.appendSaveButtons(d3.select(`#${id}`), selection, 'word_cloud');
 
             updateData = function () {
 

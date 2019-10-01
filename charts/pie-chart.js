@@ -41,7 +41,8 @@ function pieChartD3() {
             const svg = selection
                 .append('svg')
                 .attr('height', height + topMargin)
-                .attr('width', width);
+                .attr('width', width)
+                .attr("id", `${id}_svg`);
 
             const pieChartSvg = svg
                 .append("g")
@@ -114,7 +115,7 @@ function pieChartD3() {
                     previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
-            Utils.appendSaveButtons(d3.select(id), selection, 'pie_chart');
+            Utils.appendSaveButtons(d3.select(`#${id}`), selection, 'pie_chart');
 
             updateData = function () {
                 const updatedData = pie(data);

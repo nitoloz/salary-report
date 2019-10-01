@@ -59,7 +59,7 @@ class BoxPlot {
         this.salaryBoxPlot = boxPlotD3()
             .width(Utils.getChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height)
-            .id('#box-plot-area');
+            .id('box-plot-area');
 
         d3.select("#box-plot-area")
             .call(this.salaryBoxPlot);

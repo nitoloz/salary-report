@@ -4,7 +4,7 @@ class WordCloudPlot {
         this.wordCloudChart = wordCloudChartD3()
             .width(Utils.getFullWidthChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height)
-            .id('#word-cloud-area');
+            .id('word-cloud-area');
 
         d3.select("#word-cloud-area")
             .call(this.wordCloudChart);

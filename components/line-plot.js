@@ -5,7 +5,7 @@ linePlotInitializer = (data) => {
     // const groupedData2016 = processLineChartData(data, PREVIOUS_SALARY, SEX);
 
     const salaryLineChart = lineChartD3()
-        .id('#line-chart-area')
+        .id('line-chart-area')
         .width(Utils.getChartContainerDimensions().width)
         .height(Utils.getChartContainerDimensions().height)
         .colorScale(colorScale)
@@ -17,7 +17,6 @@ linePlotInitializer = (data) => {
             Number of respondents: ${d.absoluteValue}`;
         })
         .data(groupedData2017);
-    // .data([...groupedData2017,...groupedData2016]);
 
     d3.select("#line-chart-area")
         .call(salaryLineChart);

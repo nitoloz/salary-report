@@ -28,7 +28,8 @@ function groupedBarChartD3() {
         selection.each(function () {
             const barChartSvg = selection.append('svg')
                 .attr('height', height)
-                .attr('width', width);
+                .attr('width', width)
+                .attr("id", `${id}_svg`);
 
             let xDomainValues = getXDomainValues(data);
             let yDomainValues = getYDomainValues(data);
@@ -72,7 +73,7 @@ function groupedBarChartD3() {
             Utils.appendXAxisTitle(gXAxis, width - margin.right, -25, xAxisLabel);
             Utils.appendYAxisTitle(gYAxis, -50, 5, yAxisLabel);
             Utils.appendTitle(barChartSvg, width / 2, margin.top / 2, `${yAxisLabel} vs ${xAxisLabel}`);
-            Utils.appendSaveButtons(d3.select(id), selection, 'grouped_bar_chart');
+            Utils.appendSaveButtons(d3.select(`#${id}`), selection, 'grouped_bar_chart');
 
             const tooltip = d3.tip()
                 .attr("class", "d3-tip")

@@ -27,7 +27,8 @@ function lineChartD3() {
         selection.each(function () {
             const lineChartSvg = selection.append('svg')
                 .attr('height', height)
-                .attr('width', width);
+                .attr('width', width)
+                .attr("id", `${id}_svg`);
 
             const xDomainValues = data.map(group => group.values.map(v => parseInt(v.key))).flat();
             const yDomainValues = data.map(group => group.values.map(v => parseInt(v.value))).flat();
