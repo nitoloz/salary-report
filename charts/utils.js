@@ -122,7 +122,7 @@ class Utils {
     }
 
     static downloadSvg(selection, name) {
-        const svg = d3.select(selection.node().children[0]);
+        const svg = d3.select(selection.node().children[1]);
         svg.attr('xmlns', 'http://www.w3.org/2000/svg');
         const svgData = svg.node().outerHTML;
         const preface = '<?xml version="1.0" standalone="no"?>\r\n';
