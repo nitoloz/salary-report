@@ -117,7 +117,7 @@ class Utils {
         };
 
         buttonsDiv.appendChild(saveSVGButton);
-        // buttonsDiv.appendChild(savePNGButton);
+        buttonsDiv.appendChild(savePNGButton);
         chartDiv.node().insertBefore(buttonsDiv, chartDiv.node().childNodes[0])
     }
 

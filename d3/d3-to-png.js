@@ -18,10 +18,10 @@ const inlineStyles = target => {
 };
 
 const copyToCanvas = ({target, scale, format, quality}) => {
-    var svg = document.querySelector(target);
-    var svgData = new XMLSerializer().serializeToString(svg);
-    var canvas = document.createElement('canvas');
-    var svgSize = svg.getBoundingClientRect();
+    const svg = document.querySelector(target);
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const svgSize = svg.getBoundingClientRect();
 
     //Resize can break shadows
     canvas.width = svgSize.width * scale;
@@ -29,10 +29,10 @@ const copyToCanvas = ({target, scale, format, quality}) => {
     canvas.style.width = svgSize.width;
     canvas.style.height = svgSize.height;
 
-    var ctxt = canvas.getContext('2d');
+    const ctxt = canvas.getContext('2d');
     ctxt.scale(scale, scale);
 
-    var img = document.createElement('img');
+    const img = document.createElement('img');
     img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
     return new Promise(resolve => {
         img.onload = () => {
@@ -44,7 +44,7 @@ const copyToCanvas = ({target, scale, format, quality}) => {
 };
 
 const downloadImage = ({file, name, format}) => {
-    var a = document.createElement('a');
+    const a = document.createElement('a');
     a.download = `${name}.${format}`;
     a.href = file;
     document.body.appendChild(a);
@@ -63,7 +63,7 @@ async function exportToPng(target, name, {scale = 1, format = 'png', quality = 0
     }
 
     //Set all the css styles inline
-    inlineStyles(target, ignore);
+    // inlineStyles(target, ignore);
 
     //Copy all html to a new canvas
     return await copyToCanvas({
@@ -76,7 +76,7 @@ async function exportToPng(target, name, {scale = 1, format = 'png', quality = 0
             //Download if necessary
             if (download) downloadImage({file, name, format});
             //Undo the changes to inline styles
-            elt.innerHTML = rememberHTML;
+            // elt.innerHTML = rememberHTML;
             return file;
         })
         .catch(console.error);
