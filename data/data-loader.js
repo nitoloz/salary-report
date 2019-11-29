@@ -15,13 +15,13 @@ class DataLoader {
     getSelectedYear() {
         this.selectedYear = Utils.getSelectedYear();
         switch (this.selectedYear) {
-            case 2017:
+            case '2017':
                 updateColumnNames(COLUMN_NAMES_2017);
                 break;
-            case 2018:
+            case '2018':
                 updateColumnNames(COLUMN_NAMES_2018);
                 break;
-            case 2019:
+            case '2019':
                 updateColumnNames(COLUMN_NAMES_2019);
                 break;
         }
