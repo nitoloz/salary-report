@@ -71,7 +71,7 @@ class PieChart {
                     this.groupByOption = 'CONTRACT_DURATION';
                     this.sortingFunction = null;
                     this.pieChart
-                        .groupByOptionLabel('Language')
+                        .groupByOptionLabel('Сontract Duration')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                         .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
@@ -80,7 +80,7 @@ class PieChart {
                     this.groupByOption = 'BUSINESS_SECTOR';
                     this.sortingFunction = null;
                     this.pieChart
-                        .groupByOptionLabel('Language')
+                        .groupByOptionLabel('Business Sector')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                         .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
@@ -89,7 +89,7 @@ class PieChart {
                     this.groupByOption = 'VACATION_DAYS';
                     this.sortingFunction = null;
                     this.pieChart
-                        .groupByOptionLabel('Language')
+                        .groupByOptionLabel('Vacation Days')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                         .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
@@ -98,7 +98,7 @@ class PieChart {
                     this.groupByOption = 'HOMEOFFICE_DAYS';
                     this.sortingFunction = null;
                     this.pieChart
-                        .groupByOptionLabel('Language')
+                        .groupByOptionLabel('Homeoffice Days')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                         .data(processPieChartData(this.data, DataProperties[this.groupByOption]));

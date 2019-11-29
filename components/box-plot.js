@@ -34,6 +34,16 @@ const xAxisOptions = [
         selectLabel: 'Size',
         axisLabel: 'Company Size',
         groupByOption: 'COMPANY_SIZE'
+    },
+    {
+        selectLabel: 'Duration',
+        axisLabel: 'Сontract Duration',
+        groupByOption: 'CONTRACT_DURATION'
+    },
+    {
+        selectLabel: 'BusinessSector',
+        axisLabel: 'Сontract Duration',
+        groupByOption: 'BUSINESS_SECTOR'
     }
 ];
 
@@ -47,6 +57,16 @@ const yAxisOptions = [
         selectLabel: 'Raise',
         axisLabel: 'Salary Raise (EUR)',
         groupByOption: 'SALARY_RAISE'
+    },
+    {
+        selectLabel: 'Vacation',
+        axisLabel: 'Vacation Days',
+        groupByOption: 'VACATION_DAYS'
+    },
+    {
+        selectLabel: 'Homeoffice',
+        axisLabel: 'Homeoffice Days',
+        groupByOption: 'HOMEOFFICE_DAYS'
     }
 ];
 
