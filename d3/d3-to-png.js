@@ -51,7 +51,7 @@ const downloadImage = ({file, name, format}) => {
     a.click();
 };
 
-async function exportToPng(target, name, {scale = 1, format = 'png', quality = 0.92, download = true, ignore = null} = {}) {
+async function exportToPng(target, name, {scale = 1, format = 'png', quality = 1, download = true, ignore = null} = {}) {
     const elt = document.querySelector(target);
     //Remember all HTML, as we will modify the styles
     const rememberHTML = elt.innerHTML;

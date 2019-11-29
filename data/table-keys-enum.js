@@ -1,3 +1,31 @@
+const COLUMN_NAMES_2019 = {
+    TIMESTAMP: 'Timestamp',
+    AGE: 'Age',
+    SEX: 'Gender',
+    POSITION: 'Position (without seniority)',
+    TOTAL_EXPERIENCE: 'Years of experience',
+    CITY: 'City',
+    CURRENT_SALARY: 'Yearly brutto salary (without bonus and stocks)',
+    PREVIOUS_SALARY: 'Yearly brutto salary (without bonus and stocks) one year ago.',
+    FIRST_EUROPE_SALARY: 'Salary two years ago',
+    WORK_LANGUAGE: 'Main language at work',
+    COMPANY_SIZE: 'Company size',
+    COMPANY_TYPE: 'Company type',
+    SENIORITY_LEVEL: 'Seniority level',
+    SALARY_RAISE: 'Salary raise',
+
+    MAIN_TECHNOLOGY: 'Your main technology / programming language',
+    CURRENT_BONUS: 'Yearly bonus',
+    CURRENT_STOCKS: 'Yearly stocks',
+    PREVIOUS_BONUS: 'Yearly bonus one year ago',
+    PREVIOUS_STOCKS: 'Yearly stocks one year ago',
+    VACATION_DAYS: 'Number of vacation days',
+    HOMEOFFICE_DAYS: 'Number of home office days per month',
+    COMPANY_NAME: 'Company name',
+    CONTRACT_DURATION: 'Сontract duration',
+    BUSINESS_SECTOR: 'Company business sector'
+};
+
 const COLUMN_NAMES_2018 = {
     TIMESTAMP: 'Timestamp',
     AGE: 'Age',
@@ -37,47 +65,117 @@ const COLUMN_NAMES_2017 = {
 
 class DataProperties {
 
-    static get TIMESTAMP() { return this._TIMESTAMP; }
-    static set TIMESTAMP(v) { this._TIMESTAMP = v; }
+    static get TIMESTAMP() {
+        return this._TIMESTAMP;
+    }
 
-    static get AGE() { return this._AGE; }
-    static set AGE(v) { this._AGE = v; }
+    static set TIMESTAMP(v) {
+        this._TIMESTAMP = v;
+    }
 
-    static get SEX() { return this._SEX; }
-    static set SEX(v) { this._SEX = v; }
+    static get AGE() {
+        return this._AGE;
+    }
 
-    static get POSITION() { return this._POSITION; }
-    static set POSITION(v) { this._POSITION = v; }
+    static set AGE(v) {
+        this._AGE = v;
+    }
 
-    static get TOTAL_EXPERIENCE() { return this._TOTAL_EXPERIENCE; }
-    static set TOTAL_EXPERIENCE(v) { this._TOTAL_EXPERIENCE = v; }
+    static get SEX() {
+        return this._SEX;
+    }
 
-    static get CITY() { return this._CITY; }
-    static set CITY(v) { this._CITY = v; }
+    static set SEX(v) {
+        this._SEX = v;
+    }
 
-    static get CURRENT_SALARY() { return this._CURRENT_SALARY; }
-    static set CURRENT_SALARY(v) { this._CURRENT_SALARY = v; }
+    static get POSITION() {
+        return this._POSITION;
+    }
 
-    static get PREVIOUS_SALARY() { return this._PREVIOUS_SALARY; }
-    static set PREVIOUS_SALARY(v) { this._PREVIOUS_SALARY = v; }
+    static set POSITION(v) {
+        this._POSITION = v;
+    }
 
-    static get FIRST_EUROPE_SALARY() { return this._FIRST_EUROPE_SALARY; }
-    static set FIRST_EUROPE_SALARY(v) { this._FIRST_EUROPE_SALARY = v; }
+    static get TOTAL_EXPERIENCE() {
+        return this._TOTAL_EXPERIENCE;
+    }
 
-    static get WORK_LANGUAGE() { return this._WORK_LANGUAGE; }
-    static set WORK_LANGUAGE(v) { this._WORK_LANGUAGE = v; }
+    static set TOTAL_EXPERIENCE(v) {
+        this._TOTAL_EXPERIENCE = v;
+    }
 
-    static get COMPANY_SIZE() { return this._COMPANY_SIZE; }
-    static set COMPANY_SIZE(v) { this._COMPANY_SIZE = v; }
+    static get CITY() {
+        return this._CITY;
+    }
 
-    static get COMPANY_TYPE() { return this._COMPANY_TYPE; }
-    static set COMPANY_TYPE(v) { this._COMPANY_TYPE = v; }
+    static set CITY(v) {
+        this._CITY = v;
+    }
 
-    static get SENIORITY_LEVEL() { return this._SENIORITY_LEVEL; }
-    static set SENIORITY_LEVEL(v) { this._SENIORITY_LEVEL = v; }
+    static get CURRENT_SALARY() {
+        return this._CURRENT_SALARY;
+    }
 
-    static get SALARY_RAISE() { return this._SALARY_RAISE; }
-    static set SALARY_RAISE(v) { this._SALARY_RAISE = v; }
+    static set CURRENT_SALARY(v) {
+        this._CURRENT_SALARY = v;
+    }
+
+    static get PREVIOUS_SALARY() {
+        return this._PREVIOUS_SALARY;
+    }
+
+    static set PREVIOUS_SALARY(v) {
+        this._PREVIOUS_SALARY = v;
+    }
+
+    static get FIRST_EUROPE_SALARY() {
+        return this._FIRST_EUROPE_SALARY;
+    }
+
+    static set FIRST_EUROPE_SALARY(v) {
+        this._FIRST_EUROPE_SALARY = v;
+    }
+
+    static get WORK_LANGUAGE() {
+        return this._WORK_LANGUAGE;
+    }
+
+    static set WORK_LANGUAGE(v) {
+        this._WORK_LANGUAGE = v;
+    }
+
+    static get COMPANY_SIZE() {
+        return this._COMPANY_SIZE;
+    }
+
+    static set COMPANY_SIZE(v) {
+        this._COMPANY_SIZE = v;
+    }
+
+    static get COMPANY_TYPE() {
+        return this._COMPANY_TYPE;
+    }
+
+    static set COMPANY_TYPE(v) {
+        this._COMPANY_TYPE = v;
+    }
+
+    static get SENIORITY_LEVEL() {
+        return this._SENIORITY_LEVEL;
+    }
+
+    static set SENIORITY_LEVEL(v) {
+        this._SENIORITY_LEVEL = v;
+    }
+
+    static get SALARY_RAISE() {
+        return this._SALARY_RAISE;
+    }
+
+    static set SALARY_RAISE(v) {
+        this._SALARY_RAISE = v;
+    }
 }
 
 updateColumnNames(COLUMN_NAMES_2018);

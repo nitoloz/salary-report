@@ -14,21 +14,36 @@ class DataLoader {
 
     getSelectedYear() {
         this.selectedYear = Utils.getSelectedYear();
-        if (this.selectedYear === '2018') {
-            updateColumnNames(COLUMN_NAMES_2018);
-        } else {
-            updateColumnNames(COLUMN_NAMES_2017);
+        switch (this.selectedYear) {
+            case 2017:
+                updateColumnNames(COLUMN_NAMES_2017);
+                break;
+            case 2018:
+                updateColumnNames(COLUMN_NAMES_2018);
+                break;
+            case 2019:
+                updateColumnNames(COLUMN_NAMES_2019);
+                break;
         }
         document.getElementById('yearSelect').value = this.selectedYear;
     }
 
     loadData() {
-        return d3.csv(`data/salaries-responses-${this.selectedYear}.csv`)
-            .then((data) => {
-                this.loadedData = this.processChartsData(data);
-                this.updateChartsData(this.loadedData);
-                return this.loadedData;
-            });
+        if (this.selectedYear === '2019') {
+            return d3.tsv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSGHnalp2dv9zlEz4BqirA0-VYXSK5HY0tddIjw0Rm2lhx9Dw0Kt0xVkJUJFvcmi9Xev6yL1D4N4nhv/pub?output=tsv")
+                .then((data) => {
+                    this.loadedData = this.processChartsData(data);
+                    this.updateChartsData(this.loadedData);
+                    return this.loadedData;
+                });
+        } else {
+            return d3.csv(`data/salaries-responses-${this.selectedYear}.csv`)
+                .then((data) => {
+                    this.loadedData = this.processChartsData(data);
+                    this.updateChartsData(this.loadedData);
+                    return this.loadedData;
+                });
+        }
     }
 
     filterData(selectedFilters) {
