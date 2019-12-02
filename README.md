@@ -3,7 +3,7 @@
 
 # Salary report vizualization with D3.js
 Data for this report was collected from European IT community in December 2017 and December 2018.
-Special thanks to [Viktor and Sergey](http://asdcode.de/) for a great datasets!
+Special thanks to [Viktor and Sergey](http://asdcode.de/) for great datasets!
 
 ## Demo 
 * [Demo available here]( https://nitoloz.github.io/salary-report/).
