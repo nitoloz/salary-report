@@ -22,6 +22,7 @@ class Filters {
     listenToYearSelector() {
         document.querySelector('select[id="yearSelect"]').onchange = (event) => {
             switch (event.target.value) {
+                case '2019':
                 case '2018':
                 case '2017':
                     localStorage.setItem('selectedYear', event.target.value);
