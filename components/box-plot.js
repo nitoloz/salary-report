@@ -44,6 +44,16 @@ const xAxisOptions = [
         selectLabel: 'BusinessSector',
         axisLabel: 'Сontract Duration',
         groupByOption: 'BUSINESS_SECTOR'
+    },
+    {
+        selectLabel: 'Position',
+        axisLabel: 'Position',
+        groupByOption: 'POSITION'
+    },
+    {
+        selectLabel: 'MainTechnology',
+        axisLabel: 'Main Technology',
+        groupByOption: 'MAIN_TECHNOLOGY'
     }
 ];
 

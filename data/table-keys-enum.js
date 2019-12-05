@@ -176,6 +176,86 @@ class DataProperties {
     static set SALARY_RAISE(v) {
         this._SALARY_RAISE = v;
     }
+
+    static get MAIN_TECHNOLOGY() {
+        return this._MAIN_TECHNOLOGY;
+    }
+
+    static set MAIN_TECHNOLOGY(v) {
+        this._MAIN_TECHNOLOGY = v;
+    }
+
+    static get CURRENT_BONUS() {
+        return this._CURRENT_BONUS;
+    }
+
+    static set CURRENT_BONUS(v) {
+        this._CURRENT_BONUS = v;
+    }
+
+    static get CURRENT_STOCKS() {
+        return this._CURRENT_STOCKS;
+    }
+
+    static set CURRENT_STOCKS(v) {
+        this._CURRENT_STOCKS = v;
+    }
+
+    static get PREVIOUS_BONUS() {
+        return this._PREVIOUS_BONUS;
+    }
+
+    static set PREVIOUS_BONUS(v) {
+        this._PREVIOUS_BONUS = v;
+    }
+
+    static get PREVIOUS_STOCKS() {
+        return this._PREVIOUS_STOCKS;
+    }
+
+    static set PREVIOUS_STOCKS(v) {
+        this._PREVIOUS_STOCKS = v;
+    }
+
+    static get VACATION_DAYS() {
+        return this._VACATION_DAYS;
+    }
+
+    static set VACATION_DAYS(v) {
+        this._VACATION_DAYS = v;
+    }
+
+    static get HOMEOFFICE_DAYS() {
+        return this._HOMEOFFICE_DAYS;
+    }
+
+    static set HOMEOFFICE_DAYS(v) {
+        this._HOMEOFFICE_DAYS = v;
+    }
+
+    static get COMPANY_NAME() {
+        return this._COMPANY_NAME;
+    }
+
+    static set COMPANY_NAME(v) {
+        this._COMPANY_NAME = v;
+    }
+
+    static get CONTRACT_DURATION() {
+        return this._CONTRACT_DURATION;
+    }
+
+    static set CONTRACT_DURATION(v) {
+        this._CONTRACT_DURATION = v;
+    }
+
+    static get BUSINESS_SECTOR() {
+        return this._BUSINESS_SECTOR;
+    }
+
+    static set BUSINESS_SECTOR(v) {
+        this._BUSINESS_SECTOR = v;
+    }
 }
 
 updateColumnNames(COLUMN_NAMES_2018);
@@ -195,6 +275,17 @@ function updateColumnNames(CURRENT_COLUMN_NAMES) {
     DataProperties.COMPANY_TYPE = CURRENT_COLUMN_NAMES.COMPANY_TYPE;
     DataProperties.SENIORITY_LEVEL = CURRENT_COLUMN_NAMES.SENIORITY_LEVEL;
     DataProperties.SALARY_RAISE = CURRENT_COLUMN_NAMES.SALARY_RAISE;
+
+    DataProperties.MAIN_TECHNOLOGY = CURRENT_COLUMN_NAMES.MAIN_TECHNOLOGY;
+    DataProperties.CURRENT_BONUS = CURRENT_COLUMN_NAMES.CURRENT_BONUS;
+    DataProperties.CURRENT_STOCKS = CURRENT_COLUMN_NAMES.CURRENT_STOCKS;
+    DataProperties.PREVIOUS_BONUS = CURRENT_COLUMN_NAMES.PREVIOUS_BONUS;
+    DataProperties.PREVIOUS_STOCKS = CURRENT_COLUMN_NAMES.PREVIOUS_STOCKS;
+    DataProperties.VACATION_DAYS = CURRENT_COLUMN_NAMES.VACATION_DAYS;
+    DataProperties.HOMEOFFICE_DAYS = CURRENT_COLUMN_NAMES.HOMEOFFICE_DAYS;
+    DataProperties.COMPANY_NAME = CURRENT_COLUMN_NAMES.COMPANY_NAME;
+    DataProperties.CONTRACT_DURATION = CURRENT_COLUMN_NAMES.CONTRACT_DURATION;
+    DataProperties.BUSINESS_SECTOR = CURRENT_COLUMN_NAMES.BUSINESS_SECTOR;
 }
 
 
