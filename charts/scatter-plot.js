@@ -50,11 +50,9 @@ function scatterPlotD3() {
                     d3.max([0, d3.max(xAxisValues)])
                 ]).range([margin.left, width - margin.right]);
 
+            const yScaleDomain = yAxisValues.length === 1 ? [yAxisValues[0] * 0.95, yAxisValues[0] * 1.05] : [d3.min(yAxisValues), d3.max(yAxisValues)];
             const yScale = d3.scaleLinear()
-                .domain([
-                    d3.min([d3.min(yAxisValues)]),
-                    d3.max([d3.max(yAxisValues)])
-                ])
+                .domain(yScaleDomain)
                 .range([height - margin.bottom, margin.top]);
 
             const svg = selection.append('svg')
@@ -189,10 +187,8 @@ function scatterPlotD3() {
 
                 xAxis.scale(xScale);
 
-                yScale.domain([
-                    d3.min([d3.min(yAxisValues)]),
-                    d3.max([d3.max(yAxisValues)])
-                ]);
+                const yScaleDomain = yAxisValues.length === 1 ? [yAxisValues[0] * 0.95, yAxisValues[0] * 1.05] : [d3.min(yAxisValues), d3.max(yAxisValues)];
+                yScale.domain(yScaleDomain);
 
                 yAxis.scale(yScale);
 
