@@ -87,21 +87,21 @@ class PieChart {
                     break;
                 case 'Vacation':
                     this.groupByOption = 'VACATION_DAYS';
-                    this.sortingFunction = null;
+                    this.sortingFunction = Utils.numberSortingFunction;
                     this.pieChart
                         .groupByOptionLabel('Vacation Days')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
                     break;
                 case 'Homeoffice':
                     this.groupByOption = 'HOMEOFFICE_DAYS';
-                    this.sortingFunction = null;
+                    this.sortingFunction = Utils.numberSortingFunction;
                     this.pieChart
                         .groupByOptionLabel('Homeoffice Days')
                         .groupByOption(DataProperties[this.groupByOption])
                         .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
                     break;
                 case 'Size':
                     this.groupByOption = 'COMPANY_SIZE';
@@ -125,7 +125,7 @@ class PieChart {
         this.pieChart
             .groupByOption(DataProperties[this.groupByOption])
             .placeHolderTooltip(this.getPlaceholderTooltip())
-            .data(processPieChartData(this.data, DataProperties[this.groupByOption],this.sortingFunction))
+            .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction))
     }
 
     getPlaceholderTooltip() {

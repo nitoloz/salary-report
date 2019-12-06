@@ -42,7 +42,7 @@ const xAxisOptions = [
     },
     {
         selectLabel: 'BusinessSector',
-        axisLabel: 'Сontract Duration',
+        axisLabel: 'Company Business Sector',
         groupByOption: 'BUSINESS_SECTOR'
     },
     {

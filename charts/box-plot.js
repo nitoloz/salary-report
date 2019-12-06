@@ -24,6 +24,7 @@ function boxPlotD3() {
         data = initialConfiguration.data,
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
+        customBottomMargin = 100,
         tooltipFormatter = initialConfiguration.tooltipFormatter,
         id = initialConfiguration.id;
     let updateData = null;
@@ -45,7 +46,7 @@ function boxPlotD3() {
                     d3.min(yDomainValues),
                     d3.max(yDomainValues)
                 ])
-                .range([height - margin.bottom, margin.top]);
+                .range([height - customBottomMargin, margin.top]);
 
             const svg = selection.append("svg")
                 .attr("width", width)
@@ -91,14 +92,15 @@ function boxPlotD3() {
                 .attr("fill", "none");
 
             const xAxis = d3.axisBottom(xScale)
-                .tickSize(-height + margin.top + margin.bottom)
+                .tickSize(-height + margin.top + customBottomMargin)
                 .tickSizeOuter(0);
 
             const gXAxis = svg.append("g")
                 .attr("class", "x axis")
-                .attr("transform", `translate(0,${(height - margin.bottom)})`)
+                .attr("transform", `translate(0,${(height - customBottomMargin)})`)
                 .call(xAxis);
-            Utils.applyAxisStyle(gXAxis);
+
+            Utils.applyAxisStyle(gXAxis, true);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat(d => `EUR ${d / 1000}K`)
@@ -202,7 +204,7 @@ function boxPlotD3() {
                 gYAxis.transition(t)
                     .call(yAxis);
 
-                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gXAxis, true);
                 Utils.applyAxisStyle(gYAxis);
 
                 updatedBoxes.enter()

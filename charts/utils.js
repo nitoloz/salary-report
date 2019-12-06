@@ -17,6 +17,14 @@ Object.defineProperty(Array.prototype, 'flat', {
 
 class Utils {
 
+    static numberSortingFunction(a, b) {
+        return b.key === OTHERS_GROUP
+            ? -1
+            : a.key === OTHERS_GROUP
+                ? Number.MAX_VALUE
+                : parseInt(b.key) - parseInt(a.key)
+    }
+
     static getChartContainerDimensions() {
         const rectangle = document.getElementsByClassName('container-fluid')[0].getBoundingClientRect();
         const chartWidth = Math.min(width, rectangle.width);
@@ -77,7 +85,7 @@ class Utils {
             .text(text);
     }
 
-    static applyAxisStyle(gAxis) {
+    static applyAxisStyle(gAxis, rotateLabels) {
         gAxis.selectAll('line')
             .style('fill', 'none')
             .style('stroke', 'rgba(0, 0, 0, 0.1)')
@@ -86,6 +94,17 @@ class Utils {
             .style('fill', 'none')
             .style('stroke', 'rgba(0, 0, 0, 0.1)')
             .style('shape-rendering', 'crispEdges');
+
+        if (rotateLabels) {
+
+            gAxis.selectAll('.tick').selectAll("text")
+            // .attr("y", 0)
+            // .attr("x", 9)
+            // .attr("dy", ".35em")
+                .attr("transform", "rotate(-30)")
+                .style("text-anchor", "end")
+        }
+
     }
 
     static appendTitle(selection, x, y, text) {
