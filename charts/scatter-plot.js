@@ -14,7 +14,7 @@ function scatterPlotD3() {
         tooltipFormatter: (d) => {
             return `Position: ${d[DataProperties.POSITION]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
-            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY]}<br>
+            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
             Age: ${d[DataProperties.AGE] || 'no data'} <br>
             Sex: ${d[DataProperties.SEX] || 'no data'} <br>
             City: ${d[DataProperties.CITY] || 'no data'} <br>

@@ -21,101 +21,103 @@ class PieChart {
 
 
         document.querySelector('select[id="pieChartSelect"]').onchange = (event) => {
-            switch (event.target.value) {
-                case 'City':
-                    this.groupByOption = 'CITY';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('City')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'Sex':
-                    this.groupByOption = 'SEX';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Sex')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(Utils.getSexColorScale())
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'Seniority':
-                    this.groupByOption = 'SENIORITY_LEVEL';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Seniority')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'CompanyType':
-                    this.groupByOption = 'COMPANY_TYPE';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Type')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'Language':
-                    this.groupByOption = 'WORK_LANGUAGE';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Language')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'Duration':
-                    this.groupByOption = 'CONTRACT_DURATION';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Сontract Duration')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'BusinessSector':
-                    this.groupByOption = 'BUSINESS_SECTOR';
-                    this.sortingFunction = null;
-                    this.pieChart
-                        .groupByOptionLabel('Business Sector')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
-                    break;
-                case 'Vacation':
-                    this.groupByOption = 'VACATION_DAYS';
-                    this.sortingFunction = Utils.numberSortingFunction;
-                    this.pieChart
-                        .groupByOptionLabel('Vacation Days')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
-                    break;
-                case 'Homeoffice':
-                    this.groupByOption = 'HOMEOFFICE_DAYS';
-                    this.sortingFunction = Utils.numberSortingFunction;
-                    this.pieChart
-                        .groupByOptionLabel('Homeoffice Days')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
-                    break;
-                case 'Size':
-                    this.groupByOption = 'COMPANY_SIZE';
-                    this.sortingFunction = (a, b) => {
-                        return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
-                    };
-                    this.pieChart
-                        .groupByOptionLabel('Size')
-                        .groupByOption(DataProperties[this.groupByOption])
-                        .colorScale(d3.scaleOrdinal(d3.schemeSet3))
-                        .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
-                    break;
-                default:
-                    break;
+            if (this.data) {
+                switch (event.target.value) {
+                    case 'City':
+                        this.groupByOption = 'CITY';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('City')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'Sex':
+                        this.groupByOption = 'SEX';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Sex')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(Utils.getSexColorScale())
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'Seniority':
+                        this.groupByOption = 'SENIORITY_LEVEL';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Seniority')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'CompanyType':
+                        this.groupByOption = 'COMPANY_TYPE';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Type')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'Language':
+                        this.groupByOption = 'WORK_LANGUAGE';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Language')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'Duration':
+                        this.groupByOption = 'CONTRACT_DURATION';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Сontract Duration')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'BusinessSector':
+                        this.groupByOption = 'BUSINESS_SECTOR';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Business Sector')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
+                    case 'Vacation':
+                        this.groupByOption = 'VACATION_DAYS';
+                        this.sortingFunction = Utils.numberSortingFunction;
+                        this.pieChart
+                            .groupByOptionLabel('Vacation Days')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
+                        break;
+                    case 'Homeoffice':
+                        this.groupByOption = 'HOMEOFFICE_DAYS';
+                        this.sortingFunction = Utils.numberSortingFunction;
+                        this.pieChart
+                            .groupByOptionLabel('Homeoffice Days')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
+                        break;
+                    case 'Size':
+                        this.groupByOption = 'COMPANY_SIZE';
+                        this.sortingFunction = (a, b) => {
+                            return companySizesOrder.indexOf(a.key) - companySizesOrder.indexOf(b.key)
+                        };
+                        this.pieChart
+                            .groupByOptionLabel('Size')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
+                        break;
+                    default:
+                        break;
+                }
             }
         };
     }

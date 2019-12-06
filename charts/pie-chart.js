@@ -34,7 +34,7 @@ function pieChartD3() {
         id = initialConfiguration.id;
 
     let updateData = null;
-    let previousLabelYCoordinate, labelsOverlapped;
+    let previousLabelYCoordinate, previousLabelXCoordinate, labelsOverlapped;
 
     function chart(selection) {
         selection.each(function () {
@@ -92,17 +92,15 @@ function pieChartD3() {
                 .attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
-                    previousLabelYCoordinate = pos[1];
                     return 'translate(' + pos + ')';
                 })
                 .style('text-anchor', function (d) {
                     return (midAngle(d)) < Math.PI ? 'start' : 'end';
                 });
 
-            pieChartSvg.datum(data)
+            pieChartSvg
                 .selectAll('polyline')
-                .data(pie)
+                .data(pie(data))
                 .enter()
                 .append('polyline')
                 .attr('fill', 'none')
@@ -111,8 +109,6 @@ function pieChartD3() {
                 .attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
-                    previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
             Utils.appendSaveButtons(d3.select(`#${id}`), selection, 'pie_chart');
@@ -149,6 +145,11 @@ function pieChartD3() {
                     .append('text')
                     .attr('class', 'label')
                     .attr('dy', '.35em')
+                    .attr('transform', function (d) {
+                        let pos = outerArc.centroid(d);
+                        pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                        return 'translate(' + pos + ')';
+                    })
                     .html(function (d) {
                         return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
                     })
@@ -158,8 +159,13 @@ function pieChartD3() {
 
                 updatedLabel
                     .transition()
-                    .ease(d3.easeLinear)
-                    .duration(750)
+                    // .ease(d3.easeLinear)
+                    // .duration(750)
+                    .attr('transform', function (d) {
+                        let pos = outerArc.centroid(d);
+                        pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                        return 'translate(' + pos + ')';
+                    })
                     .style('text-anchor', function (d) {
                         return (midAngle(d)) < Math.PI ? 'start' : 'end';
                     })
@@ -173,46 +179,66 @@ function pieChartD3() {
                     });
 
                 updatedLabel.exit()
-                    .transition()
-                    .ease(d3.easeLinear)
-                    .duration(100)
+                // .transition()
+                // .ease(d3.easeLinear)
+                // .duration(100)
                     .remove();
 
                 updatedPolylines.enter()
                     .append('polyline')
                     .attr('fill', 'none')
                     .attr('stroke-width', 1)
-                    .attr('stroke', 'black');
+                    .attr('stroke', 'black')
+                    .attr('points', function (d) {
+                        let pos = outerArc.centroid(d);
+                        pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                        return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
+                    });
+
+                updatedPolylines
+                    .transition()
+                    .attr('points', function (d) {
+                        let pos = outerArc.centroid(d);
+                        pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                        return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
+                    });
 
                 updatedPolylines.exit()
-                    .transition()
-                    .ease(d3.easeLinear)
-                    .duration(100)
+                // .transition()
+                // .ease(d3.easeLinear)
+                // .duration(100)
                     .remove();
 
+                previousLabelXCoordinate = null;
                 previousLabelYCoordinate = null;
                 labelsOverlapped = false;
                 pieChartSvg.selectAll('.label').attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    if (labelsOverlapped || Math.abs(previousLabelYCoordinate - pos[1]) < 20) {
-                        pos[1] = previousLabelYCoordinate - 20;
+                    if (previousLabelYCoordinate !== null
+                        && Math.abs(previousLabelYCoordinate - pos[1]) < 17
+                        && Math.abs(previousLabelXCoordinate - pos[0]) < 100) {
+                        pos[1] = previousLabelYCoordinate - 17;
                         labelsOverlapped = true;
                     }
+                    previousLabelXCoordinate = pos[0];
                     previousLabelYCoordinate = pos[1];
                     return 'translate(' + pos + ')';
                 });
 
+                previousLabelXCoordinate = null;
                 previousLabelYCoordinate = null;
                 labelsOverlapped = false;
                 pieChartSvg.selectAll('polyline').attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    if (labelsOverlapped || Math.abs(previousLabelYCoordinate - pos[1]) < 20) {
-                        pos[1] = previousLabelYCoordinate - 20;
+                    if (previousLabelYCoordinate !== null
+                        && Math.abs(previousLabelYCoordinate - pos[1]) < 17
+                        && Math.abs(previousLabelXCoordinate - pos[0]) < 100) {
+                        pos[1] = previousLabelYCoordinate - 17;
                         labelsOverlapped = true;
                     }
-                    // pos[1] = previousLabelYCoordinate && (Math.abs(previousLabelYCoordinate - pos[1]) < 20) ? previousLabelYCoordinate - 20 : pos[1];
+                    previousLabelXCoordinate = pos[0];
                     previousLabelYCoordinate = pos[1];
                     return [arc.centroid(d), [outerArc.centroid(d)[0], pos[1]], pos]
                 });
@@ -221,7 +247,6 @@ function pieChartD3() {
                 if (placeHolderTooltip) {
                     showTooltip(placeHolderTooltip, 'white');
                 }
-                // Utils.downloadSvg(svg);
             };
 
             function enterArcTween(d) {
@@ -330,8 +355,7 @@ function pieChartD3() {
     chart.tooltipFormatter = function (value) {
         if (!arguments.length) {
             return tooltipFormatter
-        }
-        else {
+        } else {
             if (value == null) {
                 tooltipFormatter = initialConfiguration.tooltipFormatter;
             } else {
