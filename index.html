@@ -53,7 +53,7 @@
             <select id="yearSelect" class="form-control ml-3">
                 <option value="2017">2017</option>
                 <option value="2018" selected>2018</option>
-                <option value="2019">2019</option>
+                <option disabled value="2019">2019</option>
             </select>
             <span id="filter-widget" class="ml-5 invisible d-flex">
                 <span class="filter-title">Filters:</span>
@@ -85,8 +85,8 @@
                     <select id="boxPlotYAxisSelect" class="col-sm-5 form-control">
                         <option value="Salary">Salary</option>
                         <option value="Raise">1 Year Salary Raise</option>
-                        <option disabled value="Vacation">Vacation Days</option>
-                        <option disabled value="Homeoffice">Homeoffice Days</option>
+                        <option disabled class="last-year-option" value="Vacation">Vacation Days</option>
+                        <option disabled class="last-year-option" value="Homeoffice">Homeoffice Days</option>
                     </select>
                     <span class="col-sm-2 text-center">vs</span>
                     <select id="boxPlotXAxisSelect" class="col-sm-5 form-control">
@@ -98,10 +98,10 @@
                         <option value="CompanyType">Company Type</option>
                         <option value="Size">Company Size</option>
 
-                        <option disabled value="Duration">Сontract Duration</option>
-                        <option disabled value="BusinessSector">Company Business Sector</option>
-                        <option disabled value="Position">Position</option>
-                        <option disabled value="MainTechnology">Main Technology</option>
+                        <option disabled class="last-year-option" value="Duration">Сontract Duration</option>
+                        <option disabled class="last-year-option" value="BusinessSector">Company Business Sector</option>
+                        <option disabled class="last-year-option" value="Position">Position</option>
+                        <option disabled class="last-year-option" value="MainTechnology">Main Technology</option>
                     </select>
                 </div>
             </form>
@@ -122,10 +122,11 @@
                         <option value="Language">Language</option>
                         <option value="CompanyType">Company Type</option>
                         <option value="Size">Company Size</option>
-                        <option disabled value="Duration">Сontract Duration</option>
-                        <option disabled value="BusinessSector">Company Business Sector</option>
-                        <option disabled value="Vacation">Vacation Days</option>
-                        <option disabled value="Homeoffice">Homeoffice Days</option>
+
+                        <option disabled class="last-year-option" value="Duration">Сontract Duration</option>
+                        <option disabled class="last-year-option" value="BusinessSector">Company Business Sector</option>
+                        <option disabled class="last-year-option" value="Vacation">Vacation Days</option>
+                        <option disabled class="last-year-option" value="Homeoffice">Homeoffice Days</option>
                     </select>
                 </div>
             </form>

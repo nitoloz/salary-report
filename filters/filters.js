@@ -13,25 +13,19 @@ class Filters {
             salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary')
         };
         this.dataLoader = new DataLoader();
-        this.dataLoader.getSelectedYear();
+        this.dataLoader.getSelectedYear(this.selectedYear );
         this.dataLoader.loadData().then(data => this.updateData(data));
+        this.onSelectedYearChange(Utils.getSelectedYear());
         this.listenToYearSelector();
         this.listenToFilterChangeEvent();
     }
 
     listenToYearSelector() {
         document.querySelector('select[id="yearSelect"]').onchange = (event) => {
-            switch (event.target.value) {
-                case '2019':
-                case '2018':
-                case '2017':
-                    localStorage.setItem('selectedYear', event.target.value);
-                    this.dataLoader.getSelectedYear();
-                    this.dataLoader.loadData().then(data => this.updateData(data));
-                    break;
-                default:
-                    break;
-            }
+            this.onSelectedYearChange(event.target.value);
+            localStorage.setItem('selectedYear', event.target.value);
+            this.dataLoader.getSelectedYear();
+            this.dataLoader.loadData().then(data => this.updateData(data));
             this.showSelectedFiltersWidget([]);
         };
     }
@@ -40,6 +34,36 @@ class Filters {
         document.addEventListener('update', (e) => {
             this.applyFilters();
         }, false);
+    }
+
+    onSelectedYearChange(year){
+        switch (year) {
+            case '2019':
+                this.toggleDisabledSelectOptions(false);
+                break;
+            case '2018':
+            case '2017':
+                this.toggleDisabledSelectOptions(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    toggleDisabledSelectOptions(disabled) {
+        ['boxPlotYAxisSelect', 'boxPlotXAxisSelect', 'pieChartSelect'].forEach(selectId => {
+            const select = document.getElementById(selectId);
+            const options = select.getElementsByClassName("last-year-option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = disabled;
+                if (options[i].selected) {
+                    const firstSelectOption = select.getElementsByTagName('option')[0];
+                    firstSelectOption.selected = true;
+                    select.onchange({target: {value: firstSelectOption.value}});
+                }
+            }
+        });
+
     }
 
     updateData(data) {
