@@ -10,14 +10,11 @@ class Filters {
             language: new CheckboxFilter('language-filters', 'Language', 'WORK_LANGUAGE', 'language'),
             age: new RangeFilter('age-filters', 'Age', 'AGE', 1, 'age'),
             experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE', 1, 'experience'),
-            salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary')
-        };
-
-        this.lastYearFilters = {
-	        businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
-	        vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
-	        contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
-	        position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position'),
+            salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary'),
+	        // businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
+	        // vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
+	        // contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
+	        // position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear(this.selectedYear );
@@ -70,7 +67,21 @@ class Filters {
                 }
             }
         });
+    }
 
+    toggleVisibleFilters(visible) {
+        ['boxPlotYAxisSelect', 'boxPlotXAxisSelect', 'pieChartSelect'].forEach(selectId => {
+            const select = document.getElementById(selectId);
+            const options = select.getElementsByClassName("last-year-option");
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = disabled;
+                if (options[i].selected) {
+                    const firstSelectOption = select.getElementsByTagName('option')[0];
+                    firstSelectOption.selected = true;
+                    select.onchange({target: {value: firstSelectOption.value}});
+                }
+            }
+        });
     }
 
     updateData(data) {
