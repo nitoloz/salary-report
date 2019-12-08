@@ -12,6 +12,13 @@ class Filters {
             experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE', 1, 'experience'),
             salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary')
         };
+
+        this.lastYearFilters = {
+	        businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
+	        vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
+	        contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
+	        position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position'),
+        };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear(this.selectedYear );
         this.dataLoader.loadData().then(data => this.updateData(data));
