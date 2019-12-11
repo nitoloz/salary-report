@@ -11,13 +11,13 @@ class Filters {
             age: new RangeFilter('age-filters', 'Age', 'AGE', 1, 'age'),
             experience: new RangeFilter('experience-filters', 'Experience', 'TOTAL_EXPERIENCE', 1, 'experience'),
             salary: new RangeFilter('salary-filters', 'Salary', 'CURRENT_SALARY', 1000, 'salary'),
-	        // businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
-	        // vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
-	        // contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
-	        // position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position')
+            businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
+            vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
+            contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
+            position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position')
         };
         this.dataLoader = new DataLoader();
-        this.dataLoader.getSelectedYear(this.selectedYear );
+        this.dataLoader.getSelectedYear(this.selectedYear);
         this.dataLoader.loadData().then(data => this.updateData(data));
         this.onSelectedYearChange(Utils.getSelectedYear());
         this.listenToYearSelector();
@@ -40,14 +40,16 @@ class Filters {
         }, false);
     }
 
-    onSelectedYearChange(year){
+    onSelectedYearChange(year) {
         switch (year) {
             case '2019':
                 this.toggleDisabledSelectOptions(false);
+                this.toggleVisibleFilters(true);
                 break;
             case '2018':
             case '2017':
                 this.toggleDisabledSelectOptions(true);
+                this.toggleVisibleFilters(false);
                 break;
             default:
                 break;
@@ -70,18 +72,10 @@ class Filters {
     }
 
     toggleVisibleFilters(visible) {
-        ['boxPlotYAxisSelect', 'boxPlotXAxisSelect', 'pieChartSelect'].forEach(selectId => {
-            const select = document.getElementById(selectId);
-            const options = select.getElementsByClassName("last-year-option");
-            for (let i = 0; i < options.length; i++) {
-                options[i].disabled = disabled;
-                if (options[i].selected) {
-                    const firstSelectOption = select.getElementsByTagName('option')[0];
-                    firstSelectOption.selected = true;
-                    select.onchange({target: {value: firstSelectOption.value}});
-                }
-            }
-        });
+        const filters = document.getElementById('mySidepanel').getElementsByClassName("last-year-filter");
+        for (let i = 0; i < filters.length; i++) {
+            filters[i].style.display = visible ? 'block' : 'none';
+        }
     }
 
     updateData(data) {
