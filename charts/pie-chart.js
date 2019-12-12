@@ -215,10 +215,10 @@ function pieChartD3() {
                 pieChartSvg.selectAll('.label').attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    if (previousLabelYCoordinate !== null
+                    if (labelsOverlapped || previousLabelYCoordinate !== null
                         && Math.abs(previousLabelYCoordinate - pos[1]) < 17
                         && Math.abs(previousLabelXCoordinate - pos[0]) < 100) {
-                        pos[1] = previousLabelYCoordinate - 17;
+                        pos[1] = Math.min(pos[1], previousLabelYCoordinate - 17);
                         labelsOverlapped = true;
                     }
                     previousLabelXCoordinate = pos[0];
@@ -232,10 +232,10 @@ function pieChartD3() {
                 pieChartSvg.selectAll('polyline').attr('points', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
-                    if (previousLabelYCoordinate !== null
+                    if (labelsOverlapped || previousLabelYCoordinate !== null
                         && Math.abs(previousLabelYCoordinate - pos[1]) < 17
                         && Math.abs(previousLabelXCoordinate - pos[0]) < 100) {
-                        pos[1] = previousLabelYCoordinate - 17;
+                        pos[1] = Math.min(pos[1], previousLabelYCoordinate - 17);
                         labelsOverlapped = true;
                     }
                     previousLabelXCoordinate = pos[0];
