@@ -7,6 +7,7 @@ function boxPlotD3() {
         xAxisLabel: 'Total experience (Years)',
         yAxisLabel: 'Salary (EUR)',
         id: '',
+        yAxisTickFormatter: d => `EUR ${d / 1000}K`,
         tooltipFormatter: (d) => {
             return `${xAxisLabel}: ${d.key}<br>
             Number of respondents: ${d.rawValues.length}<br>
@@ -25,6 +26,7 @@ function boxPlotD3() {
         xAxisLabel = initialConfiguration.xAxisLabel,
         yAxisLabel = initialConfiguration.yAxisLabel,
         customBottomMargin = 100,
+        yAxisTickFormatter = initialConfiguration.yAxisTickFormatter,
         tooltipFormatter = initialConfiguration.tooltipFormatter,
         id = initialConfiguration.id;
     let updateData = null;
@@ -103,7 +105,7 @@ function boxPlotD3() {
             Utils.applyAxisStyle(gXAxis, true);
 
             const yAxis = d3.axisLeft(yScale)
-                .tickFormat(d => `EUR ${d / 1000}K`)
+                .tickFormat(yAxisTickFormatter)
                 .tickSize(-width + margin.left + margin.right)
                 .tickSizeOuter(0);
 
@@ -190,7 +192,7 @@ function boxPlotD3() {
                     d3.min(yDomainValues),
                     d3.max(yDomainValues)
                 ]);
-                yAxis.scale(yScale);
+                yAxis.scale(yScale).tickFormat(yAxisTickFormatter);
 
                 const updatedBoxes = boxElementsGroup.selectAll('rect').data(data);
                 const updatedLines = boxElementsGroup.selectAll('.whiskers').data(boxWhiskersCoordinates(data));
@@ -295,6 +297,12 @@ function boxPlotD3() {
     chart.yAxisLabel = function (value) {
         if (!arguments.length) return yAxisLabel;
         yAxisLabel = value;
+        return chart;
+    };
+
+    chart.yAxisTickFormatter = function (value) {
+        if (!arguments.length) return yAxisTickFormatter;
+        yAxisTickFormatter = value;
         return chart;
     };
 

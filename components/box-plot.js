@@ -132,10 +132,13 @@ class BoxPlot {
                     sortByMedian);
                 break;
         }
-
+        const yAxisFormatter = DataProperties[this.selectedYAxisOption.groupByOption] == DataProperties.SALARY_RAISE
+        || DataProperties[this.selectedYAxisOption.groupByOption] == DataProperties.CURRENT_SALARY ? d => `EUR ${d / 1000}K`
+            : d => d;
         this.salaryBoxPlot
             .xAxisLabel(this.selectedXAxisOption.axisLabel)
             .yAxisLabel(this.selectedYAxisOption.axisLabel)
+            .yAxisTickFormatter(yAxisFormatter)
             .data(boxPlotData);
     }
 
