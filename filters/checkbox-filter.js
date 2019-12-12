@@ -15,10 +15,10 @@ class CheckboxFilter extends BaseFilter {
         const expandCollapseButton = document.getElementById(this.areaId + '-filters-group-toggle');
         expandCollapseButton.onclick = function (event) {
             const icon = document.getElementById(that.areaId + '-filters-group-icon');
-            if (icon.className === 'fas fa-minus-square') {
-                icon.className = 'fas fa-plus-square';
+            if (icon.className.indexOf('fas fa-minus-square') !== -1) {
+                icon.className = icon.className.replace(/\bfas fa-minus-square\b/g, "fas fa-plus-square");
             } else {
-                icon.className = 'fas fa-minus-square';
+                icon.className = icon.className.replace(/\bfas fa-plus-square\b/g, "fas fa-minus-square");
             }
         };
 

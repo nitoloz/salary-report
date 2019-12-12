@@ -14,8 +14,8 @@ class BaseFilter {
                                                 <button type="button" data-toggle="collapse"  
                                                     id=${this.areaId + '-filters-group-toggle'}
                                                     aria-expanded="true" aria-controls=${this.areaId + '-filters-group'} 
-                                                    class="btn btn-link btn-sm" data-target=${'#' + this.areaId + '-filters-group'}>
-                                                      <i class="fas fa-minus-square" id=${this.areaId + '-filters-group-icon'}></i>
+                                                    class="btn btn-link float-right p-0" data-target=${'#' + this.areaId + '-filters-group'}>
+                                                      <i class="fas fa-minus-square text-dark" id=${this.areaId + '-filters-group-icon'}></i>
                                                 </button>
                                                 </h5>`;
     }
