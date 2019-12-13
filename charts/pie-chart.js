@@ -86,9 +86,7 @@ function pieChartD3() {
                 .append('text')
                 .attr('class', 'label')
                 .attr('dy', '.35em')
-                .html(function (d) {
-                    return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
-                })
+                .text(d => `${d.data.key}: ${d.data.value.extra.percentageValue}%`)
                 .attr('transform', function (d) {
                     let pos = outerArc.centroid(d);
                     pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
@@ -150,15 +148,13 @@ function pieChartD3() {
                         pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
                         return 'translate(' + pos + ')';
                     })
-                    .html(function (d) {
-                        return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
-                    })
+                    .text(d => `${d.data.key}: ${d.data.value.extra.percentageValue}%`)
                     .style('text-anchor', function (d) {
                         return (midAngle(d)) < Math.PI ? 'start' : 'end';
                     });
 
                 updatedLabel
-                    .transition()
+                    // .transition()
                     // .ease(d3.easeLinear)
                     // .duration(750)
                     .attr('transform', function (d) {
@@ -169,14 +165,8 @@ function pieChartD3() {
                     .style('text-anchor', function (d) {
                         return (midAngle(d)) < Math.PI ? 'start' : 'end';
                     })
-                    .style('opacity', 0)
-                    .on("end", function () {
-                        d3.select(this)
-                            .html(function (d) {
-                                return `${d.data.key}: <tspan>${d.data.value.extra.percentageValue}%</tspan>`;
-                            })
-                            .style('opacity', 1);
-                    });
+                    .style('opacity', 1)
+                    .text(d => `${d.data.key}: ${d.data.value.extra.percentageValue}%`);
 
                 updatedLabel.exit()
                 // .transition()
@@ -196,7 +186,7 @@ function pieChartD3() {
                     });
 
                 updatedPolylines
-                    .transition()
+                    // .transition()
                     .attr('points', function (d) {
                         let pos = outerArc.centroid(d);
                         pos[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
