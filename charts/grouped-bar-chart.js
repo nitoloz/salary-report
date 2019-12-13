@@ -56,7 +56,7 @@ function groupedBarChartD3() {
                 .attr("class", "x axis")
                 .attr("transform", `translate(0,${(height - margin.top)})`)
                 .call(xAxis);
-            Utils.applyAxisStyle(gXAxis);
+            Utils.applyAxisStyle(gXAxis, true);
 
             const yAxis = d3.axisLeft(yScale)
                 .tickFormat(d => `${d}%`)
@@ -133,7 +133,7 @@ function groupedBarChartD3() {
                 gYAxis.transition(t)
                     .call(yAxis);
 
-                Utils.applyAxisStyle(gXAxis);
+                Utils.applyAxisStyle(gXAxis, true);
                 Utils.applyAxisStyle(gYAxis);
 
                 const updatedBars = barChartSvg.selectAll('.bar').data(data);
