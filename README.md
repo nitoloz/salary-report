@@ -8,6 +8,13 @@ Special thanks to [Viktor](http://asdcode.de/) for great datasets!
 ## Demo 
 * [Demo available here]( https://nitoloz.github.io/salary-report/).
 
+
+## Datasets
+Data used for plotting is available in spreadsheets:
+* [2017](https://docs.google.com/spreadsheets/d/1k3eWzo3hj6mwUr2qQRCnbHR9-MOJWll_xDMoqH-PKIo/edit?usp=sharing)
+* [2018](https://docs.google.com/spreadsheets/d/1gZCDpy8HSWFF_RPGhsl0FqUW7XiNQsBVDBaSGicTSII/edit?usp=sharing)
+* [2019](https://docs.google.com/spreadsheets/d/13p6Hr9kSZuVKbQgOT_BcgasEvOuqEvt0Y0c78S5rlvw/edit?usp=sharing)
+
 ## List of available vizualizations
 * Pie Chart 
   * available groupings: sex, city, seniority, language, company type, company size;
