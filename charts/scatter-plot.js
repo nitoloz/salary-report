@@ -11,18 +11,7 @@ function scatterPlotD3() {
         yAxisLabel: 'Salary (EUR)',
         colorScale: d3.scaleOrdinal(d3.schemeSet3),
         id: '',
-        tooltipFormatter: (d) => {
-            return `Position: ${d[DataProperties.POSITION]}<br>
-            Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
-            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
-            Age: ${d[DataProperties.AGE] || 'no data'} <br>
-            Sex: ${d[DataProperties.SEX] || 'no data'} <br>
-            City: ${d[DataProperties.CITY] || 'no data'} <br>
-            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
-            First EU Salary: ${d[DataProperties.FIRST_EUROPE_SALARY]}<br> 
-            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
-            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
-        }
+        tooltipFormatter: Utils.getScatterPlotTooltipFormatter()
     };
 
     let width = initialConfiguration.width,

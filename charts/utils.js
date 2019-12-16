@@ -7,6 +7,31 @@ const saveButtons = [
     {label: "Save as SVG", x: 30, y: 30},
     {label: "Save as PNG", x: 100, y: 30}];
 
+const oldScatterPlotTooltip = (d) => {
+    return `Position: ${d[DataProperties.POSITION]}<br>
+            Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
+            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
+            Age: ${d[DataProperties.AGE] || 'no data'} <br>
+            Sex: ${d[DataProperties.SEX] || 'no data'} <br>
+            City: ${d[DataProperties.CITY] || 'no data'} <br>
+            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
+            First EU Salary: ${d[DataProperties.FIRST_EUROPE_SALARY]}<br> 
+            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
+            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
+};
+
+const newScatterPlotTooltip = (d) => {
+    return `Position: ${d[DataProperties.POSITION]}<br>
+            Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
+            Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
+            Age: ${d[DataProperties.AGE] || 'no data'} <br>
+            Sex: ${d[DataProperties.SEX] || 'no data'} <br>
+            City: ${d[DataProperties.CITY] || 'no data'} <br>
+            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
+            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
+            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
+};
+
 Object.defineProperty(Array.prototype, 'flat', {
     value: function (depth = 1) {
         return this.reduce(function (flat, toFlatten) {
@@ -58,6 +83,19 @@ class Utils {
 
     static getSelectedYear() {
         return localStorage.getItem('selectedYear') ? localStorage.getItem('selectedYear') : '2018';
+    }
+
+    static getScatterPlotTooltipFormatter() {
+        switch (Utils.getSelectedYear()) {
+            case '2017':
+            case '2018':
+                return oldScatterPlotTooltip;
+                break;
+            case '2019':
+            default:
+                return newScatterPlotTooltip;
+                break;
+        }
     }
 
     static appendXAxisTitle(selection, x, y, text) {

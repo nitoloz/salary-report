@@ -4,6 +4,7 @@ class ScatterChart {
         this.salaryScatterChart = scatterPlotD3()
             .width(Utils.getChartContainerDimensions().width)
             .height(Utils.getChartContainerDimensions().height)
+            .tooltipFormatter(Utils.getScatterPlotTooltipFormatter())
             .id('scatter-chart-area')
             .colorScale(Utils.getSexColorScale());
 
@@ -16,6 +17,7 @@ class ScatterChart {
             .xAxisProperty(DataProperties.TOTAL_EXPERIENCE)
             .yAxisProperty(DataProperties.CURRENT_SALARY)
             .trellisingProperty(DataProperties.SEX)
+            .tooltipFormatter(Utils.getScatterPlotTooltipFormatter())
             .data(data);
     }
 
