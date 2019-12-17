@@ -104,6 +104,15 @@ class PieChart {
                             .colorScale(d3.scaleOrdinal(d3.schemeSet3))
                             .data(processPieChartData(this.data, DataProperties[this.groupByOption], this.sortingFunction));
                         break;
+                    case 'MainTechnology':
+                        this.groupByOption = 'MAIN_TECHNOLOGY';
+                        this.sortingFunction = null;
+                        this.pieChart
+                            .groupByOptionLabel('Main Technology')
+                            .groupByOption(DataProperties[this.groupByOption])
+                            .colorScale(d3.scaleOrdinal(d3.schemeSet3))
+                            .data(processPieChartData(this.data, DataProperties[this.groupByOption]));
+                        break;
                     case 'Size':
                         this.groupByOption = 'COMPANY_SIZE';
                         this.sortingFunction = (a, b) => {

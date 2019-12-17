@@ -14,7 +14,8 @@ class Filters {
             businessSector: new CheckboxFilter('business-sector-filters', 'Business Sector', 'BUSINESS_SECTOR', 'businessSector'),
             vacation: new RangeFilter('vacation-filters', 'Vacation', 'VACATION_DAYS', 1, 'vacation'),
             contractDuration: new CheckboxFilter('contract-duration-filters', 'Contract duration', 'CONTRACT_DURATION', 'contractDuration'),
-            position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position')
+            position: new CheckboxFilter('position-filters', 'Position', 'POSITION', 'position'),
+            technology: new CheckboxFilter('technology-filters', 'Main Technology', 'MAIN_TECHNOLOGY', 'technology')
         };
         this.dataLoader = new DataLoader();
         this.dataLoader.getSelectedYear(this.selectedYear);
