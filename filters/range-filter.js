@@ -111,7 +111,9 @@ class RangeFilter extends BaseFilter {
 
     initializeFilterValues(values) {
         const convertedValues = values.map(value => parseInt(value));
-        this.values = {from: d3.min(convertedValues), to: d3.max(convertedValues)};
+        this.values = convertedValues && convertedValues.length > 1
+            ? {from: d3.min(convertedValues), to: d3.max(convertedValues)}
+            : {from: 0, to: 1};
         this.selectedValues = {from: this.values.from, to: this.values.to};
     }
 
