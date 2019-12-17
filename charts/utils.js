@@ -9,27 +9,37 @@ const saveButtons = [
 
 const oldScatterPlotTooltip = (d) => {
     return `Position: ${d[DataProperties.POSITION]}<br>
+            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
             Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
+            First EU Salary: ${d[DataProperties.FIRST_EUROPE_SALARY] || 'no data'}<br> <br>
+
             Age: ${d[DataProperties.AGE] || 'no data'} <br>
             Sex: ${d[DataProperties.SEX] || 'no data'} <br>
-            City: ${d[DataProperties.CITY] || 'no data'} <br>
-            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
-            First EU Salary: ${d[DataProperties.FIRST_EUROPE_SALARY]}<br> 
-            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
-            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
+            City: ${d[DataProperties.CITY] || 'no data'} <br><br>
+            
+            Work Language: ${d[DataProperties.WORK_LANGUAGE] || 'no data'}<br> 
+            Company Size: ${d[DataProperties.COMPANY_SIZE] || 'no data'}`;
 };
 
 const newScatterPlotTooltip = (d) => {
     return `Position: ${d[DataProperties.POSITION]}<br>
+            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
             Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
+            Bonus ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_BONUS] || 'no data'}<br>
+            Stocks ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_STOCKS] || 'no data'}<br><br>
+            
             Age: ${d[DataProperties.AGE] || 'no data'} <br>
             Sex: ${d[DataProperties.SEX] || 'no data'} <br>
-            City: ${d[DataProperties.CITY] || 'no data'} <br>
-            Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
-            Work Language: ${d[DataProperties.WORK_LANGUAGE]}<br> 
-            Company Size: ${d[DataProperties.COMPANY_SIZE]}`;
+            City: ${d[DataProperties.CITY] || 'no data'} <br><br>
+            
+            Main Technology: ${d[DataProperties.MAIN_TECHNOLOGY] || 'no data'}<br> 
+            Business Sector: ${d[DataProperties.BUSINESS_SECTOR] || 'no data'}<br> 
+            Vacation: ${d[DataProperties.VACATION_DAYS] || 'no data'} days<br> 
+            Home-office: ${d[DataProperties.HOMEOFFICE_DAYS]} days/month<br> 
+            Contract Duration: ${d[DataProperties.CONTRACT_DURATION] || 'no data'}<br> 
+            Company Size: ${d[DataProperties.COMPANY_SIZE] || 'no data'}`;
 };
 
 Object.defineProperty(Array.prototype, 'flat', {
