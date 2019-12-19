@@ -9,6 +9,7 @@ const saveButtons = [
 
 const oldScatterPlotTooltip = (d) => {
     return `Position: ${d[DataProperties.POSITION]}<br>
+            Seniority: ${d[DataProperties.SENIORITY_LEVEL]}<br>
             Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
             Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
@@ -24,6 +25,7 @@ const oldScatterPlotTooltip = (d) => {
 
 const newScatterPlotTooltip = (d) => {
     return `Position: ${d[DataProperties.POSITION]}<br>
+            Seniority: ${d[DataProperties.SENIORITY_LEVEL]}<br>
             Total Experience: ${d[DataProperties.TOTAL_EXPERIENCE]}<br>
             Salary ${Utils.getSelectedYear()}: ${d[DataProperties.CURRENT_SALARY]}<br>
             Salary Previous Year: ${d[DataProperties.PREVIOUS_SALARY] || 'no data'}<br>
@@ -92,7 +94,7 @@ class Utils {
     }
 
     static getSelectedYear() {
-        return localStorage.getItem('selectedYear') ? localStorage.getItem('selectedYear') : '2018';
+        return localStorage.getItem('selectedYear') ? localStorage.getItem('selectedYear') : '2019';
     }
 
     static getScatterPlotTooltipFormatter() {

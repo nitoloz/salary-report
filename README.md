@@ -2,7 +2,7 @@
 [New survey](https://docs.google.com/forms/d/e/1FAIpQLSckWCuRD4_QePOM0trRzH6v2fl6qBRMxpqJ_23VSJZhr704ag/viewform) with more questions is already released! (02.12.2019)
 
 # Salary report vizualization with D3.js
-Data for this report was collected from European IT community in December 2017 and December 2018.
+Data for this report was collected from European IT community in December 2017, December 2018 and December 2019.
 Special thanks to [Viktor](http://asdcode.de/) for great datasets!
 
 ## Demo 

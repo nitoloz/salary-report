@@ -1,7 +1,7 @@
 class DataLoader {
 
     constructor() {
-        this.selectedYear = '2018';
+        this.selectedYear = '2019';
         this.loadedData = [];
 
         this.scatterChart = new ScatterChart();
