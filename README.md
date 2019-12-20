@@ -8,7 +8,6 @@ Special thanks to [Viktor](http://asdcode.de/) for great datasets!
 ## Demo 
 * [Demo available here]( https://nitoloz.github.io/salary-report/).
 
-
 ## Datasets
 Data used for plotting is available in spreadsheets:
 * [2017](https://docs.google.com/spreadsheets/d/1k3eWzo3hj6mwUr2qQRCnbHR9-MOJWll_xDMoqH-PKIo/edit?usp=sharing)
@@ -31,6 +30,11 @@ Data used for plotting is available in spreadsheets:
   * zooming and dragging of coordinate plane;
   * tooltip contains full response information.
 * Word Cloud
+
+## Features
+* Filter data using side-panel filters by city, salary, technology, experience and many more
+* Export displayed filtered charts to SVG\PNG
+* Compare latests dataset with datasets for previous years
 
 
  
