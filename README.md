@@ -36,5 +36,13 @@ Data used for plotting is available in spreadsheets:
 * Export displayed filtered charts to SVG\PNG
 * Compare latests dataset with datasets for previous years
 
+## Development
+### Libraries
+* D3.js v5.7.0
+* D3-tip
+* Bootstrap CSS v4.1.0
+* Font Awesome v5.8.2
+* noUiSlider v13.1.5
+
 
  
