@@ -29,6 +29,10 @@ class RangeFilter extends BaseFilter {
         resetButton.onclick = function (event) {
             that.selectedValues = {from: that.values.from, to: that.values.to};
             document.getElementById(that.areaId + '-slider').noUiSlider.reset();
+	        const fromValue = document.getElementById(`${that.areaId}-from`);
+	        fromValue.innerText = that.values.from;
+	        const toValue = document.getElementById(`${that.areaId}-to`);
+	        toValue.innerText = that.values.to;
             document.dispatchEvent(that.event);
         };
 
