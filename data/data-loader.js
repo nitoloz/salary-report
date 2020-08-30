@@ -29,20 +29,21 @@ class DataLoader {
     }
 
     loadData() {
-        let dataFileUrl;
-        switch (this.selectedYear) {
-            case '2017':
-                dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-PP--o8hJRvBw-bwGRhfYL7CZiC1N07Z5Bo2QI4ZOXxAYOqFh-17gMjfH669qnKhODZBLpWZzeMEc/pub?output=csv';
-                break;
-            case '2018':
-                dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS8sxTjDQ3JEcVMm1htNaXSbzRN9J6wJFy7NkrWR1tos0rZh9rCXvIHmsVGn3WFhjDxmxXE4aZPMW1p/pub?output=csv';
-                break;
-            case '2019':
-            default:
-                dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSGHnalp2dv9zlEz4BqirA0-VYXSK5HY0tddIjw0Rm2lhx9Dw0Kt0xVkJUJFvcmi9Xev6yL1D4N4nhv/pub?output=csv';
-                break;
-        }
-        return d3.csv(dataFileUrl)
+        // TODO replace old approach with new Google Files export (https://developers.google.com/drive/api/v3/reference/files/export)
+        // let dataFileUrl;
+        // switch (this.selectedYear) {
+        //     case '2017':
+        //         dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-PP--o8hJRvBw-bwGRhfYL7CZiC1N07Z5Bo2QI4ZOXxAYOqFh-17gMjfH669qnKhODZBLpWZzeMEc/pub?output=csv';
+        //         break;
+        //     case '2018':
+        //         dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS8sxTjDQ3JEcVMm1htNaXSbzRN9J6wJFy7NkrWR1tos0rZh9rCXvIHmsVGn3WFhjDxmxXE4aZPMW1p/pub?output=csv';
+        //         break;
+        //     case '2019':
+        //     default:
+        //         dataFileUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSGHnalp2dv9zlEz4BqirA0-VYXSK5HY0tddIjw0Rm2lhx9Dw0Kt0xVkJUJFvcmi9Xev6yL1D4N4nhv/pub?output=csv';
+        //         break;
+        // }
+        return d3.csv(`data/${this.selectedYear}.csv`)
             .then((data) => {
                 this.loadedData = this.processChartsData(data);
                 this.updateChartsData(this.loadedData);
