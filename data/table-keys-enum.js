@@ -1,3 +1,31 @@
+const COLUMN_NAMES_2020 = {
+    TIMESTAMP: 'Timestamp',
+    AGE: 'Age',
+    SEX: 'Gender',
+    POSITION: 'Position ',
+    TOTAL_EXPERIENCE: 'Total years of experience',
+    CITY: 'City',
+    CURRENT_SALARY: 'Yearly brutto salary (without bonus and stocks) in EUR',
+    PREVIOUS_SALARY: 'Annual brutto salary (without bonus and stocks) one year ago. Only answer if staying in the same country',
+    FIRST_EUROPE_SALARY: '',
+    WORK_LANGUAGE: 'Main language at work',
+    COMPANY_SIZE: 'Company size',
+    COMPANY_TYPE: 'Company type',
+    SENIORITY_LEVEL: 'Seniority level',
+    SALARY_RAISE: 'Salary raise',
+
+    MAIN_TECHNOLOGY: 'Your main technology / programming language',
+    CURRENT_BONUS: 'Yearly bonus + stocks in EUR',
+    CURRENT_STOCKS: '',
+    PREVIOUS_BONUS: 'Annual bonus+stocks one year ago. Only answer if staying in same country',
+    PREVIOUS_STOCKS: '',
+    VACATION_DAYS: 'Number of vacation days',
+    HOMEOFFICE_DAYS: '',
+    COMPANY_NAME: 'Company name',
+    CONTRACT_DURATION: 'Сontract duration',
+    BUSINESS_SECTOR: ''
+};
+
 const COLUMN_NAMES_2019 = {
     TIMESTAMP: 'Timestamp',
     AGE: 'Age',

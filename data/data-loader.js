@@ -24,6 +24,9 @@ class DataLoader {
             case '2019':
                 updateColumnNames(COLUMN_NAMES_2019);
                 break;
+            case '2020':
+                updateColumnNames(COLUMN_NAMES_2020);
+                break;
         }
         document.getElementById('yearSelect').value = this.selectedYear;
     }
@@ -82,7 +85,7 @@ class DataLoader {
 
     processChartsData(data) {
         data.forEach(d => {
-            if (this.selectedYear !== '2019') {
+            if (this.selectedYear !== '2019' && this.selectedYear !== '2020') {
                 d[DataProperties.SEX] = d[DataProperties.SEX] === 'M' ? 'Male' : 'Female';
                 d[DataProperties.COMPANY_SIZE] = d[DataProperties.COMPANY_SIZE] === 'До 10 человек' ? '10 or less' : d[DataProperties.COMPANY_SIZE];
             }
